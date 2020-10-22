@@ -32,5 +32,8 @@ func New(r io.Reader) *JackTokenizer {
 
 func (jt *JackTokenizer) Tokenize() *Token {
 	// todo
-	return nil
+	head := Token{
+		next: nil,
+	}
+	return &head
 }

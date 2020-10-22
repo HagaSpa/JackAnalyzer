@@ -30,7 +30,7 @@ func New(r io.Reader) *JackTokenizer {
 	return jt
 }
 
-func (jt *JackTokenizer) Tokenize(r io.Reader) *Token {
+func (jt *JackTokenizer) Tokenize() *Token {
 	// todo
 	return nil
 }

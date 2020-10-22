@@ -19,13 +19,13 @@ type Token struct {
 }
 
 type JackTokenizer struct {
-	s *bufio.Scanner
+	re *bufio.Reader
 }
 
 func New(r io.Reader) *JackTokenizer {
-	s := bufio.NewScanner(r)
+	re := bufio.NewReader(r)
 	jt := &JackTokenizer{
-		s: s,
+		re: re,
 	}
 	return jt
 }

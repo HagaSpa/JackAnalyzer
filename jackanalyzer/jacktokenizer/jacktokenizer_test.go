@@ -23,15 +23,17 @@ func TestNew(t *testing.T) {
 				r: strings.NewReader("abcdefg"),
 			},
 			&JackTokenizer{
-				s: bufio.NewScanner(strings.NewReader("abcdefg")),
+				re: bufio.NewReader(strings.NewReader("abcdefg")),
 			},
 		},
 	}
 	for _, tt := range tests {
 		jt := New(tt.args.r)
+		got, _ := jt.re.ReadString('\n')
+		want, _ := tt.want.re.ReadString('\n')
 		t.Run(tt.name, func(t *testing.T) {
-			if jt.s.Text() != tt.want.s.Text() {
-				t.Errorf("New() = %v, want %v", jt.s.Text(), tt.want.s.Text())
+			if got != want {
+				t.Errorf("New() = %v, want %v", got, want)
 			}
 		})
 	}

@@ -2,6 +2,7 @@ package jacktokenizer
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 )
 
@@ -31,9 +32,21 @@ func New(r io.Reader) *JackTokenizer {
 }
 
 func (jt *JackTokenizer) Tokenize() *Token {
-	// todo
 	head := Token{
 		next: nil,
+	}
+
+	// tokenize until EOF comes out
+	for {
+		c, sz, err := jt.re.ReadRune()
+		if err != nil {
+			// TODO return err
+		}
+		if err == io.EOF {
+			break
+		}
+		fmt.Printf("%q [%d]\n", string(c), sz)
+		// TODO call tokenize method
 	}
 	return &head
 }

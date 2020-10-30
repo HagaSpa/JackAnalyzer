@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"unicode"
 )
 
 type Type int
@@ -46,7 +47,11 @@ func (jt *JackTokenizer) Tokenize() *Token {
 			break
 		}
 		fmt.Printf("%q [%d]\n", string(c), sz)
-		// TODO call tokenize method
+
+		// skip white space
+		if unicode.IsSpace(c) {
+			continue
+		}
 	}
 	return &head
 }

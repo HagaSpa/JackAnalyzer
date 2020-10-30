@@ -42,10 +42,12 @@ func TestNew(t *testing.T) {
 func TestJackTokenizer_Tokenize(t *testing.T) {
 	tests := []struct {
 		name string
+		s    string
 		want *Token
 	}{
 		{
-			"test",
+			"test white space",
+			"wh ile",
 			&Token{
 				next: nil,
 			},
@@ -53,7 +55,7 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			jt := New(strings.NewReader(""))
+			jt := New(strings.NewReader(tt.s))
 			if got := jt.Tokenize(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("JackTokenizer.Tokenize() = %v, want %v", got, tt.want)
 			}

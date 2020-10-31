@@ -58,6 +58,30 @@ const (
 	THIS
 )
 
+var keywords = map[string]KeyWord{
+	"class":       CLASS,
+	"method":      METHOD,
+	"function":    FUNCTION,
+	"constructor": CONSTRUCTOR,
+	"int":         INT,
+	"boolean":     BOOLEAN,
+	"char":        CHAR,
+	"void":        VOID,
+	"var":         VAR,
+	"static":      STATIC,
+	"field":       FIELD,
+	"let":         LET,
+	"do":          DO,
+	"if":          IF,
+	"else":        ELSE,
+	"while":       WHILE,
+	"return":      RETURN,
+	"true":        TRUE,
+	"false":       FALSE,
+	"null":        NULL,
+	"this":        THIS,
+}
+
 func New(r io.Reader) *JackTokenizer {
 	re := bufio.NewReader(r)
 	jt := &JackTokenizer{

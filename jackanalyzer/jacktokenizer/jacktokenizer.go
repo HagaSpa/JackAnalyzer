@@ -8,7 +8,7 @@ import (
 )
 
 type Type int
-type KeyWord string
+type KeyWord int
 
 type Token struct {
 	next       *Token
@@ -23,6 +23,40 @@ type Token struct {
 type JackTokenizer struct {
 	re *bufio.Reader
 }
+
+const (
+	_ Type = iota
+	KEYWORD
+	SYMBOL
+	IDENTIFIER
+	INT_CONST
+	STRING_CONST
+)
+
+const (
+	_ KeyWord = iota
+	CLASS
+	METHOD
+	FUNCTION
+	CONSTRUCTOR
+	INT
+	BOOLEAN
+	CHAR
+	VOID
+	VAR
+	STATIC
+	FIELD
+	LET
+	DO
+	IF
+	ELSE
+	WHILE
+	RETURN
+	TRUE
+	FALSE
+	NULL
+	THIS
+)
 
 func New(r io.Reader) *JackTokenizer {
 	re := bufio.NewReader(r)

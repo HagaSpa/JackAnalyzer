@@ -8,7 +8,7 @@ import (
 )
 
 type Type int
-type Keyword int
+type Keyword string
 
 type Token struct {
 	next       *Token
@@ -33,29 +33,29 @@ const (
 	STRING_CONST
 )
 
+// keywords
 const (
-	None Keyword = iota // not keyword
-	CLASS
-	METHOD
-	FUNCTION
-	CONSTRUCTOR
-	INT
-	BOOLEAN
-	CHAR
-	VOID
-	VAR
-	STATIC
-	FIELD
-	LET
-	DO
-	IF
-	ELSE
-	WHILE
-	RETURN
-	TRUE
-	FALSE
-	NULL
-	THIS
+	CLASS       = "class"
+	METHOD      = "method"
+	FUNCTION    = "function"
+	CONSTRUCTOR = "constructor"
+	INT         = "int"
+	BOOLEAN     = "boolean"
+	CHAR        = "char"
+	VOID        = "void"
+	VAR         = "var"
+	STATIC      = "static"
+	FIELD       = "field"
+	LET         = "let"
+	DO          = "do"
+	IF          = "if"
+	ELSE        = "else"
+	WHILE       = "while"
+	RETURN      = "return"
+	TRUE        = "true"
+	FALSE       = "false"
+	NULL        = "null"
+	THIS        = "this"
 )
 
 var keywords = map[string]Keyword{
@@ -125,5 +125,5 @@ func (jt *JackTokenizer) startsWithKeyword() Keyword {
 			return v
 		}
 	}
-	return None
+	return "" // TODO: Should I return an empty string?
 }

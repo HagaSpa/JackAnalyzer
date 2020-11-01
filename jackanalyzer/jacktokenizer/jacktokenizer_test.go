@@ -67,7 +67,7 @@ func TestJackTokenizer_startsWithKeyword(t *testing.T) {
 	tests := []struct {
 		name string
 		s    string
-		want KeyWord
+		want Keyword
 	}{
 		{
 			"test",

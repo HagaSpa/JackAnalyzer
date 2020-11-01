@@ -8,12 +8,12 @@ import (
 )
 
 type Type int
-type KeyWord int
+type Keyword int
 
 type Token struct {
 	next       *Token
 	tokenType  Type
-	keyword    KeyWord
+	keyword    Keyword
 	symbol     string
 	identifier string
 	intVal     int
@@ -34,7 +34,7 @@ const (
 )
 
 const (
-	None KeyWord = iota // not keyword
+	None Keyword = iota // not keyword
 	CLASS
 	METHOD
 	FUNCTION
@@ -58,7 +58,7 @@ const (
 	THIS
 )
 
-var keywords = map[string]KeyWord{
+var keywords = map[string]Keyword{
 	"class":       CLASS,
 	"method":      METHOD,
 	"function":    FUNCTION,
@@ -114,7 +114,7 @@ func (jt *JackTokenizer) Tokenize() *Token {
 	return &head
 }
 
-func (jt *JackTokenizer) startsWithKeyword() KeyWord {
+func (jt *JackTokenizer) startsWithKeyword() Keyword {
 	for k, v := range keywords {
 		l := len(k)
 		d, err := jt.re.Peek(l)

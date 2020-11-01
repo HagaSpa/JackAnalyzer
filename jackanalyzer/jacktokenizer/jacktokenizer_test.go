@@ -62,3 +62,25 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 		})
 	}
 }
+
+func TestJackTokenizer_startsWithKeyword(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		want KeyWord
+	}{
+		{
+			"test",
+			"class",
+			CLASS,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			jt := New(strings.NewReader(tt.s))
+			if got := jt.startsWithKeyword(); got != tt.want {
+				t.Errorf("JackTokenizer.startsWithKeyword() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

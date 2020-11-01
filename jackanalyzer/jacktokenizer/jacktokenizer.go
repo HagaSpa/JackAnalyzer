@@ -34,7 +34,7 @@ const (
 )
 
 const (
-	_ KeyWord = iota
+	None KeyWord = iota // not keyword
 	CLASS
 	METHOD
 	FUNCTION
@@ -112,4 +112,18 @@ func (jt *JackTokenizer) Tokenize() *Token {
 		}
 	}
 	return &head
+}
+
+func (jt *JackTokenizer) startsWithKeyword() KeyWord {
+	for k, v := range keywords {
+		l := len(k)
+		d, err := jt.re.Peek(l)
+		if err == io.EOF {
+			// TODO return err
+		}
+		if k == string(d) {
+			return v
+		}
+	}
+	return None
 }

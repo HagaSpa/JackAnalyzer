@@ -7,12 +7,12 @@ import (
 	"unicode"
 )
 
-type Type int
+type TokenType int
 type Keyword string
 
 type Token struct {
 	next       *Token
-	tokenType  Type
+	tokenType  TokenType
 	keyword    Keyword
 	symbol     string
 	identifier string
@@ -25,7 +25,7 @@ type JackTokenizer struct {
 }
 
 const (
-	_ Type = iota
+	_ TokenType = iota
 	KEYWORD
 	SYMBOL
 	IDENTIFIER

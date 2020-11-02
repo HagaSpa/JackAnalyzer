@@ -15,21 +15,21 @@ func TestNew(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *JackTokenizer
+		want *Tokenizer
 	}{
 		{
 			"test",
 			args{
 				r: strings.NewReader("abcdefg"),
 			},
-			&JackTokenizer{
+			&Tokenizer{
 				re: bufio.NewReader(strings.NewReader("abcdefg")),
 			},
 		},
 	}
 	for _, tt := range tests {
-		jt := New(tt.args.r)
-		got, _ := jt.re.ReadString('\n')
+		tz := New(tt.args.r)
+		got, _ := tz.re.ReadString('\n')
 		want, _ := tt.want.re.ReadString('\n')
 		t.Run(tt.name, func(t *testing.T) {
 			if got != want {
@@ -55,8 +55,8 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			jt := New(strings.NewReader(tt.s))
-			if got := jt.Tokenize(); !reflect.DeepEqual(got, tt.want) {
+			tz := New(strings.NewReader(tt.s))
+			if got := tz.Tokenize(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("JackTokenizer.Tokenize() = %v, want %v", got, tt.want)
 			}
 		})
@@ -177,8 +177,8 @@ func TestJackTokenizer_startsWithKeyword(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			jt := New(strings.NewReader(tt.s))
-			if got := jt.startsWithKeyword(); got != tt.want {
+			tz := New(strings.NewReader(tt.s))
+			if got := tz.startsWithKeyword(); got != tt.want {
 				t.Errorf("JackTokenizer.startsWithKeyword() = %v, want %v", got, tt.want)
 			}
 		})

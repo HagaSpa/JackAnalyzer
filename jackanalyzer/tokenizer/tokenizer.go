@@ -20,7 +20,7 @@ type Token struct {
 	stringVal  string
 }
 
-type JackTokenizer struct {
+type Tokenizer struct {
 	re *bufio.Reader
 }
 
@@ -82,22 +82,22 @@ var keywords = map[string]Keyword{
 	"this":        THIS,
 }
 
-func New(r io.Reader) *JackTokenizer {
+func New(r io.Reader) *Tokenizer {
 	re := bufio.NewReader(r)
-	jt := &JackTokenizer{
+	tz := &Tokenizer{
 		re: re,
 	}
-	return jt
+	return tz
 }
 
-func (jt *JackTokenizer) Tokenize() *Token {
+func (tz *Tokenizer) Tokenize() *Token {
 	head := Token{
 		next: nil,
 	}
 
 	// tokenize until EOF comes out
 	for {
-		c, sz, err := jt.re.ReadRune()
+		c, sz, err := tz.re.ReadRune()
 		if err != nil {
 			// TODO return err
 		}
@@ -114,10 +114,10 @@ func (jt *JackTokenizer) Tokenize() *Token {
 	return &head
 }
 
-func (jt *JackTokenizer) startsWithKeyword() Keyword {
+func (tz *Tokenizer) startsWithKeyword() Keyword {
 	for k, v := range keywords {
 		l := len(k)
-		d, err := jt.re.Peek(l)
+		d, err := tz.re.Peek(l)
 		if err == io.EOF {
 			// TODO return err
 		}

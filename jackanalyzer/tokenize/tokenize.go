@@ -1,4 +1,4 @@
-package jacktokenizer
+package tokenize
 
 import (
 	"bufio"

@@ -3,6 +3,7 @@ package tokenizer
 import (
 	"bufio"
 	"io"
+	"jackanalyzer/token"
 	"reflect"
 	"strings"
 	"testing"
@@ -43,13 +44,13 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 	tests := []struct {
 		name string
 		s    string
-		want *Token
+		want *token.Token
 	}{
 		{
 			"test white space",
 			"wh ile",
-			&Token{
-				next: nil,
+			&token.Token{
+				Next: nil,
 			},
 		},
 	}
@@ -67,112 +68,112 @@ func TestJackTokenizer_startsWithKeyword(t *testing.T) {
 	tests := []struct {
 		name string
 		s    string
-		want Keyword
+		want token.Keyword
 	}{
 		{
 			"test",
 			"class",
-			CLASS,
+			token.CLASS,
 		},
 		{
 			"method",
 			"method",
-			METHOD,
+			token.METHOD,
 		},
 		{
 			"function",
 			"function",
-			FUNCTION,
+			token.FUNCTION,
 		},
 		{
 			"constructor",
 			"constructor",
-			CONSTRUCTOR,
+			token.CONSTRUCTOR,
 		},
 		{
 			"int",
 			"int",
-			INT,
+			token.INT,
 		},
 		{
 			"boolean",
 			"boolean",
-			BOOLEAN,
+			token.BOOLEAN,
 		},
 		{
 			"char",
 			"char",
-			CHAR,
+			token.CHAR,
 		},
 		{
 			"void",
 			"void",
-			VOID,
+			token.VOID,
 		},
 		{
 			"var",
 			"var",
-			VAR,
+			token.VAR,
 		},
 		{
 			"static",
 			"static",
-			STATIC,
+			token.STATIC,
 		},
 		{
 			"field",
 			"field",
-			FIELD,
+			token.FIELD,
 		},
 		{
 			"let",
 			"let",
-			LET,
+			token.LET,
 		},
 		{
 			"do",
 			"do",
-			DO,
+			token.DO,
 		},
 		{
 			"if",
 			"if",
-			IF,
+			token.IF,
 		},
 		{
 			"else",
 			"else",
-			ELSE,
+			token.ELSE,
 		},
 		{
 			"while",
 			"while",
-			WHILE,
+			token.WHILE,
 		},
 		{
 			"return",
 			"return",
-			RETURN,
+			token.RETURN,
 		},
 		{
 			"true",
 			"true",
-			TRUE,
+			token.TRUE,
 		},
 		{
 			"false",
 			"false",
-			FALSE,
+			token.FALSE,
 		},
 		{
 			"null",
 			"null",
-			NULL,
+			token.NULL,
 		},
 		{
 			"this",
 			"this",
-			THIS,
+			token.THIS,
 		},
 	}
 	for _, tt := range tests {

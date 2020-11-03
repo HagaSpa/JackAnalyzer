@@ -57,3 +57,24 @@ func (tz *Tokenizer) startsWithKeyword() token.Keyword {
 	}
 	return "" // TODO: Should token.Keyword cotain an empty string??
 }
+
+func newToken(
+	cur *token.Token,
+	tt token.TokenType,
+	kw token.Keyword,
+	sb string,
+	id string,
+	iv int,
+	sv string,
+) *token.Token {
+	nt := token.Token{
+		TokenType:  tt,
+		Keyword:    kw,
+		Symbol:     sb,
+		Identifier: id,
+		IntVal:     iv,
+		StringVal:  sv,
+	}
+	cur.Next = &nt
+	return &nt
+}

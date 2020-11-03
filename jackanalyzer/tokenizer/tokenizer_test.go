@@ -185,3 +185,67 @@ func TestJackTokenizer_startsWithKeyword(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_newToken(t *testing.T) {
+	type args struct {
+		cur *token.Token
+		tt  token.TokenType
+		kw  token.Keyword
+		sb  string
+		id  string
+		iv  int
+		sv  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want *token.Token
+	}{
+		{
+			"keyword (CLASS)",
+			args{
+				cur: &token.Token{},
+				tt:  token.KEYWORD,
+				kw:  token.CLASS,
+				// Does not use for KEYWORD
+				sb: "",
+				id: "",
+				iv: 0,
+				sv: "",
+			},
+			&token.Token{
+				TokenType: token.KEYWORD,
+				Keyword:   token.CLASS,
+			},
+		},
+		{
+			"keyword (METHOD)",
+			args{
+				cur: &token.Token{},
+				tt:  token.KEYWORD,
+				kw:  token.METHOD,
+				// Does not use for KEYWORD
+				sb: "",
+				id: "",
+				iv: 0,
+				sv: "",
+			},
+			&token.Token{
+				TokenType: token.KEYWORD,
+				Keyword:   token.METHOD,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := newToken(tt.args.cur, tt.args.tt, tt.args.kw, tt.args.sb, tt.args.id, tt.args.iv, tt.args.sv)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Tokenizer.newToken() = %v, want %v", got, tt.want)
+			}
+			// got == cur.Next?
+			if !reflect.DeepEqual(got, tt.args.cur.Next) {
+				t.Errorf("Tokenizer.newToken() = %v, want %v", got, tt.args.cur.Next)
+			}
+		})
+	}
+}

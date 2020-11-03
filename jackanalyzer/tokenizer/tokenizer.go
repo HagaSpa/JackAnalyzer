@@ -55,5 +55,5 @@ func (tz *Tokenizer) startsWithKeyword() token.Keyword {
 			return v
 		}
 	}
-	return "" // TODO: Should I return an empty string?
+	return "" // TODO: Should token.Keyword cotain an empty string??
 }

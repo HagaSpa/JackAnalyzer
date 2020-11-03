@@ -24,6 +24,7 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 	head := token.Token{
 		Next: nil,
 	}
+	cur := &head
 
 	// tokenize until EOF comes out
 	for {
@@ -40,11 +41,23 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		if unicode.IsSpace(c) {
 			continue
 		}
+
+		// call startsWithKeyword
+		kw := tz.startsWithKeyword()
+		if kw != "" {
+			cur = newToken(
+				cur, token.KEYWORD, kw, "", "", 0, "",
+			)
+			tz.re.Discard(len(kw))
+			continue
+		}
+
 	}
 	return &head
 }
 
 func (tz *Tokenizer) startsWithKeyword() token.Keyword {
+	tz.re.UnreadRune()
 	for k, v := range token.Keywords {
 		l := len(k)
 		d, err := tz.re.Peek(l)

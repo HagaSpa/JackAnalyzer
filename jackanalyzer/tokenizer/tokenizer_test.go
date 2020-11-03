@@ -48,9 +48,19 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 	}{
 		{
 			"test white space",
-			"wh ile",
+			" ",
 			&token.Token{
 				Next: nil,
+			},
+		},
+		{
+			"test class",
+			"class",
+			&token.Token{
+				Next: &token.Token{
+					TokenType: token.KEYWORD,
+					Keyword:   token.CLASS,
+				},
 			},
 		},
 	}

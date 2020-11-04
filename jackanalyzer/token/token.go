@@ -70,3 +70,25 @@ var Keywords = map[string]Keyword{
 	"null":        NULL,
 	"this":        THIS,
 }
+
+var Symbols = []rune{
+	'{',
+	'}',
+	'(',
+	')',
+	'[',
+	']',
+	'.',
+	',',
+	';',
+	'+',
+	'-',
+	'*',
+	'/',
+	'&',
+	'|',
+	'<',
+	'>',
+	'=',
+	'~',
+}

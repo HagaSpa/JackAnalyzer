@@ -71,7 +71,7 @@ var Keywords = map[string]Keyword{
 	"this":        THIS,
 }
 
-var Symbols = []rune{
+var symbols = []rune{
 	'{',
 	'}',
 	'(',
@@ -91,4 +91,13 @@ var Symbols = []rune{
 	'>',
 	'=',
 	'~',
+}
+
+func IsSymbol(r rune) bool {
+	for _, v := range symbols {
+		if r == v {
+			return true
+		}
+	}
+	return false
 }

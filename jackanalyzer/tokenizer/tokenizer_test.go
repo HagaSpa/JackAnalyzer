@@ -73,12 +73,30 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			"test for while{}",
+			"while {}",
+			&token.Token{
+				Next: &token.Token{
+					Next: &token.Token{
+						Next: &token.Token{
+							TokenType: token.SYMBOL,
+							Symbol:    "}",
+						},
+						TokenType: token.SYMBOL,
+						Symbol:    "{",
+					},
+					TokenType: token.KEYWORD,
+					Keyword:   token.WHILE,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tz := New(strings.NewReader(tt.s))
 			if got := tz.Tokenize(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("JackTokenizer.Tokenize() = %v, want %v", got, tt.want)
+				t.Errorf("JackTokenizer.Tokenize() = %#v, want %#v", got, tt.want)
 			}
 		})
 	}

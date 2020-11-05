@@ -52,6 +52,14 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			continue
 		}
 
+		// IsSymbol?
+		if token.IsSymbol(c) {
+			cur = newToken(
+				cur, token.SYMBOL, "", string(c), "", 0, "",
+			)
+			tz.re.Discard(sz)
+			continue
+		}
 	}
 	return &head
 }

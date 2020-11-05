@@ -2,7 +2,6 @@ package tokenizer
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"jackanalyzer/token"
 	"unicode"
@@ -35,7 +34,6 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		if err == io.EOF {
 			break
 		}
-		fmt.Printf("%q [%d]\n", string(c), sz)
 
 		// skip white space
 		if unicode.IsSpace(c) {

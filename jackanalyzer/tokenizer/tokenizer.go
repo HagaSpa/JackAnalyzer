@@ -51,6 +51,7 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		}
 
 		// IsSymbol?
+		// TODO: if unicode.IsPunct() == true
 		if token.IsSymbol(c) {
 			cur = newToken(
 				cur, token.SYMBOL, "", string(c), "", 0, "",
@@ -58,6 +59,9 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			tz.re.Discard(sz)
 			continue
 		}
+
+		// IsIdentier?
+		// TODO: if unicode.IsLetter(c) == true
 	}
 	return &head
 }
@@ -75,6 +79,31 @@ func (tz *Tokenizer) startsWithKeyword() token.Keyword {
 		}
 	}
 	return "" // TODO: Should token.Keyword cotain an empty string??
+}
+
+func (tz *Tokenizer) startsWithIdentifier(r rune) string {
+	/*
+		ReadRune()したruneが
+		- 英数字記号なら
+			- rと結合
+		- 英数字じゃないなら
+			- UnReadRuneして、最後の1文字のみbufferされてない状態にする
+			- ループ抜けてidentifierを返す
+	*/
+	id := r
+	for {
+		c, _, err := tz.re.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		if unicode.IsLetter(c) || unicode.IsNumber(c) {
+			id = id + c
+			continue
+		}
+		tz.re.UnreadRune()
+		break
+	}
+	return string(id)
 }
 
 func newToken(

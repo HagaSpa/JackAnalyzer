@@ -82,14 +82,6 @@ func (tz *Tokenizer) startsWithKeyword() token.Keyword {
 }
 
 func (tz *Tokenizer) startsWithIdentifier(r rune) string {
-	/*
-		ReadRune()したruneが
-		- 英数字記号なら
-			- rと結合
-		- 英数字じゃないなら
-			- UnReadRuneして、最後の1文字のみbufferされてない状態にする
-			- ループ抜けてidentifierを返す
-	*/
 	id := string(r)
 	for {
 		c, _, err := tz.re.ReadRune()

@@ -90,20 +90,20 @@ func (tz *Tokenizer) startsWithIdentifier(r rune) string {
 			- UnReadRuneして、最後の1文字のみbufferされてない状態にする
 			- ループ抜けてidentifierを返す
 	*/
-	id := r
+	id := string(r)
 	for {
 		c, _, err := tz.re.ReadRune()
 		if err == io.EOF {
 			break
 		}
 		if unicode.IsLetter(c) || unicode.IsNumber(c) {
-			id = id + c
+			id = id + string(c)
 			continue
 		}
 		tz.re.UnreadRune()
 		break
 	}
-	return string(id)
+	return id
 }
 
 func newToken(

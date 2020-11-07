@@ -287,3 +287,32 @@ func TestTokenizer_newToken(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_startsWithIdentifier(t *testing.T) {
+	type args struct {
+		r rune
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			"test",
+			args{
+				r: 't',
+				s: "est",
+			},
+			"test",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tz := New(strings.NewReader(tt.args.s))
+			if got := tz.startsWithIdentifier(tt.args.r); got != tt.want {
+				t.Errorf("Tokenizer.startsWithIdentifier() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

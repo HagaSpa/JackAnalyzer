@@ -91,6 +91,16 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			"test identifier",
+			"hoge",
+			&token.Token{
+				Next: &token.Token{
+					TokenType:  token.IDENTIFIER,
+					Identifier: "hoge",
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -59,7 +59,13 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		}
 
 		// IsIdentier?
-		// TODO: if unicode.IsLetter(c) == true
+		if unicode.IsLetter(c) {
+			id := tz.startsWithIdentifier(c)
+			cur = newToken(
+				cur, token.IDENTIFIER, "", "", id, 0, "",
+			)
+			continue
+		}
 	}
 	return &head
 }

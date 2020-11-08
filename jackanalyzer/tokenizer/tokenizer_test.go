@@ -306,6 +306,22 @@ func TestTokenizer_startsWithIdentifier(t *testing.T) {
 			},
 			"test",
 		},
+		{
+			"test alphanumeric",
+			args{
+				r: 'h',
+				s: "oge1",
+			},
+			"hoge1",
+		},
+		{
+			"test contains white space",
+			args{
+				r: 'h',
+				s: "oge1 hoge2",
+			},
+			"hoge1",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

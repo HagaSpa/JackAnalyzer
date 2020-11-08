@@ -27,7 +27,16 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 
 	// tokenize until EOF comes out
 	for {
-		c, sz, err := tz.re.ReadRune()
+		// call startsWithKeyword
+		kw := tz.startsWithKeyword()
+		if kw != "" {
+			cur = newToken(
+				cur, token.KEYWORD, kw, "", "", 0, "",
+			)
+			continue
+		}
+
+		c, _, err := tz.re.ReadRune()
 		if err != nil {
 			// TODO return err
 		}
@@ -40,23 +49,12 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			continue
 		}
 
-		// call startsWithKeyword
-		kw := tz.startsWithKeyword()
-		if kw != "" {
-			cur = newToken(
-				cur, token.KEYWORD, kw, "", "", 0, "",
-			)
-			tz.re.Discard(len(kw))
-			continue
-		}
-
 		// IsSymbol?
 		// TODO: if unicode.IsPunct() == true
 		if token.IsSymbol(c) {
 			cur = newToken(
 				cur, token.SYMBOL, "", string(c), "", 0, "",
 			)
-			tz.re.Discard(sz)
 			continue
 		}
 
@@ -67,7 +65,6 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 }
 
 func (tz *Tokenizer) startsWithKeyword() token.Keyword {
-	tz.re.UnreadRune()
 	for k, v := range token.Keywords {
 		l := len(k)
 		d, err := tz.re.Peek(l)
@@ -75,6 +72,7 @@ func (tz *Tokenizer) startsWithKeyword() token.Keyword {
 			// TODO return err
 		}
 		if k == string(d) {
+			tz.re.Discard(l)
 			return v
 		}
 	}

@@ -92,7 +92,11 @@ func (tz *Tokenizer) startsWithIdentifier(r rune) string {
 		if err == io.EOF {
 			break
 		}
-		if unicode.IsLetter(c) || unicode.IsNumber(c) {
+		// [A-Z] or [a-z] or _ or [0-9]
+		if ('a' <= c && c <= 'z') ||
+			('A' <= c && c <= 'Z') ||
+			(c == '_') ||
+			unicode.IsNumber(c) {
 			id = id + string(c)
 			continue
 		}

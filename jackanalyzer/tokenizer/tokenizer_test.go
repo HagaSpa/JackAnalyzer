@@ -332,6 +332,14 @@ func TestTokenizer_startsWithIdentifier(t *testing.T) {
 			},
 			"hoge1",
 		},
+		{
+			"exclude japanese",
+			args{
+				r: 'h',
+				s: "Aあ",
+			},
+			"hA",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

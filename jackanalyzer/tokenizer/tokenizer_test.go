@@ -369,6 +369,30 @@ func TestTokenizer_startsWithIntegerConstant(t *testing.T) {
 			},
 			123,
 		},
+		{
+			"test 012",
+			args{
+				r: '0',
+				s: "12",
+			},
+			12,
+		},
+		{
+			"test 000",
+			args{
+				r: '0',
+				s: "00",
+			},
+			0,
+		},
+		{
+			"test 101",
+			args{
+				r: '1',
+				s: "01",
+			},
+			101,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

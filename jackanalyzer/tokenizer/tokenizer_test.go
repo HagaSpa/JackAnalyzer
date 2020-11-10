@@ -350,3 +350,32 @@ func TestTokenizer_startsWithIdentifier(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_startsWithIntegerConstant(t *testing.T) {
+	type args struct {
+		r rune
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			"test",
+			args{
+				r: '1',
+				s: "23",
+			},
+			123,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tz := New(strings.NewReader(tt.args.s))
+			if got := tz.startsWithIntegerConstant(tt.args.r); got != tt.want {
+				t.Errorf("Tokenizer.startsWithIntegerConstant() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

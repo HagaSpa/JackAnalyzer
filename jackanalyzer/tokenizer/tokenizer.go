@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"io"
 	"jackanalyzer/token"
+	"strconv"
 	"unicode"
 )
 
@@ -104,6 +105,27 @@ func (tz *Tokenizer) startsWithIdentifier(r rune) string {
 		break
 	}
 	return id
+}
+
+func (tz *Tokenizer) startsWithIntegerConstant(r rune) int {
+	sr := string(r)
+	for {
+		c, _, err := tz.re.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		if unicode.IsNumber(c) {
+			sr = sr + string(c)
+			continue
+		}
+		tz.re.UnreadRune()
+		break
+	}
+	iv, err := strconv.Atoi(sr)
+	if err != nil {
+		// TODO return err
+	}
+	return iv
 }
 
 func newToken(

@@ -133,6 +133,21 @@ func (tz *Tokenizer) startsWithIntegerConstant(r rune) int {
 	return iv
 }
 
+func (tz *Tokenizer) startsWithStringConstant() string {
+	var sv string
+	for {
+		c, _, err := tz.re.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		if c == '"' {
+			break
+		}
+		sv = sv + string(c)
+	}
+	return sv
+}
+
 func newToken(
 	cur *token.Token,
 	tt token.TokenType,

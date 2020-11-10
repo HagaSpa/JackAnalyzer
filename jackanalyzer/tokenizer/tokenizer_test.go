@@ -454,3 +454,25 @@ func Test_isAlUn(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_startsWithStringConstant(t *testing.T) {
+	tests := []struct {
+		name string
+		s    string
+		want string
+	}{
+		{
+			"test",
+			`test"`, // Suppose you are getting the first double quate with Tokenize().
+			"test",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tz := New(strings.NewReader(tt.s))
+			if got := tz.startsWithStringConstant(); got != tt.want {
+				t.Errorf("Tokenizer.startsWithStringConstant() = %s, want %s", got, tt.want)
+			}
+		})
+	}
+}

@@ -68,6 +68,15 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			)
 			continue
 		}
+
+		// IntegerConstant
+		if unicode.IsNumber(c) {
+			iv := tz.startsWithIntegerConstant(c)
+			cur = newToken(
+				cur, token.INT_CONST, "", "", "", iv, "",
+			)
+			continue
+		}
 	}
 	return &head
 }

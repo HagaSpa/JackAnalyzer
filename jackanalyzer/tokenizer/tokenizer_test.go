@@ -101,6 +101,16 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			"test integerConstant",
+			"1234",
+			&token.Token{
+				Next: &token.Token{
+					TokenType: token.INT_CONST,
+					IntVal:    1234,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

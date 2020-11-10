@@ -60,6 +60,7 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		}
 
 		// IsIdentifier?
+		// TODO: c == [a-Z] or c == _
 		if unicode.IsLetter(c) {
 			id := tz.startsWithIdentifier(c)
 			cur = newToken(

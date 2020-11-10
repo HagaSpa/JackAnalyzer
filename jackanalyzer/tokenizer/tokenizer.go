@@ -158,3 +158,7 @@ func newToken(
 	cur.Next = &nt
 	return &nt
 }
+
+func isAlUn(r rune) bool {
+	return ('a' <= r && r <= 'z') || ('A' <= r && r <= 'Z') || (r == '_')
+}

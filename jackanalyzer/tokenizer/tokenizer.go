@@ -60,7 +60,7 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 		}
 
 		// Identifier
-		if isAlUn(c) {
+		if isAlpherUnder(c) {
 			id := tz.startsWithIdentifier(c)
 			cur = newToken(
 				cur, token.IDENTIFIER, "", "", id, 0, "",
@@ -102,7 +102,7 @@ func (tz *Tokenizer) startsWithIdentifier(r rune) string {
 		if err == io.EOF {
 			break
 		}
-		if isAlUn(c) || unicode.IsNumber(c) {
+		if isAlpherUnder(c) || unicode.IsNumber(c) {
 			id = id + string(c)
 			continue
 		}
@@ -169,6 +169,6 @@ func newToken(
 	return &nt
 }
 
-func isAlUn(r rune) bool {
+func isAlpherUnder(r rune) bool {
 	return ('a' <= r && r <= 'z') || ('A' <= r && r <= 'Z') || (r == '_')
 }

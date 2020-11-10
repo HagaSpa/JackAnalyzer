@@ -414,7 +414,7 @@ func TestTokenizer_startsWithIntegerConstant(t *testing.T) {
 	}
 }
 
-func Test_isAlUn(t *testing.T) {
+func Test_isAlpherUnder(t *testing.T) {
 	tests := []struct {
 		name string
 		r    rune
@@ -448,7 +448,7 @@ func Test_isAlUn(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := isAlUn(tt.r); got != tt.want {
+			if got := isAlpherUnder(tt.r); got != tt.want {
 				t.Errorf("Case: %s isAlUn() = %t, want %t", tt.name, got, tt.want)
 			}
 		})

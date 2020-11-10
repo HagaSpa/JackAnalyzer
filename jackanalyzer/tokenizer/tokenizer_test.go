@@ -476,3 +476,24 @@ func TestTokenizer_startsWithStringConstant(t *testing.T) {
 		})
 	}
 }
+
+func Test_isDoubleQuotes(t *testing.T) {
+	tests := []struct {
+		name string
+		r    rune
+		want bool
+	}{
+		{
+			"double quotes",
+			'"',
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isDoubleQuotes(tt.r); got != tt.want {
+				t.Errorf("isDoubleQuotes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -172,3 +172,7 @@ func newToken(
 func isAlpherUnder(r rune) bool {
 	return ('a' <= r && r <= 'z') || ('A' <= r && r <= 'Z') || (r == '_')
 }
+
+func isDoubleQuotes(r rune) bool {
+	return r == '"'
+}

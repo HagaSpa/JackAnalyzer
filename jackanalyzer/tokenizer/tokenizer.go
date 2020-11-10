@@ -59,9 +59,8 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			continue
 		}
 
-		// IsIdentifier?
-		// TODO: c == [a-Z] or c == _
-		if unicode.IsLetter(c) {
+		// Identifier
+		if isAlUn(c) {
 			id := tz.startsWithIdentifier(c)
 			cur = newToken(
 				cur, token.IDENTIFIER, "", "", id, 0, "",
@@ -103,11 +102,7 @@ func (tz *Tokenizer) startsWithIdentifier(r rune) string {
 		if err == io.EOF {
 			break
 		}
-		// [A-Z] or [a-z] or _ or [0-9]
-		if ('a' <= c && c <= 'z') ||
-			('A' <= c && c <= 'Z') ||
-			(c == '_') ||
-			unicode.IsNumber(c) {
+		if isAlUn(c) || unicode.IsNumber(c) {
 			id = id + string(c)
 			continue
 		}

@@ -140,7 +140,7 @@ func (tz *Tokenizer) startsWithStringConstant() string {
 		if err == io.EOF {
 			break
 		}
-		if c == '"' {
+		if isDoubleQuotes(c) {
 			break
 		}
 		sv = sv + string(c)

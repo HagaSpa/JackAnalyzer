@@ -76,6 +76,15 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			)
 			continue
 		}
+
+		// StringConstant
+		if isDoubleQuotes(c) {
+			sv := tz.startsWithStringConstant()
+			cur = newToken(
+				cur, token.STRING_CONST, "", "", "", 0, sv,
+			)
+			continue
+		}
 	}
 	return &head
 }

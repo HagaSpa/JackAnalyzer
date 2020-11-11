@@ -111,6 +111,16 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			"test stringConstant",
+			`"hoge"`,
+			&token.Token{
+				Next: &token.Token{
+					TokenType: token.STRING_CONST,
+					StringVal: "hoge",
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

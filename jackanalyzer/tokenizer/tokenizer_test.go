@@ -578,3 +578,35 @@ func TestTokenizer_isComment(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_skipComment(t *testing.T) {
+	type args struct {
+		ct string
+		s  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			"comment",
+			args{
+				ct: token.COMMENT,
+				s: `// comment
+abc`,
+			},
+			"abc",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tz := New(strings.NewReader(tt.args.s))
+			tz.skipComment(tt.args.ct)
+			l, _, _ := tz.re.ReadLine()
+			if string(l) != tt.want {
+				t.Errorf("Tokenizer.skipComment() tz.re.ReadLine = %s, want %s", l, tt.want)
+			}
+		})
+	}
+}

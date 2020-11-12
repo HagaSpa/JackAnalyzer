@@ -205,3 +205,30 @@ func (tz *Tokenizer) isComment(r rune) (bool, string) {
 	tz.re.UnreadRune()
 	return false, ""
 }
+
+func (tz *Tokenizer) skipComment(ct string) {
+L:
+	for {
+		c, _, err := tz.re.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		switch ct {
+		case token.COMMENT:
+			if c == '\n' {
+				break L
+			}
+		case token.COMMENT_AST:
+			if c == '*' {
+				c2, _, err := tz.re.ReadRune()
+				if err == io.EOF {
+					break L
+				}
+				if c2 == '/' {
+					break L
+				}
+				tz.re.UnreadRune()
+			}
+		}
+	}
+}

@@ -507,3 +507,65 @@ func Test_isDoubleQuotes(t *testing.T) {
 		})
 	}
 }
+
+func TestTokenizer_isComment(t *testing.T) {
+	type args struct {
+		r rune
+		s string
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  bool
+		want1 string
+	}{
+		{
+			"comment",
+			args{
+				r: '/',
+				s: "/",
+			},
+			true,
+			token.COMMENT,
+		},
+		{
+			"comment_ast",
+			args{
+				r: '/',
+				s: "*",
+			},
+			true,
+			token.COMMENT_AST,
+		},
+		{
+			"r is not /",
+			args{
+				r: 'a',
+				s: "abcd",
+			},
+			false,
+			"",
+		},
+		{
+			"sigle slash",
+			args{
+				r: '/',
+				s: "abcd",
+			},
+			false,
+			"",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tz := New(strings.NewReader(tt.args.s))
+			got, got1 := tz.isComment(tt.args.r)
+			if got != tt.want {
+				t.Errorf("Tokenizer.isComment() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("Tokenizer.isComment() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}

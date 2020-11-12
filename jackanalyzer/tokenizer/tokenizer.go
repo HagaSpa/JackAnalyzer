@@ -50,6 +50,8 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			continue
 		}
 
+		// TODO: isComment
+
 		// IsSymbol?
 		// TODO: if unicode.IsPunct() == true
 		if token.IsSymbol(c) {
@@ -184,4 +186,22 @@ func isAlpherUnder(r rune) bool {
 
 func isDoubleQuotes(r rune) bool {
 	return r == '"'
+}
+
+func (tz *Tokenizer) isComment(r rune) (bool, string) {
+	if r != '/' {
+		return false, ""
+	}
+	c, _, err := tz.re.ReadRune()
+	if err == io.EOF {
+		return false, ""
+	}
+	if c == '/' {
+		return true, token.COMMENT
+	}
+	if c == '*' {
+		return true, token.COMMENT_AST
+	}
+	tz.re.UnreadRune()
+	return false, ""
 }

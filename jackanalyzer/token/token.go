@@ -47,6 +47,12 @@ const (
 	THIS        = "this"
 )
 
+// comment type
+const (
+	COMMENT     = "//"
+	COMMENT_AST = "/*"
+)
+
 var Keywords = map[string]Keyword{
 	"class":       CLASS,
 	"method":      METHOD,

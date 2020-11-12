@@ -598,6 +598,14 @@ abc`,
 			},
 			"abc",
 		},
+		{
+			"comment asterisk",
+			args{
+				ct: token.COMMENT_AST,
+				s:  `/* comment cocococo */ abc`,
+			},
+			" abc",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

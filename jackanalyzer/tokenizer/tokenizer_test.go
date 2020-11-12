@@ -518,6 +518,7 @@ func TestTokenizer_isComment(t *testing.T) {
 		args  args
 		want  bool
 		want1 string
+		s     string
 	}{
 		{
 			"comment",
@@ -527,6 +528,7 @@ func TestTokenizer_isComment(t *testing.T) {
 			},
 			true,
 			token.COMMENT,
+			"",
 		},
 		{
 			"comment_ast",
@@ -536,6 +538,7 @@ func TestTokenizer_isComment(t *testing.T) {
 			},
 			true,
 			token.COMMENT_AST,
+			"",
 		},
 		{
 			"r is not /",
@@ -545,6 +548,7 @@ func TestTokenizer_isComment(t *testing.T) {
 			},
 			false,
 			"",
+			"abcd",
 		},
 		{
 			"sigle slash",
@@ -554,6 +558,7 @@ func TestTokenizer_isComment(t *testing.T) {
 			},
 			false,
 			"",
+			"abcd",
 		},
 	}
 	for _, tt := range tests {
@@ -565,6 +570,10 @@ func TestTokenizer_isComment(t *testing.T) {
 			}
 			if got1 != tt.want1 {
 				t.Errorf("Tokenizer.isComment() got1 = %v, want %v", got1, tt.want1)
+			}
+			l, _, _ := tz.re.ReadLine()
+			if string(l) != tt.s {
+				t.Errorf("Tokenizer.isComment() tz.re.ReadLine = %s, want %s", l, tt.s)
 			}
 		})
 	}

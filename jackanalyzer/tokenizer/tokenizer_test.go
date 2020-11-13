@@ -121,6 +121,103 @@ func TestJackTokenizer_Tokenize(t *testing.T) {
 				},
 			},
 		},
+		{
+			"test comment",
+			"// hoge",
+			&token.Token{
+				Next: nil,
+			},
+		},
+		{
+			"test comment asterisk",
+			`/* hoge
+aaaaaaaa bbbbbbb ccccccc
+			*/`,
+			&token.Token{
+				Next: nil,
+			},
+		},
+		{
+			"test jack code",
+			`
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/10/ArrayTest/Main.jack
+
+// (identical to projects/09/Average/Main.jack)
+
+/** Computes the average of a sequence of integers. */
+
+class Main {
+	function void main() {
+		var Array a;
+	}
+}
+			`,
+			&token.Token{
+				Next: &token.Token{
+					Next: &token.Token{
+						Next: &token.Token{
+							Next: &token.Token{
+								Next: &token.Token{
+									Next: &token.Token{
+										Next: &token.Token{
+											Next: &token.Token{
+												Next: &token.Token{
+													Next: &token.Token{
+														Next: &token.Token{
+															Next: &token.Token{
+																Next: &token.Token{
+																	Next: &token.Token{
+																		Next: &token.Token{
+																			TokenType: token.SYMBOL,
+																			Symbol:    "}",
+																		},
+																		TokenType: token.SYMBOL,
+																		Symbol:    "}",
+																	},
+																	TokenType: token.SYMBOL,
+																	Symbol:    ";",
+																},
+																TokenType:  token.IDENTIFIER,
+																Identifier: "a",
+															},
+															TokenType:  token.IDENTIFIER,
+															Identifier: "Array",
+														},
+														TokenType: token.KEYWORD,
+														Keyword:   token.VAR,
+													},
+													TokenType: token.SYMBOL,
+													Symbol:    "{",
+												},
+												TokenType: token.SYMBOL,
+												Symbol:    ")",
+											},
+											TokenType: token.SYMBOL,
+											Symbol:    "(",
+										},
+										TokenType:  token.IDENTIFIER,
+										Identifier: "main",
+									},
+									TokenType: token.KEYWORD,
+									Keyword:   token.VOID,
+								},
+								TokenType: token.KEYWORD,
+								Keyword:   token.FUNCTION,
+							},
+							TokenType: token.SYMBOL,
+							Symbol:    "{",
+						},
+						TokenType:  token.IDENTIFIER,
+						Identifier: "Main",
+					},
+					TokenType: token.KEYWORD,
+					Keyword:   token.CLASS,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -50,7 +50,11 @@ func (tz *Tokenizer) Tokenize() *token.Token {
 			continue
 		}
 
-		// TODO: isComment
+		// isComment
+		if ok, ct := tz.isComment(c); ok {
+			tz.skipComment(ct)
+			continue
+		}
 
 		// IsSymbol?
 		// TODO: if unicode.IsPunct() == true

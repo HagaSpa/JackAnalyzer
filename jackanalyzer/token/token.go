@@ -107,3 +107,7 @@ func IsSymbol(r rune) bool {
 	}
 	return false
 }
+
+func (t *Token) HasMoreTokens() bool {
+	return t.Next != nil
+}

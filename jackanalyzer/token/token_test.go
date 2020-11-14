@@ -112,3 +112,57 @@ func TestIsSymbol(t *testing.T) {
 		})
 	}
 }
+
+func TestToken_HasMoreTokens(t *testing.T) {
+	type fields struct {
+		Next       *Token
+		TokenType  TokenType
+		Keyword    Keyword
+		Symbol     string
+		Identifier string
+		IntVal     int
+		StringVal  string
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		want   bool
+	}{
+		{
+			"true",
+			fields{
+				Next:       &Token{},
+				TokenType:  KEYWORD,
+				Keyword:    CLASS,
+				Symbol:     "",
+				Identifier: "",
+				IntVal:     0,
+				StringVal:  "",
+			},
+			true,
+		},
+		{
+			"false",
+			fields{
+				Next: nil,
+			},
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			act := &Token{
+				Next:       tt.fields.Next,
+				TokenType:  tt.fields.TokenType,
+				Keyword:    tt.fields.Keyword,
+				Symbol:     tt.fields.Symbol,
+				Identifier: tt.fields.Identifier,
+				IntVal:     tt.fields.IntVal,
+				StringVal:  tt.fields.StringVal,
+			}
+			if got := act.HasMoreTokens(); got != tt.want {
+				t.Errorf("Token.HasMoreTokens() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

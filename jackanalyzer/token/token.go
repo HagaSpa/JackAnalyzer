@@ -111,3 +111,14 @@ func IsSymbol(r rune) bool {
 func (t *Token) HasMoreTokens() bool {
 	return t.Next != nil
 }
+
+func (t *Token) Advance() {
+	nxt := t.Next
+	t.Next = nxt.Next
+	t.TokenType = nxt.TokenType
+	t.Keyword = nxt.Keyword
+	t.Symbol = nxt.Symbol
+	t.Identifier = nxt.Identifier
+	t.IntVal = nxt.IntVal
+	t.StringVal = nxt.StringVal
+}

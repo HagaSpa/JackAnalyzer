@@ -1,6 +1,9 @@
 package token
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestIsSymbol(t *testing.T) {
 	tests := []struct {
@@ -162,6 +165,38 @@ func TestToken_HasMoreTokens(t *testing.T) {
 			}
 			if got := act.HasMoreTokens(); got != tt.want {
 				t.Errorf("Token.HasMoreTokens() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestToken_Advance(t *testing.T) {
+	tests := []struct {
+		name string
+		t    *Token
+		want *Token
+	}{
+		{
+			"test",
+			&Token{
+				Next: &Token{
+					TokenType: INT_CONST,
+					IntVal:    1234,
+				},
+				TokenType:  IDENTIFIER,
+				Identifier: "hoge",
+			},
+			&Token{
+				TokenType: INT_CONST,
+				IntVal:    1234,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.t.Advance()
+			if !reflect.DeepEqual(tt.t, tt.want) {
+				t.Errorf("Token.Advance() = %#v, want %#v", tt.t, tt.want)
 			}
 		})
 	}

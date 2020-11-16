@@ -29,6 +29,10 @@ jobs:
     - name: Test Tokenizer
       run: go test ./tokenizer/
       working-directory: ./jackanalyzer
+    
+    - name: Test Tokenizer
+      run: go test ./cmplengn
+      working-directory: ./jackanalyzer
 
   build:
     name: go build

@@ -10,17 +10,6 @@ type CompilationEngine struct {
 	t token.Token
 }
 
-// expression
-
-// TODO: いやわっかんねー
-// type expression struct {
-// 	term term `xml:"term"`
-// 	op op
-// }
-// type expressionList struct {
-// 	expressions []expression `xml:"expression"`
-// }
-
 // Parameter is element for parameterList
 type parameter struct {
 	Keyword    string

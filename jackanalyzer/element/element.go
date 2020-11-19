@@ -64,9 +64,16 @@ func (cl class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 }
 
 func genContent(s interface{}) string {
-	// s is string type
-	str, _ := s.(string)
-	return " " + str + " "
+	switch s.(type) {
+	case string:
+		str, _ := s.(string)
+		return " " + str + " "
+	case className:
+		str, _ := s.(className)
+		return " " + string(str) + " "
+	default:
+		return "" // invalid types
+	}
 }
 
 func genTagKeyword() xml.StartElement {

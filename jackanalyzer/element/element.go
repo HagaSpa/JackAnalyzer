@@ -59,7 +59,7 @@ func (cl class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)
-	// e.EncodeElement(genContent(cl.modifier), genTagKeyword())
+	e.EncodeElement(genContent(cl.modifier), genTagKeyword())
 	return nil
 }
 
@@ -67,4 +67,16 @@ func genContent(s interface{}) string {
 	// s is string type
 	str, _ := s.(string)
 	return " " + str + " "
+}
+
+func genTagKeyword() xml.StartElement {
+	return xml.StartElement{Name: xml.Name{Local: "keyword"}}
+}
+
+func genTagIdentifier() xml.StartElement {
+	return xml.StartElement{Name: xml.Name{Local: "identifier"}}
+}
+
+func genTagSymbol() xml.StartElement {
+	return xml.StartElement{Name: xml.Name{Local: "symbol"}}
 }

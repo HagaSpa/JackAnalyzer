@@ -21,10 +21,25 @@ type subroutineDec struct {
 	subName       subroutineName // identifier
 	lParan        string         // '('
 	parameterList []parameter    // (type varName (, type, varName)*)?
-	subBody       subroutineBody
+	rParen        string         // ')'
+	subBody       subroutineBody // subroutineBody
 }
 
-type subroutineBody interface{}
+type subroutineBody struct {
+	lBrace     string // '{'
+	varDec     varDec // varDec*
+	statements []statement
+}
+
+type varDec struct {
+	modifier  string    // 'var'
+	varType   types     // type
+	varNames  []varName // varName (, varName)*
+	semiColon string    // ';'
+}
+
+type statement struct{}
+
 type parameter struct {
 	paramType types
 	parmaName varName

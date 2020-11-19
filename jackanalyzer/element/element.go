@@ -1,6 +1,11 @@
 package element
 
+import (
+	"encoding/xml"
+)
+
 type class struct {
+	modifier      string          // 'class'
 	className     className       // identifier
 	lBrace        string          // '{'
 	classVarDec   []classVarDec   // classVarDec*
@@ -49,3 +54,17 @@ type types string          // 'int' | 'char' | 'boolean' | className
 type className string      // identifier
 type subroutineName string // identifier
 type varName string        // identifier
+
+func (cl class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	// class
+	start.Name.Local = "class"
+	e.EncodeToken(start)
+	// e.EncodeElement(genContent(cl.modifier), genTagKeyword())
+	return nil
+}
+
+func genContent(s interface{}) string {
+	// s is string type
+	str, _ := s.(string)
+	return " " + str + " "
+}

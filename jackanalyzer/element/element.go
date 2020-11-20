@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 )
 
-type class struct {
+type Class struct {
 	modifier      string          // 'class'
 	className     className       // identifier
 	lBrace        string          // '{'
@@ -55,7 +55,7 @@ type className string      // identifier
 type subroutineName string // identifier
 type varName string        // identifier
 
-func (cl class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)

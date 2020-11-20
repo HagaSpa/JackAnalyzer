@@ -31,12 +31,12 @@ func Test_genContent(t *testing.T) {
 func Test_class_MarshalXML(t *testing.T) {
 	tests := []struct {
 		name string
-		cl   class
+		cl   Class
 		want string
 	}{
 		{
 			"test",
-			class{
+			Class{
 				modifier:  "class",
 				className: "Main",
 				lBrace:    "{",

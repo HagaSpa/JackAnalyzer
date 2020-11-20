@@ -5,42 +5,42 @@ import (
 )
 
 type Class struct {
-	modifier      string          // 'class'
-	className     ClassName       // identifier
-	lBrace        string          // '{'
-	classVarDec   []ClassVarDec   // classVarDec*
-	subtoutineDec []SubroutineDec // subroutineDec*
-	rBrace        string          // '}'
+	Modifier      string          // 'class'
+	ClassName     ClassName       // identifier
+	LBrace        string          // '{'
+	ClassVarDec   []ClassVarDec   // classVarDec*
+	SubtoutineDec []SubroutineDec // subroutineDec*
+	RBrace        string          // '}'
 }
 
 type ClassVarDec struct {
-	modifier  string    // 'static' | 'field'
-	varType   Types     // 'int' | 'char' | 'boolean' | className
-	varNames  []VarName // varName (, varName)*
-	semiColon string    // ';'
+	Modifier  string    // 'static' | 'field'
+	VarType   Types     // 'int' | 'char' | 'boolean' | className
+	VarNames  []VarName // varName (, varName)*
+	SemiColon string    // ';'
 }
 
 type SubroutineDec struct {
-	modifier      string         // 'constructor' | 'function' | 'method'
-	subType       string         // 'void' | type
-	subName       SubroutineName // identifier
-	lParan        string         // '('
-	parameterList []Parameter    // (type varName (, type, varName)*)?
-	rParen        string         // ')'
-	subBody       SubroutineBody // subroutineBody
+	Modifier      string         // 'constructor' | 'function' | 'method'
+	SubType       string         // 'void' | type
+	SubName       SubroutineName // identifier
+	LParan        string         // '('
+	ParameterList []Parameter    // (type varName (, type, varName)*)?
+	RParen        string         // ')'
+	SubBody       SubroutineBody // subroutineBody
 }
 
 type SubroutineBody struct {
-	lBrace     string // '{'
-	varDec     VarDec // varDec*
-	statements []Statement
+	LBrace     string // '{'
+	VarDec     VarDec // varDec*
+	Statements []Statement
 }
 
 type VarDec struct {
-	modifier  string    // 'var'
-	varType   Types     // type
-	varNames  []VarName // varName (, varName)*
-	semiColon string    // ';'
+	Modifier  string    // 'var'
+	VarType   Types     // type
+	VarNames  []VarName // varName (, varName)*
+	SemiColon string    // ';'
 }
 
 type Statement struct{}
@@ -59,9 +59,9 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cl.modifier), genTagKeyword())
-	e.EncodeElement(genContent(cl.className), genTagIdentifier())
-	e.EncodeElement(genContent(cl.lBrace), genTagSymbol())
+	e.EncodeElement(genContent(cl.Modifier), genTagKeyword())
+	e.EncodeElement(genContent(cl.ClassName), genTagIdentifier())
+	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
 	e.EncodeToken(start.End())
 	return nil
 }

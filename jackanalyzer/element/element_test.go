@@ -37,9 +37,9 @@ func Test_class_MarshalXML(t *testing.T) {
 		{
 			"test",
 			Class{
-				modifier:  "class",
-				className: "Main",
-				lBrace:    "{",
+				Modifier:  "class",
+				ClassName: "Main",
+				LBrace:    "{",
 			},
 			`
 <class>

@@ -6,54 +6,54 @@ import (
 
 type Class struct {
 	modifier      string          // 'class'
-	className     className       // identifier
+	className     ClassName       // identifier
 	lBrace        string          // '{'
-	classVarDec   []classVarDec   // classVarDec*
-	subtoutineDec []subroutineDec // subroutineDec*
+	classVarDec   []ClassVarDec   // classVarDec*
+	subtoutineDec []SubroutineDec // subroutineDec*
 	rBrace        string          // '}'
 }
 
-type classVarDec struct {
+type ClassVarDec struct {
 	modifier  string    // 'static' | 'field'
-	varType   types     // 'int' | 'char' | 'boolean' | className
-	varNames  []varName // varName (, varName)*
+	varType   Types     // 'int' | 'char' | 'boolean' | className
+	varNames  []VarName // varName (, varName)*
 	semiColon string    // ';'
 }
 
-type subroutineDec struct {
+type SubroutineDec struct {
 	modifier      string         // 'constructor' | 'function' | 'method'
 	subType       string         // 'void' | type
-	subName       subroutineName // identifier
+	subName       SubroutineName // identifier
 	lParan        string         // '('
-	parameterList []parameter    // (type varName (, type, varName)*)?
+	parameterList []Parameter    // (type varName (, type, varName)*)?
 	rParen        string         // ')'
-	subBody       subroutineBody // subroutineBody
+	subBody       SubroutineBody // subroutineBody
 }
 
-type subroutineBody struct {
+type SubroutineBody struct {
 	lBrace     string // '{'
-	varDec     varDec // varDec*
-	statements []statement
+	varDec     VarDec // varDec*
+	statements []Statement
 }
 
-type varDec struct {
+type VarDec struct {
 	modifier  string    // 'var'
-	varType   types     // type
-	varNames  []varName // varName (, varName)*
+	varType   Types     // type
+	varNames  []VarName // varName (, varName)*
 	semiColon string    // ';'
 }
 
-type statement struct{}
+type Statement struct{}
 
-type parameter struct {
-	paramType types
-	parmaName varName
+type Parameter struct {
+	paramType Types
+	parmaName VarName
 	comma     string
 }
-type types string          // 'int' | 'char' | 'boolean' | className
-type className string      // identifier
-type subroutineName string // identifier
-type varName string        // identifier
+type Types string          // 'int' | 'char' | 'boolean' | className
+type ClassName string      // identifier
+type SubroutineName string // identifier
+type VarName string        // identifier
 
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
@@ -71,8 +71,8 @@ func genContent(s interface{}) string {
 	case string:
 		str, _ := s.(string)
 		return " " + str + " "
-	case className:
-		str, _ := s.(className)
+	case ClassName:
+		str, _ := s.(ClassName)
 		return " " + string(str) + " "
 	default:
 		return "" // invalid types

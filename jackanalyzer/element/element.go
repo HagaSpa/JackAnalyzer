@@ -61,6 +61,7 @@ func (cl class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	e.EncodeToken(start)
 	e.EncodeElement(genContent(cl.modifier), genTagKeyword())
 	e.EncodeElement(genContent(cl.className), genTagIdentifier())
+	e.EncodeElement(genContent(cl.lBrace), genTagSymbol())
 	e.EncodeToken(start.End())
 	return nil
 }

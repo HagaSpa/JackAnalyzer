@@ -39,11 +39,13 @@ func Test_class_MarshalXML(t *testing.T) {
 			class{
 				modifier:  "class",
 				className: "Main",
+				lBrace:    "{",
 			},
 			`
 <class>
   <keyword> class </keyword>
   <identifier> Main </identifier>
+  <symbol> { </symbol>
 </class>
 `,
 		},

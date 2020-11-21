@@ -62,8 +62,15 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	e.EncodeElement(genContent(cl.Modifier), genTagKeyword())
 	e.EncodeElement(genContent(cl.ClassName), genTagIdentifier())
 	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
+
+	// TODO: if cl.ClassVarDec != nil: call (cvd ClassVarDec) MarshalXML
+
 	e.EncodeToken(start.End())
 	return nil
+}
+
+func (cl Class) genClassVarDec(e *xml.Encoder) {
+	// TODO
 }
 
 func genContent(s interface{}) string {

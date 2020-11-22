@@ -63,14 +63,27 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	e.EncodeElement(genContent(cl.ClassName), genTagIdentifier())
 	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
 
-	// TODO: if cl.ClassVarDec != nil: call (cvd ClassVarDec) MarshalXML
+	// TODO: Methodization...
+	// ClassVarDec
+	if len(cl.ClassVarDec) != 0 {
+		for _, v := range cl.ClassVarDec {
+			cvds := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
+			e.EncodeToken(cvds)
+			e.EncodeElement(genContent(v.Modifier), genTagKeyword())
+			e.EncodeElement(genContent(v.VarType), genTagKeyword())
+			for i, v2 := range v.VarNames {
+				e.EncodeElement(genContent(v2), genTagIdentifier())
+				if i < len(v.VarNames)-1 {
+					e.EncodeElement(genContent(","), genTagSymbol())
+				}
+			}
+			e.EncodeElement(genContent(v.SemiColon), genTagSymbol())
+			e.EncodeToken(cvds.End())
+		}
+	}
 
 	e.EncodeToken(start.End())
 	return nil
-}
-
-func (cl Class) genClassVarDec(e *xml.Encoder) {
-	// TODO
 }
 
 func genContent(s interface{}) string {
@@ -80,6 +93,12 @@ func genContent(s interface{}) string {
 		return " " + str + " "
 	case ClassName:
 		str, _ := s.(ClassName)
+		return " " + string(str) + " "
+	case Types:
+		str, _ := s.(Types)
+		return " " + string(str) + " "
+	case VarName:
+		str, _ := s.(VarName)
 		return " " + string(str) + " "
 	default:
 		return "" // invalid types

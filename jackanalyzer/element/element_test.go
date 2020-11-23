@@ -1,6 +1,7 @@
 package element
 
 import (
+	"bytes"
 	"encoding/xml"
 	"reflect"
 	"strings"
@@ -88,6 +89,49 @@ func Test_class_MarshalXML(t *testing.T) {
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
 			if !reflect.DeepEqual(string(output), want) {
 				t.Errorf("class.MarshalXML() = %v", string(output))
+				t.Errorf("wantXml = %v", want)
+			}
+		})
+	}
+}
+
+func TestClassVarDec_genClassVarDec(t *testing.T) {
+	tests := []struct {
+		name string
+		cd   ClassVarDec
+		want string
+	}{
+		{
+			"test",
+			ClassVarDec{
+				Modifier:  "field",
+				VarType:   "int",
+				VarNames:  []VarName{"x", "y"},
+				SemiColon: ";",
+			},
+			`
+<classVarDec>
+  <keyword> field </keyword>
+  <keyword> int </keyword>
+  <identifier> x </identifier>
+  <symbol> , </symbol>
+  <identifier> y </identifier>
+  <symbol> ; </symbol>
+</classVarDec>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.cd.genClassVarDec(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("cd.genClassVarDec() = %v", b.String())
 				t.Errorf("wantXml = %v", want)
 			}
 		})

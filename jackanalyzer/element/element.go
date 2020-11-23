@@ -63,27 +63,32 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	e.EncodeElement(genContent(cl.ClassName), genTagIdentifier())
 	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
 
-	// TODO: Methodization...
 	// ClassVarDec
 	if len(cl.ClassVarDec) != 0 {
 		for _, v := range cl.ClassVarDec {
-			cvds := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
-			e.EncodeToken(cvds)
-			e.EncodeElement(genContent(v.Modifier), genTagKeyword())
-			e.EncodeElement(genContent(v.VarType), genTagKeyword())
-			for i, v2 := range v.VarNames {
-				e.EncodeElement(genContent(v2), genTagIdentifier())
-				if i < len(v.VarNames)-1 {
-					e.EncodeElement(genContent(","), genTagSymbol())
-				}
-			}
-			e.EncodeElement(genContent(v.SemiColon), genTagSymbol())
-			e.EncodeToken(cvds.End())
+			v.genClassVarDec(e)
 		}
 	}
 
 	e.EncodeToken(start.End())
 	return nil
+}
+
+func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genContent(cd.Modifier), genTagKeyword())
+	e.EncodeElement(genContent(cd.VarType), genTagKeyword())
+
+	for i, v := range cd.VarNames {
+		e.EncodeElement(genContent(v), genTagIdentifier())
+		if i < len(cd.VarNames)-1 {
+			e.EncodeElement(genContent(","), genTagSymbol())
+		}
+	}
+
+	e.EncodeElement(genContent(cd.SemiColon), genTagSymbol())
+	e.EncodeToken(start.End())
 }
 
 func genContent(s interface{}) string {

@@ -30,7 +30,7 @@ jobs:
       run: go test ./tokenizer/
       working-directory: ./jackanalyzer
     
-    - name: Test Tokenizer
+    - name: Test CompilationEngine
       run: go test ./cmplengn
       working-directory: ./jackanalyzer
 

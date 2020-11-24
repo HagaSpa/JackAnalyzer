@@ -43,10 +43,6 @@ type VarDec struct {
 	SemiColon string    // ';'
 }
 
-type Statement interface {
-	statement()
-}
-
 type Parameter struct {
 	paramType Types
 	parmaName VarName
@@ -56,6 +52,25 @@ type Types string          // 'int' | 'char' | 'boolean' | className
 type ClassName string      // identifier
 type SubroutineName string // identifier
 type VarName string        // identifier
+
+/* Statements */
+type Statement interface {
+	statement()
+}
+
+/* Expession */
+type Expression struct {
+	Term Term
+	Next []Ops
+}
+type Ops struct {
+	Bop  Op // binary operator
+	Term Term
+}
+type Term string
+type KeywordConstant string
+type UnaryOp string
+type Op string
 
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class

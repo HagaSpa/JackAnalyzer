@@ -81,6 +81,49 @@ func Test_class_MarshalXML(t *testing.T) {
 </class>
 `,
 		},
+		{
+			"classVarDed loop",
+			Class{
+				Modifier:  "class",
+				ClassName: "Main",
+				LBrace:    "{",
+				ClassVarDec: []ClassVarDec{
+					{
+						Modifier:  "field",
+						VarType:   "int",
+						VarNames:  []VarName{"x", "y"},
+						SemiColon: ";",
+					},
+					{
+						Modifier:  "field",
+						VarType:   "int",
+						VarNames:  []VarName{"size"},
+						SemiColon: ";",
+					},
+				},
+			},
+			`
+<class>
+  <keyword> class </keyword>
+  <identifier> Main </identifier>
+  <symbol> { </symbol>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier> x </identifier>
+    <symbol> , </symbol>
+    <identifier> y </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+  <classVarDec>
+    <keyword> field </keyword>
+    <keyword> int </keyword>
+    <identifier> size </identifier>
+    <symbol> ; </symbol>
+  </classVarDec>
+</class>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

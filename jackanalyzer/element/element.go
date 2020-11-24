@@ -43,7 +43,9 @@ type VarDec struct {
 	SemiColon string    // ';'
 }
 
-type Statement struct{}
+type Statement interface {
+	statement()
+}
 
 type Parameter struct {
 	paramType Types

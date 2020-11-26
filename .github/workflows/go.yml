@@ -34,6 +34,10 @@ jobs:
       run: go test ./cmplengn
       working-directory: ./jackanalyzer
 
+    - name: Test Element
+      run: go test ./element
+      working-directory: ./jackanalyzer
+
   build:
     name: go build
     runs-on: ubuntu-latest

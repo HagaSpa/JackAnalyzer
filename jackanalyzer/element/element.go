@@ -70,18 +70,16 @@ type Ops struct {
 type Term string
 
 /*
-FIXME: have no idea...
-
 subroutineName '(' expressionList ')' |
 (className | varName) '.' subroutineName '(' expressionList ')'
 */
 type SubroutineCall struct {
-	SubName        string
+	Name           string       // ClassName | VarName
+	Dot            string       // .
+	SubName        string       // string
 	LParan         string       // '('
 	ExpressionList []Expression // (expression(, expression)*)?
 	RParen         string       // ')'
-	//  ClassName and VarName should be common inteface??
-	Name string // ClassName | VarName
 }
 
 type KeywordConstant string

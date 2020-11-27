@@ -67,7 +67,11 @@ type Ops struct {
 	Bop  Op // binary operator
 	Term Term
 }
-type Term string
+
+// Term is term
+type Term interface {
+	term()
+}
 
 /*
 subroutineName '(' expressionList ')' |

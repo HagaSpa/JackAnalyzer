@@ -109,11 +109,6 @@ func (sbc *SubroutineCall) term() {}
 func (args *Args) term()          {}
 func (ut *UopTerm) term()         {}
 
-/*
-subroutineName '(' expressionList ')' |
-(className | varName) '.' subroutineName '(' expressionList ')'
-*/
-
 type UnaryOp string
 type Op string
 

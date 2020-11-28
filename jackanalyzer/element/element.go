@@ -51,7 +51,6 @@ type Parameter struct {
 type Types string          // 'int' | 'char' | 'boolean' | className
 type ClassName string      // identifier
 type SubroutineName string // identifier
-type VarName string        // identifier
 
 /* Statements */
 type Statement interface {
@@ -73,10 +72,16 @@ type Term interface {
 	term()
 }
 
-/*
-subroutineName '(' expressionList ')' |
-(className | varName) '.' subroutineName '(' expressionList ')'
-*/
+type IntegerConstant string
+type StringConstant string
+type KeywordConstant string
+type VarName string
+type CallIndex struct {
+	Vn       VarName
+	LBracket string
+	Exp      Expression
+	RBracket string
+}
 type SubroutineCall struct {
 	Name           string       // ClassName | VarName
 	Dot            string       // .
@@ -85,8 +90,30 @@ type SubroutineCall struct {
 	ExpressionList []Expression // (expression(, expression)*)?
 	RParen         string       // ')'
 }
+type Args struct {
+	LParan string
+	Exp    Expression
+	RParen string
+}
+type UopTerm struct {
+	Uop  string // unary operator
+	Term Term
+}
 
-type KeywordConstant string
+func (ic *IntegerConstant) term() {}
+func (sc *StringConstant) term()  {}
+func (kc *KeywordConstant) term() {}
+func (vn *VarName) term()         {}
+func (ci *CallIndex) term()       {}
+func (sbc *SubroutineCall) term() {}
+func (args *Args) term()          {}
+func (ut *UopTerm) term()         {}
+
+/*
+subroutineName '(' expressionList ')' |
+(className | varName) '.' subroutineName '(' expressionList ')'
+*/
+
 type UnaryOp string
 type Op string
 

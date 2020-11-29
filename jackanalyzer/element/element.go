@@ -68,7 +68,26 @@ type LetStatement struct {
 	Sc     string     // ';'
 }
 
+// IfStatement  represent to if.
+//
+// 'if' '(' expression ')' '{' statements '}'
+// ( 'else' '{' statements '}' )?
+type IfStatement struct {
+	Modi    string      // 'if'
+	LParan  string      // '('
+	Lexp    Expression  // expression
+	RParen  string      // ')'
+	LBrace  string      // '{'
+	Stmts   []Statement // statements
+	RBrace  string      // '}'
+	Else    string      // 'else'
+	Elbrace string      // '{'
+	Estmts  []Statement // statements
+	Erbrace string      // '}'
+}
+
 func (ls *LetStatement) statement() {}
+func (is *IfStatement) statement()  {}
 
 /* Expession */
 type Expression struct {

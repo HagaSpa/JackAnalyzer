@@ -120,6 +120,17 @@ type DoStatement struct {
 
 func (do *DoStatement) statement() {}
 
+// ReturnStatement represent to return.
+//
+// 'return' expression? ';'
+type ReturnStatement struct {
+	Modi string      // 'return'
+	Exp  *Expression // expression?
+	Sc   string      // ';'
+}
+
+func (rs *ReturnStatement) statement() {}
+
 /* Expession */
 type Expression struct {
 	Term Term

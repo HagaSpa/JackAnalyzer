@@ -109,6 +109,17 @@ type WhileStatement struct {
 
 func (ws *WhileStatement) statement() {}
 
+// DoStatement represent to do.
+//
+// 'do' subroutineCall ';'
+type DoStatement struct {
+	Modi string         // 'do'
+	Subr SubroutineCall // subroutineCall
+	Sc   string         // ';'
+}
+
+func (do *DoStatement) statement() {}
+
 /* Expession */
 type Expression struct {
 	Term Term

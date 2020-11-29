@@ -57,6 +57,17 @@ type Statement interface {
 	statement()
 }
 
+type LetStatement struct {
+	Modi   string     // 'let'
+	Vn     VarName    // varName
+	LBrack string     // '['
+	Lexp   Expression // expression
+	RBrack string     // ']'
+	Eq     string     // '='
+	Rexp   Expression // expression
+	Sc     string     // ';'
+}
+
 /* Expession */
 type Expression struct {
 	Term Term

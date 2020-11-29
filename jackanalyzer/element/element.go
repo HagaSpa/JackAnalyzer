@@ -60,11 +60,7 @@ type Statement interface {
 /* Expession */
 type Expression struct {
 	Term Term
-	Next []Ops
-}
-type Ops struct {
-	Bop  Op // binary operator
-	Term Term
+	Next BopTerm
 }
 
 // Term is term
@@ -97,6 +93,10 @@ type Args struct {
 }
 type UopTerm struct {
 	Uop  string // unary operator
+	Term Term
+}
+type BopTerm struct {
+	Bop  Op // binary operator
 	Term Term
 }
 

@@ -94,6 +94,21 @@ type IfStatement struct {
 
 func (is *IfStatement) statement() {}
 
+// WhileStatement represent to while.
+//
+// 'while' '(' expression ')' '{' statements '}'
+type WhileStatement struct {
+	Modi   string      // 'while'
+	LParan string      // '('
+	Lexp   Expression  // expression
+	RParen string      // ')'
+	LBrace string      // '{'
+	Stmts  []Statement // statements
+	RBrace string      // '}'
+}
+
+func (ws *WhileStatement) statement() {}
+
 /* Expession */
 type Expression struct {
 	Term Term

@@ -57,6 +57,10 @@ type Statement interface {
 	statement()
 }
 
+// LetStatement represent to let.
+//
+// 'let' varName ( '[' expression ']' )?
+// '=' expression ';'
 type LetStatement struct {
 	Modi   string     // 'let'
 	Vn     VarName    // varName
@@ -68,7 +72,9 @@ type LetStatement struct {
 	Sc     string     // ';'
 }
 
-// IfStatement  represent to if.
+func (ls *LetStatement) statement() {}
+
+// IfStatement represent to if.
 //
 // 'if' '(' expression ')' '{' statements '}'
 // ( 'else' '{' statements '}' )?
@@ -86,8 +92,7 @@ type IfStatement struct {
 	Erbrace string      // '}'
 }
 
-func (ls *LetStatement) statement() {}
-func (is *IfStatement) statement()  {}
+func (is *IfStatement) statement() {}
 
 /* Expession */
 type Expression struct {

@@ -68,6 +68,8 @@ type LetStatement struct {
 	Sc     string     // ';'
 }
 
+func (ls *LetStatement) statement() {}
+
 /* Expession */
 type Expression struct {
 	Term Term

@@ -38,9 +38,9 @@ func Test_class_MarshalXML(t *testing.T) {
 		{
 			"test",
 			Class{
-				Modifier:  "class",
-				ClassName: "Main",
-				LBrace:    "{",
+				Modi:   "class",
+				Cn:     "Main",
+				LBrace: "{",
 			},
 			`
 <class>
@@ -53,10 +53,10 @@ func Test_class_MarshalXML(t *testing.T) {
 		{
 			"test2",
 			Class{
-				Modifier:  "class",
-				ClassName: "Main",
-				LBrace:    "{",
-				ClassVarDec: []ClassVarDec{
+				Modi:   "class",
+				Cn:     "Main",
+				LBrace: "{",
+				Cvds: []ClassVarDec{
 					{
 						Modifier:  "field",
 						VarType:   "int",
@@ -84,10 +84,10 @@ func Test_class_MarshalXML(t *testing.T) {
 		{
 			"classVarDed loop",
 			Class{
-				Modifier:  "class",
-				ClassName: "Main",
-				LBrace:    "{",
-				ClassVarDec: []ClassVarDec{
+				Modi:   "class",
+				Cn:     "Main",
+				LBrace: "{",
+				Cvds: []ClassVarDec{
 					{
 						Modifier:  "field",
 						VarType:   "int",

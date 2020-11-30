@@ -5,12 +5,12 @@ import (
 )
 
 type Class struct {
-	Modifier      string          // 'class'
-	ClassName     ClassName       // identifier
-	LBrace        string          // '{'
-	ClassVarDec   []ClassVarDec   // classVarDec*
-	SubtoutineDec []SubroutineDec // subroutineDec*
-	RBrace        string          // '}'
+	Modi   string          // 'class'
+	Cn     ClassName       // identifier
+	LBrace string          // '{'
+	Cvds   []ClassVarDec   // classVarDec*
+	Sds    []SubroutineDec // subroutineDec*
+	RBrace string          // '}'
 }
 
 type ClassVarDec struct {
@@ -190,13 +190,13 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cl.Modifier), genTagKeyword())
-	e.EncodeElement(genContent(cl.ClassName), genTagIdentifier())
+	e.EncodeElement(genContent(cl.Modi), genTagKeyword())
+	e.EncodeElement(genContent(cl.Cn), genTagIdentifier())
 	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
 
 	// ClassVarDec
-	if len(cl.ClassVarDec) != 0 {
-		for _, v := range cl.ClassVarDec {
+	if len(cl.Cvds) != 0 {
+		for _, v := range cl.Cvds {
 			v.genClassVarDec(e)
 		}
 	}

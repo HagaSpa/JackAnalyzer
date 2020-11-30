@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 )
 
+// 'class' className '{' classVarDec* subroutineDec* '}'
 type Class struct {
 	Modi   string          // 'class'
 	Cn     ClassName       // identifier

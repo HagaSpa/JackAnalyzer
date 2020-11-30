@@ -44,9 +44,9 @@ type VarDec struct {
 }
 
 type Parameter struct {
-	paramType Types
-	parmaName VarName
-	comma     string
+	Type  Types
+	Vn    VarName
+	Comma string
 }
 type Types string          // 'int' | 'char' | 'boolean' | className
 type ClassName string      // identifier

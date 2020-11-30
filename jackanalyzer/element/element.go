@@ -14,10 +14,10 @@ type Class struct {
 }
 
 type ClassVarDec struct {
-	Modifier  string    // 'static' | 'field'
-	VarType   Types     // 'int' | 'char' | 'boolean' | className
-	VarNames  []VarName // varName (, varName)*
-	SemiColon string    // ';'
+	Modi string    // 'static' | 'field'
+	Vt   Types     // 'int' | 'char' | 'boolean' | className
+	Vns  []VarName // varName (, varName)*
+	Sc   string    // ';'
 }
 
 type SubroutineDec struct {
@@ -208,17 +208,17 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cd.Modifier), genTagKeyword())
-	e.EncodeElement(genContent(cd.VarType), genTagKeyword())
+	e.EncodeElement(genContent(cd.Modi), genTagKeyword())
+	e.EncodeElement(genContent(cd.Vt), genTagKeyword())
 
-	for i, v := range cd.VarNames {
+	for i, v := range cd.Vns {
 		e.EncodeElement(genContent(v), genTagIdentifier())
-		if i < len(cd.VarNames)-1 {
+		if i < len(cd.Vns)-1 {
 			e.EncodeElement(genContent(","), genTagSymbol())
 		}
 	}
 
-	e.EncodeElement(genContent(cd.SemiColon), genTagSymbol())
+	e.EncodeElement(genContent(cd.Sc), genTagSymbol())
 	e.EncodeToken(start.End())
 }
 

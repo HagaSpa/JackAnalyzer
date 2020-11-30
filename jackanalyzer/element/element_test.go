@@ -58,10 +58,10 @@ func Test_class_MarshalXML(t *testing.T) {
 				LBrace: "{",
 				Cvds: []ClassVarDec{
 					{
-						Modifier:  "field",
-						VarType:   "int",
-						VarNames:  []VarName{"x", "y"},
-						SemiColon: ";",
+						Modi: "field",
+						Vt:   "int",
+						Vns:  []VarName{"x", "y"},
+						Sc:   ";",
 					},
 				},
 			},
@@ -89,16 +89,16 @@ func Test_class_MarshalXML(t *testing.T) {
 				LBrace: "{",
 				Cvds: []ClassVarDec{
 					{
-						Modifier:  "field",
-						VarType:   "int",
-						VarNames:  []VarName{"x", "y"},
-						SemiColon: ";",
+						Modi: "field",
+						Vt:   "int",
+						Vns:  []VarName{"x", "y"},
+						Sc:   ";",
 					},
 					{
-						Modifier:  "field",
-						VarType:   "int",
-						VarNames:  []VarName{"size"},
-						SemiColon: ";",
+						Modi: "field",
+						Vt:   "int",
+						Vns:  []VarName{"size"},
+						Sc:   ";",
 					},
 				},
 			},
@@ -147,10 +147,10 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 		{
 			"test",
 			ClassVarDec{
-				Modifier:  "field",
-				VarType:   "int",
-				VarNames:  []VarName{"x", "y"},
-				SemiColon: ";",
+				Modi: "field",
+				Vt:   "int",
+				Vns:  []VarName{"x", "y"},
+				Sc:   ";",
 			},
 			`
 <classVarDec>

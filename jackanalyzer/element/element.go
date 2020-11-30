@@ -13,6 +13,7 @@ type Class struct {
 	RBrace string          // '}'
 }
 
+// ( 'static' | 'field' ) type varName ( ',' varName)* ';'
 type ClassVarDec struct {
 	Modi string    // 'static' | 'field'
 	Vt   Types     // 'int' | 'char' | 'boolean' | className

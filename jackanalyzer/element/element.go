@@ -20,6 +20,9 @@ type ClassVarDec struct {
 	Sc   string    // ';'
 }
 
+// ( 'constructor' | 'function' | 'method' )
+// ( 'void' | Types ) subroutineName '(' parameterList ')'
+// subroutineBody
 type SubroutineDec struct {
 	Modi   string         // 'constructor' | 'function' | 'method'
 	St     string         // 'void' | type

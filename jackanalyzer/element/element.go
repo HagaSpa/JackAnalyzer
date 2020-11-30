@@ -30,10 +30,12 @@ type SubroutineDec struct {
 	Sb     SubroutineBody // subroutineBody
 }
 
+// '{' varDec* statements '}'
 type SubroutineBody struct {
-	LBrace string // '{'
-	Vd     VarDec // varDec*
-	Stmts  []Statement
+	LBrace string      // '{'
+	Vd     *VarDec     // varDec*
+	Stmts  []Statement // statements
+	RBrace string      // '}'
 }
 
 type VarDec struct {

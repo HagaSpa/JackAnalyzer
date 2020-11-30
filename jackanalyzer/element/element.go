@@ -37,10 +37,10 @@ type SubroutineBody struct {
 }
 
 type VarDec struct {
-	Modifier  string    // 'var'
-	VarType   Types     // type
-	VarNames  []VarName // varName (, varName)*
-	SemiColon string    // ';'
+	Modi string    // 'var'
+	Vt   Types     // type
+	Vns  []VarName // varName (, varName)*
+	Sc   string    // ';'
 }
 
 type Parameter struct {

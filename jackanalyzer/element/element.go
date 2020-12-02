@@ -230,22 +230,18 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 }
 
 func genContent(s interface{}) string {
+	var str string
 	switch s.(type) {
 	case string:
-		str, _ := s.(string)
-		return " " + str + " "
+		str = s.(string)
 	case ClassName:
-		str, _ := s.(ClassName)
-		return " " + string(str) + " "
+		str = string(s.(ClassName))
 	case Types:
-		str, _ := s.(Types)
-		return " " + string(str) + " "
+		str = string(s.(Types))
 	case VarName:
-		str, _ := s.(VarName)
-		return " " + string(str) + " "
-	default:
-		return "" // invalid types
+		str = string(s.(VarName))
 	}
+	return " " + str + " "
 }
 
 func genTagKeyword() xml.StartElement {

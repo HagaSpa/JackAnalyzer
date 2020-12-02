@@ -197,9 +197,9 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cl.Modi), genTagKeyword())
-	e.EncodeElement(genContent(cl.Cn), genTagIdentifier())
-	e.EncodeElement(genContent(cl.LBrace), genTagSymbol())
+	e.EncodeElement(genContent(cl.Modi), genTrmSymTag(cl.Modi))
+	e.EncodeElement(genContent(cl.Cn), genTrmSymTag(cl.Cn))
+	e.EncodeElement(genContent(cl.LBrace), genTrmSymTag(cl.LBrace))
 
 	// ClassVarDec
 	if len(cl.Cvds) != 0 {

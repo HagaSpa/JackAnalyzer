@@ -259,3 +259,21 @@ func genTagIdentifier() xml.StartElement {
 func genTagSymbol() xml.StartElement {
 	return xml.StartElement{Name: xml.Name{Local: "symbol"}}
 }
+
+type keyword string
+type identifier string
+type symbol string
+
+// generate xml tag for terminal symbol.
+func genTrmSymTag(s interface{}) xml.StartElement {
+	var l string
+	switch s.(type) {
+	case keyword:
+		l = "keyword"
+	case identifier:
+		l = "identifier"
+	case symbol:
+		l = "symbol"
+	}
+	return xml.StartElement{Name: xml.Name{Local: l}}
+}

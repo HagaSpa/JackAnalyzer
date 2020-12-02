@@ -6,12 +6,12 @@ import (
 
 // 'class' className '{' classVarDec* subroutineDec* '}'
 type Class struct {
-	Modi   string           // 'class'
-	Cn     ClassName        // identifier
-	LBrace string           // '{'
+	Modi   keyword          // 'class'
+	Cn     identifier       // identifier
+	LBrace symbol           // '{'
 	Cvds   []*ClassVarDec   // classVarDec*
 	Sds    []*SubroutineDec // subroutineDec*
-	RBrace string           // '}'
+	RBrace symbol           // '}'
 }
 
 // ( 'static' | 'field' ) type varName ( ',' varName)* ';'
@@ -234,6 +234,12 @@ func genContent(s interface{}) string {
 	switch s.(type) {
 	case string:
 		str = s.(string)
+	case keyword:
+		str = string(s.(keyword))
+	case identifier:
+		str = string(s.(identifier))
+	case symbol:
+		str = string(s.(symbol))
 	case ClassName:
 		str = string(s.(ClassName))
 	case Types:

@@ -56,7 +56,7 @@ func Test_class_MarshalXML(t *testing.T) {
 				Modi:   "class",
 				Cn:     "Main",
 				LBrace: "{",
-				Cvds: []ClassVarDec{
+				Cvds: []*ClassVarDec{
 					{
 						Modi: "field",
 						Vt:   "int",
@@ -87,7 +87,7 @@ func Test_class_MarshalXML(t *testing.T) {
 				Modi:   "class",
 				Cn:     "Main",
 				LBrace: "{",
-				Cvds: []ClassVarDec{
+				Cvds: []*ClassVarDec{
 					{
 						Modi: "field",
 						Vt:   "int",

@@ -6,12 +6,12 @@ import (
 
 // 'class' className '{' classVarDec* subroutineDec* '}'
 type Class struct {
-	Modi   string          // 'class'
-	Cn     ClassName       // identifier
-	LBrace string          // '{'
-	Cvds   []ClassVarDec   // classVarDec*
-	Sds    []SubroutineDec // subroutineDec*
-	RBrace string          // '}'
+	Modi   string           // 'class'
+	Cn     ClassName        // identifier
+	LBrace string           // '{'
+	Cvds   []*ClassVarDec   // classVarDec*
+	Sds    []*SubroutineDec // subroutineDec*
+	RBrace string           // '}'
 }
 
 // ( 'static' | 'field' ) type varName ( ',' varName)* ';'
@@ -86,17 +86,17 @@ func (ls *LetStatement) statement() {}
 // 'if' '(' expression ')' '{' statements '}'
 // ( 'else' '{' statements '}' )?
 type IfStatement struct {
-	Modi    string      // 'if'
-	LParan  string      // '('
-	Lexp    Expression  // expression
-	RParen  string      // ')'
-	LBrace  string      // '{'
-	Stmts   []Statement // statements
-	RBrace  string      // '}'
-	Else    *string     // 'else'
-	Elbrace *string     // '{'
-	Estmts  []Statement // statements
-	Erbrace *string     // '}'
+	Modi    string       // 'if'
+	LParan  string       // '('
+	Lexp    Expression   // expression
+	RParen  string       // ')'
+	LBrace  string       // '{'
+	Stmts   []Statement  // statements
+	RBrace  string       // '}'
+	Else    *string      // 'else'
+	Elbrace *string      // '{'
+	Estmts  []*Statement // statements
+	Erbrace *string      // '}'
 }
 
 func (is *IfStatement) statement() {}

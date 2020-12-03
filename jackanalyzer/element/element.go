@@ -226,7 +226,7 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 		}
 	}
 
-	e.EncodeElement(genContent(cd.Sc), genTagSymbol())
+	e.EncodeElement(genContent(cd.Sc), genTrmSymTag(cd.Sc))
 	e.EncodeToken(start.End())
 }
 

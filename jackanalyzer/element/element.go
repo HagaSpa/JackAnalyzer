@@ -37,10 +37,10 @@ type SubroutineDec struct {
 
 // '{' varDec* statements '}'
 type SubroutineBody struct {
-	LBrace string      // '{'
+	LBrace symbol      // '{'
 	Vd     *VarDec     // varDec*
 	Stmts  []Statement // statements
-	RBrace string      // '}'
+	RBrace symbol      // '}'
 }
 
 type VarDec struct {

@@ -16,10 +16,10 @@ type Class struct {
 
 // ( 'static' | 'field' ) type varName ( ',' varName)* ';'
 type ClassVarDec struct {
-	Modi string    // 'static' | 'field'
-	Vt   Types     // 'int' | 'char' | 'boolean' | className
-	Vns  []VarName // varName (, varName)*
-	Sc   string    // ';'
+	Modi keyword      // 'static' | 'field'
+	Vt   keyword      // 'int' | 'char' | 'boolean' | className
+	Vns  []identifier // varName (, varName)*
+	Sc   symbol       // ';'
 }
 
 // ( 'constructor' | 'function' | 'method' )
@@ -215,13 +215,14 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cd.Modi), genTagKeyword())
-	e.EncodeElement(genContent(cd.Vt), genTagKeyword())
+	e.EncodeElement(genContent(cd.Modi), genTrmSymTag(cd.Modi))
+	e.EncodeElement(genContent(cd.Vt), genTrmSymTag(cd.Vt))
 
 	for i, v := range cd.Vns {
-		e.EncodeElement(genContent(v), genTagIdentifier())
+		e.EncodeElement(genContent(v), genTrmSymTag(v))
 		if i < len(cd.Vns)-1 {
-			e.EncodeElement(genContent(","), genTagSymbol())
+			s := symbol(",")
+			e.EncodeElement(genContent(s), genTrmSymTag(s))
 		}
 	}
 

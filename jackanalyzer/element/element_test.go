@@ -60,7 +60,7 @@ func Test_class_MarshalXML(t *testing.T) {
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []VarName{"x", "y"},
+						Vns:  []identifier{"x", "y"},
 						Sc:   ";",
 					},
 				},
@@ -91,13 +91,13 @@ func Test_class_MarshalXML(t *testing.T) {
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []VarName{"x", "y"},
+						Vns:  []identifier{"x", "y"},
 						Sc:   ";",
 					},
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []VarName{"size"},
+						Vns:  []identifier{"size"},
 						Sc:   ";",
 					},
 				},
@@ -149,7 +149,7 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 			ClassVarDec{
 				Modi: "field",
 				Vt:   "int",
-				Vns:  []VarName{"x", "y"},
+				Vns:  []identifier{"x", "y"},
 				Sc:   ";",
 			},
 			`

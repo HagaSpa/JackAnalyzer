@@ -26,12 +26,12 @@ type ClassVarDec struct {
 // ( 'void' | Types ) subroutineName '(' parameterList ')'
 // subroutineBody
 type SubroutineDec struct {
-	Modi   string         // 'constructor' | 'function' | 'method'
-	St     string         // 'void' | type
-	Sn     SubroutineName // identifier
-	LParan string         // '('
+	Modi   keyword        // 'constructor' | 'function' | 'method'
+	St     keyword        // 'void' | type
+	Sn     identifier     // subroutineName
+	LParan symbol         // '('
 	Pl     []Parameter    // (type varName (, type, varName)*)?
-	RParen string         // ')'
+	RParen symbol         // ')'
 	Sb     SubroutineBody // subroutineBody
 }
 

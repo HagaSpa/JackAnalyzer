@@ -251,18 +251,6 @@ func genContent(s interface{}) string {
 	return " " + str + " "
 }
 
-func genTagKeyword() xml.StartElement {
-	return xml.StartElement{Name: xml.Name{Local: "keyword"}}
-}
-
-func genTagIdentifier() xml.StartElement {
-	return xml.StartElement{Name: xml.Name{Local: "identifier"}}
-}
-
-func genTagSymbol() xml.StartElement {
-	return xml.StartElement{Name: xml.Name{Local: "symbol"}}
-}
-
 type keyword string
 type identifier string
 type symbol string

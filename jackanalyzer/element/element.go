@@ -74,14 +74,14 @@ type Statement interface {
 // 'let' varName ( '[' expression ']' )?
 // '=' expression ';'
 type LetStatement struct {
-	Modi   string     // 'let'
-	Vn     VarName    // varName
-	LBrack string     // '['
+	Modi   keyword    // 'let'
+	Vn     identifier // varName
+	LBrack symbol     // '['
 	Lexp   Expression // expression
-	RBrack string     // ']'
-	Eq     string     // '='
+	RBrack symbol     // ']'
+	Eq     symbol     // '='
 	Rexp   Expression // expression
-	Sc     string     // ';'
+	Sc     symbol     // ';'
 }
 
 func (ls *LetStatement) statement() {}

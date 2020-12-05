@@ -110,13 +110,13 @@ func (is *IfStatement) statement() {}
 //
 // 'while' '(' expression ')' '{' statements '}'
 type WhileStatement struct {
-	Modi   string      // 'while'
-	LParan string      // '('
+	Modi   keyword     // 'while'
+	LParan symbol      // '('
 	Lexp   Expression  // expression
-	RParen string      // ')'
-	LBrace string      // '{'
+	RParen symbol      // ')'
+	LBrace symbol      // '{'
 	Stmts  []Statement // statements
-	RBrace string      // '}'
+	RBrace symbol      // '}'
 }
 
 func (ws *WhileStatement) statement() {}

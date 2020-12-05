@@ -91,17 +91,17 @@ func (ls *LetStatement) statement() {}
 // 'if' '(' expression ')' '{' statements '}'
 // ( 'else' '{' statements '}' )?
 type IfStatement struct {
-	Modi    string       // 'if'
-	LParan  string       // '('
+	Modi    keyword      // 'if'
+	LParan  symbol       // '('
 	Lexp    Expression   // expression
-	RParen  string       // ')'
-	LBrace  string       // '{'
+	RParen  symbol       // ')'
+	LBrace  symbol       // '{'
 	Stmts   []Statement  // statements
-	RBrace  string       // '}'
-	Else    *string      // 'else'
-	Elbrace *string      // '{'
+	RBrace  symbol       // '}'
+	Else    *keyword     // 'else'
+	Elbrace *symbol      // '{'
 	Estmts  []*Statement // statements
-	Erbrace *string      // '}'
+	Erbrace *symbol      // '}'
 }
 
 func (is *IfStatement) statement() {}

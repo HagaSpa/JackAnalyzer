@@ -44,11 +44,10 @@ type SubroutineBody struct {
 }
 
 type VarDec struct {
-	Modi keyword // 'var'
-	// TODO: keyword
-	Vt  Types     // identifier | keyword.
-	Vns []VarName // varName (, varName)*
-	Sc  symbol    // ';'
+	Modi keyword   // 'var'
+	Vt   Types     // identifier | keyword.
+	Vns  []VarName // varName (, varName)*
+	Sc   symbol    // ';'
 }
 
 type Parameter struct {
@@ -56,6 +55,8 @@ type Parameter struct {
 	Vn    VarName
 	Comma string
 }
+
+// TODO: Types（keyword） と className（identifier）をまとめるinterfaceにするべき？
 type Types string          // 'int' | 'char' | 'boolean' | className
 type ClassName string      // identifier
 type SubroutineName string // identifier

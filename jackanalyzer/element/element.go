@@ -52,7 +52,7 @@ type VarDec struct {
 
 type Parameter struct {
 	Type  Types
-	Vn    VarName
+	Vn    identifier
 	Comma symbol
 }
 

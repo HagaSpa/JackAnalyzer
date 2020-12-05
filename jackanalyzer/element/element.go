@@ -56,8 +56,11 @@ type Parameter struct {
 	Comma symbol
 }
 
-// TODO: Types（keyword） と className（identifier）をまとめるinterfaceにするべき？
-type Types string          // 'int' | 'char' | 'boolean' | className
+// 'int' | 'char' | 'boolean' | className
+// keyword | identifier
+type Types interface {
+	types()
+}
 type ClassName string      // identifier
 type SubroutineName string // identifier
 
@@ -245,8 +248,6 @@ func genContent(s interface{}) string {
 		str = string(s.(symbol))
 	case ClassName:
 		str = string(s.(ClassName))
-	case Types:
-		str = string(s.(Types))
 	case VarName:
 		str = string(s.(VarName))
 	}
@@ -256,6 +257,9 @@ func genContent(s interface{}) string {
 type keyword string
 type identifier string
 type symbol string
+
+func (k *keyword) types()    {}
+func (i *identifier) types() {}
 
 // generate xml tag for terminal symbol.
 func genTrmSymTag(s interface{}) xml.StartElement {

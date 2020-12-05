@@ -53,7 +53,7 @@ type VarDec struct {
 type Parameter struct {
 	Type  Types
 	Vn    VarName
-	Comma string
+	Comma symbol
 }
 
 // TODO: Types（keyword） と className（identifier）をまとめるinterfaceにするべき？

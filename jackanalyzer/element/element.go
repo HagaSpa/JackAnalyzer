@@ -44,10 +44,11 @@ type SubroutineBody struct {
 }
 
 type VarDec struct {
-	Modi string    // 'var'
-	Vt   Types     // type
-	Vns  []VarName // varName (, varName)*
-	Sc   string    // ';'
+	Modi keyword // 'var'
+	// TODO: keyword
+	Vt  Types     // identifier | keyword.
+	Vns []VarName // varName (, varName)*
+	Sc  symbol    // ';'
 }
 
 type Parameter struct {

@@ -125,9 +125,9 @@ func (ws *WhileStatement) statement() {}
 //
 // 'do' subroutineCall ';'
 type DoStatement struct {
-	Modi string         // 'do'
+	Modi keyword        // 'do'
 	Subr SubroutineCall // subroutineCall
-	Sc   string         // ';'
+	Sc   symbol         // ';'
 }
 
 func (do *DoStatement) statement() {}

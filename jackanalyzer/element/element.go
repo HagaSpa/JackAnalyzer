@@ -136,9 +136,9 @@ func (do *DoStatement) statement() {}
 //
 // 'return' expression? ';'
 type ReturnStatement struct {
-	Modi string      // 'return'
+	Modi keyword     // 'return'
 	Exp  *Expression // expression?
-	Sc   string      // ';'
+	Sc   symbol      // ';'
 }
 
 func (rs *ReturnStatement) statement() {}

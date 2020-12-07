@@ -161,8 +161,12 @@ type IntegerConstant string
 type StringConstant string
 type KeywordConstant string
 type VarName string
+
+// CallIndex is Term.
+//
+// varName '[' expression ']'
 type CallIndex struct {
-	Vn       VarName
+	Vn       identifier
 	LBracket symbol
 	Exp      Expression
 	RBracket symbol

@@ -259,8 +259,6 @@ func genContent(s interface{}) string {
 		str = string(s.(identifier))
 	case symbol:
 		str = string(s.(symbol))
-	case VarName:
-		str = string(s.(VarName))
 	}
 	return " " + str + " "
 }

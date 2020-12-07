@@ -149,6 +149,11 @@ type Expression struct {
 	Next BopTerm
 }
 
+type BopTerm struct {
+	Bop  symbol // binary operator
+	Term Term
+}
+
 // Term is term
 type Term interface {
 	term()
@@ -186,12 +191,12 @@ type Args struct {
 	Exp    Expression
 	RParen symbol
 }
+
+// UopTerm is Term.
+//
+// unaryOp term
 type UopTerm struct {
-	Uop  string // unary operator
-	Term Term
-}
-type BopTerm struct {
-	Bop  Op // binary operator
+	Uop  symbol // unary operator
 	Term Term
 }
 

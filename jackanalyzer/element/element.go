@@ -61,7 +61,6 @@ type Parameter struct {
 type Types interface {
 	types()
 }
-type ClassName string      // identifier
 type SubroutineName string // identifier
 
 /* Statements */
@@ -260,8 +259,6 @@ func genContent(s interface{}) string {
 		str = string(s.(identifier))
 	case symbol:
 		str = string(s.(symbol))
-	case ClassName:
-		str = string(s.(ClassName))
 	case VarName:
 		str = string(s.(VarName))
 	}

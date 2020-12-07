@@ -159,7 +159,13 @@ type Term interface {
 
 type IntegerConstant string
 type StringConstant string
-type KeywordConstant string
+
+// KeywordConstant is Term.
+//
+// 'true' | 'false' | 'null' | 'this'
+type KeywordConstant struct {
+	V keyword
+}
 
 // VarName is Term.
 //

@@ -278,6 +278,8 @@ func genContent(s interface{}) string {
 type keyword string
 type identifier string
 type symbol string
+type integerConstant int
+type stringConstant string
 
 func (k *keyword) types()    {}
 func (i *identifier) types() {}

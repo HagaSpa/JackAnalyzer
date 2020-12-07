@@ -207,8 +207,6 @@ func (sbc *SubroutineCall) term() {}
 func (args *Args) term()          {}
 func (ut *UopTerm) term()         {}
 
-type Op string
-
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"

@@ -160,7 +160,13 @@ type Term interface {
 type IntegerConstant string
 type StringConstant string
 type KeywordConstant string
-type VarName string
+
+// VarName is Term.
+//
+// varName
+type VarName struct {
+	V identifier
+}
 
 // CallIndex is Term.
 //

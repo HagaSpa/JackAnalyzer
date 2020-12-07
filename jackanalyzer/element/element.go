@@ -160,9 +160,9 @@ type KeywordConstant string
 type VarName string
 type CallIndex struct {
 	Vn       VarName
-	LBracket string
+	LBracket symbol
 	Exp      Expression
-	RBracket string
+	RBracket symbol
 }
 type SubroutineCall struct {
 	Name           string       // ClassName | VarName

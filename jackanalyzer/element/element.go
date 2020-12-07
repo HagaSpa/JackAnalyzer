@@ -158,7 +158,11 @@ type Term interface {
 }
 
 type IntegerConstant string
-type StringConstant string
+
+// StringConstant is Term.
+type StringConstant struct {
+	V stringConstant
+}
 
 // KeywordConstant is Term.
 //
@@ -279,6 +283,8 @@ type keyword string
 type identifier string
 type symbol string
 type integerConstant int
+
+// Unicode string without double quotes and newlines
 type stringConstant string
 
 func (k *keyword) types()    {}

@@ -157,7 +157,10 @@ type Term interface {
 	term()
 }
 
-type IntegerConstant string
+// IntegerConstant is Term.
+type IntegerConstant struct {
+	V integerConstant
+}
 
 // StringConstant is Term.
 type StringConstant struct {

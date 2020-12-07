@@ -164,13 +164,18 @@ type CallIndex struct {
 	Exp      Expression
 	RBracket symbol
 }
+
+// SubroutineCall is Term.
+//
+// subroutineName '(' expressionList ')' |
+// (className | varName) '.' subroutineName '(' expressionList ')'
 type SubroutineCall struct {
-	Name           string       // ClassName | VarName
-	Dot            string       // .
-	SubName        string       // string
-	LParan         string       // '('
+	Name           *identifier  // ClassName | VarName
+	Dot            *symbol      // .
+	SubName        identifier   // string
+	LParan         symbol       // '('
 	ExpressionList []Expression // (expression(, expression)*)?
-	RParen         string       // ')'
+	RParen         symbol       // ')'
 }
 type Args struct {
 	LParan string

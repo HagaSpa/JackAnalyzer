@@ -282,9 +282,20 @@ func genContent(s interface{}) string {
 	return " " + str + " "
 }
 
+// Same as *token.Keyword*
+//  'class', 'method', 'function', 'constructor', 'int', 'boolean', 'char', 'void', 'var', 'static', 'field', 'let', 'do', 'if', 'else', 'while', 'return', 'true', 'false', 'null', 'this'
 type keyword string
+
+// Alphabet, number, underscore string.
+//
+// However, character strings starting with numbers are excluded
 type identifier string
+
+// Same as *token.symbols*
+//  '{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~'
 type symbol string
+
+// 0 ~ 32767
 type integerConstant int
 
 // Unicode string without double quotes and newlines

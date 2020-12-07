@@ -177,10 +177,14 @@ type SubroutineCall struct {
 	ExpressionList []Expression // (expression(, expression)*)?
 	RParen         symbol       // ')'
 }
+
+// Args is Term.
+//
+// '(' expression ')'
 type Args struct {
-	LParan string
+	LParan symbol
 	Exp    Expression
-	RParen string
+	RParen symbol
 }
 type UopTerm struct {
 	Uop  string // unary operator

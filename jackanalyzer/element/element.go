@@ -61,7 +61,6 @@ type Parameter struct {
 type Types interface {
 	types()
 }
-type SubroutineName string // identifier
 
 /* Statements */
 type Statement interface {

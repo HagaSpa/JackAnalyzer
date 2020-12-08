@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_genContent(t *testing.T) {
+func Test_genCon(t *testing.T) {
 	tests := []struct {
 		name string
 		s    interface{}
@@ -32,8 +32,8 @@ func Test_genContent(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := genContent(tt.s); got != tt.want {
-				t.Errorf("genContent() = %v, want %v", got, tt.want)
+			if got := genCon(tt.s); got != tt.want {
+				t.Errorf("genCon() = %v, want %v", got, tt.want)
 			}
 		})
 	}

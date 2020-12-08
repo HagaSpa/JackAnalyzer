@@ -274,9 +274,9 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cl.Modi), genTrmSymTag(cl.Modi))
-	e.EncodeElement(genContent(cl.Cn), genTrmSymTag(cl.Cn))
-	e.EncodeElement(genContent(cl.LBrace), genTrmSymTag(cl.LBrace))
+	e.EncodeElement(genCon(cl.Modi), genTrmSymTag(cl.Modi))
+	e.EncodeElement(genCon(cl.Cn), genTrmSymTag(cl.Cn))
+	e.EncodeElement(genCon(cl.LBrace), genTrmSymTag(cl.LBrace))
 
 	// ClassVarDec
 	if len(cl.Cvds) != 0 {
@@ -292,22 +292,23 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
 	e.EncodeToken(start)
-	e.EncodeElement(genContent(cd.Modi), genTrmSymTag(cd.Modi))
-	e.EncodeElement(genContent(cd.Vt), genTrmSymTag(cd.Vt))
+	e.EncodeElement(genCon(cd.Modi), genTrmSymTag(cd.Modi))
+	e.EncodeElement(genCon(cd.Vt), genTrmSymTag(cd.Vt))
 
 	for i, v := range cd.Vns {
-		e.EncodeElement(genContent(v), genTrmSymTag(v))
+		e.EncodeElement(genCon(v), genTrmSymTag(v))
 		if i < len(cd.Vns)-1 {
 			s := symbol(",")
-			e.EncodeElement(genContent(s), genTrmSymTag(s))
+			e.EncodeElement(genCon(s), genTrmSymTag(s))
 		}
 	}
 
-	e.EncodeElement(genContent(cd.Sc), genTrmSymTag(cd.Sc))
+	e.EncodeElement(genCon(cd.Sc), genTrmSymTag(cd.Sc))
 	e.EncodeToken(start.End())
 }
 
-func genContent(s interface{}) string {
+// generate Contents for terminal symbol.
+func genCon(s interface{}) string {
 	var str string
 	switch s.(type) {
 	case keyword:

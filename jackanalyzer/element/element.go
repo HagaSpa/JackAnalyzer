@@ -4,6 +4,33 @@ import (
 	"encoding/xml"
 )
 
+/*
+Terminal Symbol
+*/
+
+// Same as *token.Keyword*
+//  'class', 'method', 'function', 'constructor', 'int', 'boolean', 'char', 'void', 'var', 'static', 'field', 'let', 'do', 'if', 'else', 'while', 'return', 'true', 'false', 'null', 'this'
+type keyword string
+
+// Alphabet, number, underscore string.
+//
+// However, character strings starting with numbers are excluded
+type identifier string
+
+// Same as *token.symbols*
+//  '{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~'
+type symbol string
+
+// 0 ~ 32767
+type integerConstant int
+
+// Unicode string without double quotes and newlines
+type stringConstant string
+
+/*
+Program
+*/
+
 // 'class' className '{' classVarDec* subroutineDec* '}'
 type Class struct {
 	Modi   keyword          // 'class'
@@ -65,7 +92,11 @@ type Types interface {
 func (k *keyword) types()    {}
 func (i *identifier) types() {}
 
-/* Statements */
+/*
+Statement
+*/
+
+// Statement is statement
 type Statement interface {
 	statement()
 }
@@ -144,12 +175,17 @@ type ReturnStatement struct {
 
 func (rs *ReturnStatement) statement() {}
 
-/* Expession */
+/*
+Expession
+*/
+
+// Expression is expression
 type Expression struct {
 	Term Term
 	Next BopTerm
 }
 
+// BopTerm is Binary Operator Term
 type BopTerm struct {
 	Bop  symbol // binary operator
 	Term Term
@@ -233,6 +269,7 @@ func (sbc *SubroutineCall) term() {}
 func (args *Args) term()          {}
 func (ut *UopTerm) term()         {}
 
+// MarshalXML implemented Marshaler.
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
 	start.Name.Local = "class"
@@ -284,25 +321,6 @@ func genContent(s interface{}) string {
 	}
 	return " " + str + " "
 }
-
-// Same as *token.Keyword*
-//  'class', 'method', 'function', 'constructor', 'int', 'boolean', 'char', 'void', 'var', 'static', 'field', 'let', 'do', 'if', 'else', 'while', 'return', 'true', 'false', 'null', 'this'
-type keyword string
-
-// Alphabet, number, underscore string.
-//
-// However, character strings starting with numbers are excluded
-type identifier string
-
-// Same as *token.symbols*
-//  '{', '}', '(', ')', '[', ']', '.', ',', ';', '+', '-', '*', '/', '&', '|', '<', '>', '=', '~'
-type symbol string
-
-// 0 ~ 32767
-type integerConstant int
-
-// Unicode string without double quotes and newlines
-type stringConstant string
 
 // generate xml tag for terminal symbol.
 func genTrmSymTag(s interface{}) xml.StartElement {

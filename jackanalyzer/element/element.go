@@ -310,8 +310,6 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 func genContent(s interface{}) string {
 	var str string
 	switch s.(type) {
-	case string:
-		str = s.(string)
 	case keyword:
 		str = string(s.(keyword))
 	case identifier:

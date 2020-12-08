@@ -15,9 +15,19 @@ func Test_genContent(t *testing.T) {
 		want string
 	}{
 		{
-			"string",
-			"test",
-			" test ",
+			"test keyword",
+			keyword("class"),
+			" class ",
+		},
+		{
+			"test identifier",
+			identifier("hoge"),
+			" hoge ",
+		},
+		{
+			"test symbol",
+			symbol(","),
+			" , ",
 		},
 	}
 	for _, tt := range tests {

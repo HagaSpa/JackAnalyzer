@@ -31,7 +31,9 @@ type stringConstant string
 Program
 */
 
-// 'class' className '{' classVarDec* subroutineDec* '}'
+// Class represent to class.
+//
+//  'class' className '{' classVarDec* subroutineDec* '}'
 type Class struct {
 	Modi   keyword          // 'class'
 	Cn     identifier       // identifier
@@ -41,7 +43,9 @@ type Class struct {
 	RBrace symbol           // '}'
 }
 
-// ( 'static' | 'field' ) type varName ( ',' varName)* ';'
+// ClassVarDec represent to classVarDec.
+//
+//  ( 'static' | 'field' ) type varName ( ',' varName)* ';'
 type ClassVarDec struct {
 	Modi keyword      // 'static' | 'field'
 	Vt   keyword      // 'int' | 'char' | 'boolean' | className
@@ -49,20 +53,25 @@ type ClassVarDec struct {
 	Sc   symbol       // ';'
 }
 
-// ( 'constructor' | 'function' | 'method' )
-// ( 'void' | Types ) subroutineName '(' parameterList ')'
-// subroutineBody
+// SubroutineDec represent to subroutineDec.
+//
+//  ( 'constructor' | 'function' | 'method' )
+//  ( 'void' | Types ) subroutineName '(' parameterList ')'
+//  subroutineBody
 type SubroutineDec struct {
-	Modi   keyword        // 'constructor' | 'function' | 'method'
-	St     keyword        // 'void' | type
-	Sn     identifier     // subroutineName
-	LParan symbol         // '('
+	Modi   keyword    // 'constructor' | 'function' | 'method'
+	St     keyword    // 'void' | type
+	Sn     identifier // subroutineName
+	LParan symbol     // '('
+	// TODO: Should redesign the Pl.
 	Pl     []Parameter    // (type varName (, type, varName)*)?
 	RParen symbol         // ')'
 	Sb     SubroutineBody // subroutineBody
 }
 
-// '{' varDec* statements '}'
+// SubroutineBody represent to subroutineBody.
+//
+//  '{' varDec* statements '}'
 type SubroutineBody struct {
 	LBrace symbol      // '{'
 	Vd     *VarDec     // varDec*
@@ -70,6 +79,9 @@ type SubroutineBody struct {
 	RBrace symbol      // '}'
 }
 
+// VarDec represent to varDec.
+//
+//  'var' type varName (',' varName)* ';'
 type VarDec struct {
 	Modi keyword      // 'var'
 	Vt   Types        // identifier | keyword.
@@ -77,14 +89,18 @@ type VarDec struct {
 	Sc   symbol       // ';'
 }
 
+// Parameter is element for parameterList.
+// TODO: Should Redesign.
 type Parameter struct {
 	Type  Types
 	Vn    identifier
 	Comma symbol
 }
 
-// 'int' | 'char' | 'boolean' | className
-// keyword | identifier
+// Types represent to type.
+//
+//  'int' | 'char' | 'boolean' | className
+//  keyword | identifier
 type Types interface {
 	types()
 }
@@ -103,8 +119,7 @@ type Statement interface {
 
 // LetStatement represent to let.
 //
-// 'let' varName ( '[' expression ']' )?
-// '=' expression ';'
+//  'let' varName ( '[' expression ']' )? '=' expression ';'
 type LetStatement struct {
 	Modi   keyword    // 'let'
 	Vn     identifier // varName
@@ -120,8 +135,8 @@ func (ls *LetStatement) statement() {}
 
 // IfStatement represent to if.
 //
-// 'if' '(' expression ')' '{' statements '}'
-// ( 'else' '{' statements '}' )?
+//  'if' '(' expression ')' '{' statements '}'
+//  ( 'else' '{' statements '}' )?
 type IfStatement struct {
 	Modi    keyword      // 'if'
 	LParan  symbol       // '('
@@ -140,7 +155,7 @@ func (is *IfStatement) statement() {}
 
 // WhileStatement represent to while.
 //
-// 'while' '(' expression ')' '{' statements '}'
+//  'while' '(' expression ')' '{' statements '}'
 type WhileStatement struct {
 	Modi   keyword     // 'while'
 	LParan symbol      // '('
@@ -155,7 +170,7 @@ func (ws *WhileStatement) statement() {}
 
 // DoStatement represent to do.
 //
-// 'do' subroutineCall ';'
+//  'do' subroutineCall ';'
 type DoStatement struct {
 	Modi keyword        // 'do'
 	Subr SubroutineCall // subroutineCall
@@ -166,7 +181,7 @@ func (do *DoStatement) statement() {}
 
 // ReturnStatement represent to return.
 //
-// 'return' expression? ';'
+//  'return' expression? ';'
 type ReturnStatement struct {
 	Modi keyword     // 'return'
 	Exp  *Expression // expression?
@@ -208,21 +223,21 @@ type StringConstant struct {
 
 // KeywordConstant is Term.
 //
-// 'true' | 'false' | 'null' | 'this'
+//  'true' | 'false' | 'null' | 'this'
 type KeywordConstant struct {
 	V keyword
 }
 
 // VarName is Term.
 //
-// varName
+//  varName
 type VarName struct {
 	V identifier
 }
 
 // CallIndex is Term.
 //
-// varName '[' expression ']'
+//  varName '[' expression ']'
 type CallIndex struct {
 	Vn       identifier
 	LBracket symbol
@@ -232,8 +247,8 @@ type CallIndex struct {
 
 // SubroutineCall is Term.
 //
-// subroutineName '(' expressionList ')' |
-// (className | varName) '.' subroutineName '(' expressionList ')'
+//  subroutineName '(' expressionList ')' |
+//  (className | varName) '.' subroutineName '(' expressionList ')'
 type SubroutineCall struct {
 	Name           *identifier  // ClassName | VarName
 	Dot            *symbol      // .
@@ -245,7 +260,7 @@ type SubroutineCall struct {
 
 // Args is Term.
 //
-// '(' expression ')'
+//  '(' expression ')'
 type Args struct {
 	LParan symbol
 	Exp    Expression
@@ -254,7 +269,7 @@ type Args struct {
 
 // UopTerm is Term.
 //
-// unaryOp term
+//  unaryOp term
 type UopTerm struct {
 	Uop  symbol // unary operator
 	Term Term

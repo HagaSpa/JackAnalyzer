@@ -62,6 +62,9 @@ type Types interface {
 	types()
 }
 
+func (k *keyword) types()    {}
+func (i *identifier) types() {}
+
 /* Statements */
 type Statement interface {
 	statement()
@@ -300,9 +303,6 @@ type integerConstant int
 
 // Unicode string without double quotes and newlines
 type stringConstant string
-
-func (k *keyword) types()    {}
-func (i *identifier) types() {}
 
 // generate xml tag for terminal symbol.
 func genTrmSymTag(s interface{}) xml.StartElement {

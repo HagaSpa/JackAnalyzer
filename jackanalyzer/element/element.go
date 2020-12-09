@@ -71,7 +71,7 @@ type SubroutineDec struct {
 	Modi   keyword        // 'constructor' | 'function' | 'method'
 	St     keyword        // 'void' | type
 	Sn     identifier     // subroutineName
-	LParan symbol         // '('
+	LParen symbol         // '('
 	Pl     ParameterList  // parameterList
 	RParen symbol         // ')'
 	Sb     SubroutineBody // subroutineBody

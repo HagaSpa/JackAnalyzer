@@ -156,7 +156,7 @@ func (ls *LetStatement) statement() {}
 //  ( 'else' '{' statements '}' )?
 type IfStatement struct {
 	Modi    keyword      // 'if'
-	LParan  symbol       // '('
+	LParen  symbol       // '('
 	Lexp    Expression   // expression
 	RParen  symbol       // ')'
 	LBrace  symbol       // '{'
@@ -175,7 +175,7 @@ func (is *IfStatement) statement() {}
 //  'while' '(' expression ')' '{' statements '}'
 type WhileStatement struct {
 	Modi   keyword     // 'while'
-	LParan symbol      // '('
+	LParen symbol      // '('
 	Lexp   Expression  // expression
 	RParen symbol      // ')'
 	LBrace symbol      // '{'
@@ -270,7 +270,7 @@ type SubroutineCall struct {
 	Name           *identifier  // ClassName | VarName
 	Dot            *symbol      // .
 	SubName        identifier   // string
-	LParan         symbol       // '('
+	LParen         symbol       // '('
 	ExpressionList []Expression // (expression(, expression)*)?
 	RParen         symbol       // ')'
 }
@@ -279,7 +279,7 @@ type SubroutineCall struct {
 //
 //  '(' expression ')'
 type Args struct {
-	LParan symbol
+	LParen symbol
 	Exp    Expression
 	RParen symbol
 }

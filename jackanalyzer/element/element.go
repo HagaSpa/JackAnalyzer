@@ -97,10 +97,10 @@ type NextParam struct {
 //
 //  '{' varDec* statements '}'
 type SubroutineBody struct {
-	LBrace symbol      // '{'
-	Vd     *VarDec     // varDec*
-	Stmts  []Statement // statements
-	RBrace symbol      // '}'
+	LBrace symbol       // '{'
+	Vd     *VarDec      // varDec*
+	Stmts  []*Statement // statements
+	RBrace symbol       // '}'
 }
 
 // VarDec represent to varDec.
@@ -127,7 +127,8 @@ func (i *identifier) types() {}
 Statement
 */
 
-// Statement is statement
+// Statement is statements
+//  statement*
 type Statement interface {
 	statement()
 }

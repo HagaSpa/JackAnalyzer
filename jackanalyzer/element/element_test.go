@@ -70,8 +70,14 @@ func Test_class_MarshalXML(t *testing.T) {
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []identifier{"x", "y"},
-						Sc:   ";",
+						Vn:   "x",
+						Vns: []*NextVns{
+							{
+								Comma: ",",
+								Vn:    "y",
+							},
+						},
+						Sc: ";",
 					},
 				},
 			},
@@ -101,13 +107,19 @@ func Test_class_MarshalXML(t *testing.T) {
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []identifier{"x", "y"},
-						Sc:   ";",
+						Vn:   "x",
+						Vns: []*NextVns{
+							{
+								Comma: ",",
+								Vn:    "y",
+							},
+						},
+						Sc: ";",
 					},
 					{
 						Modi: "field",
 						Vt:   "int",
-						Vns:  []identifier{"size"},
+						Vn:   "size",
 						Sc:   ";",
 					},
 				},
@@ -159,8 +171,14 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 			ClassVarDec{
 				Modi: "field",
 				Vt:   "int",
-				Vns:  []identifier{"x", "y"},
-				Sc:   ";",
+				Vn:   "x",
+				Vns: []*NextVns{
+					{
+						Comma: ",",
+						Vn:    "y",
+					},
+				},
+				Sc: ";",
 			},
 			`
 <classVarDec>

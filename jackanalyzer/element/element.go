@@ -47,10 +47,19 @@ type Class struct {
 //
 //  ( 'static' | 'field' ) type varName ( ',' varName)* ';'
 type ClassVarDec struct {
-	Modi keyword      // 'static' | 'field'
-	Vt   keyword      // 'int' | 'char' | 'boolean' | className
-	Vns  []identifier // varName (, varName)*
-	Sc   symbol       // ';'
+	Modi keyword    // 'static' | 'field'
+	Vt   keyword    // type
+	Vn   identifier // varName
+	Vns  []*NextVns // ( ',' varName)*
+	Sc   symbol     // ';'
+}
+
+// NextVns is Next varNames.
+//
+//  ( ',' varName)*
+type NextVns struct {
+	Comma symbol
+	Vn    identifier
 }
 
 // SubroutineDec represent to subroutineDec.
@@ -315,13 +324,11 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	e.EncodeToken(start)
 	e.EncodeElement(genCon(cd.Modi), genTag(cd.Modi))
 	e.EncodeElement(genCon(cd.Vt), genTag(cd.Vt))
+	e.EncodeElement(genCon(cd.Vn), genTag(cd.Vn))
 
-	for i, v := range cd.Vns {
-		e.EncodeElement(genCon(v), genTag(v))
-		if i < len(cd.Vns)-1 {
-			s := symbol(",")
-			e.EncodeElement(genCon(s), genTag(s))
-		}
+	for _, v := range cd.Vns {
+		e.EncodeElement(genCon(v.Comma), genTag(v.Comma))
+		e.EncodeElement(genCon(v.Vn), genTag(v.Vn))
 	}
 
 	e.EncodeElement(genCon(cd.Sc), genTag(cd.Sc))

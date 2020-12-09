@@ -45,18 +45,18 @@ type Class struct {
 
 // ClassVarDec represent to classVarDec.
 //
-//  ( 'static' | 'field' ) type varName ( ',' varName)* ';'
+//  ( 'static' | 'field' ) type varName (',' varName)* ';'
 type ClassVarDec struct {
 	Modi keyword    // 'static' | 'field'
 	Vt   keyword    // type
 	Vn   identifier // varName
-	Vns  []*NextVns // ( ',' varName)*
+	Vns  []*NextVns // (',' varName)*
 	Sc   symbol     // ';'
 }
 
 // NextVns is Next varNames.
 //
-//  ( ',' varName)*
+//  (',' varName)*
 type NextVns struct {
 	Comma symbol
 	Vn    identifier
@@ -79,7 +79,7 @@ type SubroutineDec struct {
 
 // ParameterList represent to parameterList.
 //
-//  (type varName (',' type varName )* )?
+//  (type varName (',' type varName)* )?
 type ParameterList struct {
 	Type Types
 	Vn   identifier
@@ -107,10 +107,11 @@ type SubroutineBody struct {
 //
 //  'var' type varName (',' varName)* ';'
 type VarDec struct {
-	Modi keyword      // 'var'
-	Vt   Types        // identifier | keyword.
-	Vns  []identifier // varName (, varName)*
-	Sc   symbol       // ';'
+	Modi keyword    // 'var'
+	Vt   Types      // type
+	Vn   identifier // varName
+	Vns  []*NextVns // (',' varName)*
+	Sc   symbol     // ';'
 }
 
 // Types represent to type.

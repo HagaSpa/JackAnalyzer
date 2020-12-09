@@ -83,11 +83,11 @@ type SubroutineDec struct {
 type ParameterList struct {
 	Type Types
 	Vn   identifier
-	Next []*parameter
+	Next []*NextParam
 }
 
-// parameter is the second and subsequent elements of ParameterList.
-type parameter struct {
+// NextParam is the second and subsequent elements of ParameterList.
+type NextParam struct {
 	Comma symbol
 	Type  Types
 	Vn    identifier

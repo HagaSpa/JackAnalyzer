@@ -59,14 +59,29 @@ type ClassVarDec struct {
 //  ( 'void' | Types ) subroutineName '(' parameterList ')'
 //  subroutineBody
 type SubroutineDec struct {
-	Modi   keyword    // 'constructor' | 'function' | 'method'
-	St     keyword    // 'void' | type
-	Sn     identifier // subroutineName
-	LParan symbol     // '('
-	// TODO: Should redesign the Pl.
-	Pl     []Parameter    // (type varName (, type, varName)*)?
+	Modi   keyword        // 'constructor' | 'function' | 'method'
+	St     keyword        // 'void' | type
+	Sn     identifier     // subroutineName
+	LParan symbol         // '('
+	Pl     ParameterList  // parameterList
 	RParen symbol         // ')'
 	Sb     SubroutineBody // subroutineBody
+}
+
+// ParameterList represent to parameterList.
+//
+//  (type varName (',' type varName )* )?
+type ParameterList struct {
+	Type Types
+	Vn   identifier
+	Next []*parameter
+}
+
+// parameter is the second and subsequent elements of ParameterList.
+type parameter struct {
+	Comma symbol
+	Type  Types
+	Vn    identifier
 }
 
 // SubroutineBody represent to subroutineBody.
@@ -87,14 +102,6 @@ type VarDec struct {
 	Vt   Types        // identifier | keyword.
 	Vns  []identifier // varName (, varName)*
 	Sc   symbol       // ';'
-}
-
-// Parameter is element for parameterList.
-// TODO: Should Redesign.
-type Parameter struct {
-	Type  Types
-	Vn    identifier
-	Comma symbol
 }
 
 // Types represent to type.

@@ -106,8 +106,7 @@ type VarDec struct {
 
 // Types represent to type.
 //
-//  'int' | 'char' | 'boolean' | className
-//  keyword | identifier
+//  keyword ('int' | 'char' | 'boolean') | identifier (className)
 type Types interface {
 	types()
 }

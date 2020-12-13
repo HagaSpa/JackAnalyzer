@@ -121,8 +121,8 @@ type Types interface {
 	types()
 }
 
-func (k keyword) types()     {}
-func (i *identifier) types() {}
+func (k keyword) types()    {}
+func (i identifier) types() {}
 
 /*
 Statement

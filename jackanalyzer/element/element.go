@@ -121,7 +121,7 @@ type Types interface {
 	types()
 }
 
-func (k *keyword) types()    {}
+func (k keyword) types()     {}
 func (i *identifier) types() {}
 
 /*

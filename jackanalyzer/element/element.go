@@ -337,6 +337,21 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func (pl *ParameterList) genParameterList(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "parameterList"}}
+	if pl != nil {
+		e.EncodeToken(start)
+		e.EncodeElement(genCon(pl.Type), genTag(pl.Type))
+		e.EncodeElement(genCon(pl.Vn), genTag(pl.Vn))
+		for _, v := range pl.Next {
+			e.EncodeElement(genCon(v.Comma), genTag(v.Comma))
+			e.EncodeElement(genCon(v.Type), genTag(v.Type))
+			e.EncodeElement(genCon(v.Vn), genTag(v.Vn))
+		}
+	}
+	e.EncodeToken(start.End())
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string

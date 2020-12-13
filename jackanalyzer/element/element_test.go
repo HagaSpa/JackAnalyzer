@@ -208,3 +208,40 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 		})
 	}
 }
+
+func TestParameterList_genParameterList(t *testing.T) {
+	tests := []struct {
+		name string
+		pl   *ParameterList
+		want string
+	}{
+		{
+			"test keyword",
+			&ParameterList{
+				Type: keyword("int"),
+				Vn:   "Ax",
+			},
+			`
+<parameterList>
+  <keyword> int </keyword>
+  <identifier> Ax </identifier>
+</parameterList>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.pl.genParameterList(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genParameterList() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

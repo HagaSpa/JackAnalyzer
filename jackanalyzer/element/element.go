@@ -212,6 +212,7 @@ Expession
 */
 
 // Expression is expression
+// TODO: redigned Next.
 type Expression struct {
 	Term Term
 	Next BopTerm

@@ -163,12 +163,12 @@ func Test_class_MarshalXML(t *testing.T) {
 func TestClassVarDec_genClassVarDec(t *testing.T) {
 	tests := []struct {
 		name string
-		cd   ClassVarDec
+		cd   *ClassVarDec
 		want string
 	}{
 		{
 			"test",
-			ClassVarDec{
+			&ClassVarDec{
 				Modi: "field",
 				Vt:   "int",
 				Vn:   "x",

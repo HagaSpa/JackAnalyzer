@@ -322,7 +322,7 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	return nil
 }
 
-func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
+func (cd *ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
 	e.EncodeToken(start)
 	e.EncodeElement(genCon(cd.Modi), genTag(cd.Modi))

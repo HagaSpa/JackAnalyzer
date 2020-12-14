@@ -339,8 +339,12 @@ func (cd ClassVarDec) genClassVarDec(e *xml.Encoder) {
 
 func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "parameterList"}}
-	if pl != nil {
-		e.EncodeToken(start)
+	e.EncodeToken(start)
+	if pl == nil {
+		// insert new line
+		c := xml.CharData([]byte("\n"))
+		e.EncodeToken(c)
+	} else {
 		e.EncodeElement(genCon(pl.Type), genTag(pl.Type))
 		e.EncodeElement(genCon(pl.Vn), genTag(pl.Vn))
 		for _, v := range pl.Next {

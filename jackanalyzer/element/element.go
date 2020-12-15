@@ -212,10 +212,9 @@ Expession
 */
 
 // Expression is expression
-// TODO: redigned Next.
 type Expression struct {
 	Term Term
-	Next BopTerm
+	Next []*BopTerm
 }
 
 // BopTerm is Binary Operator Term

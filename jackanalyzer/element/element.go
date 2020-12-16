@@ -356,6 +356,21 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func parseTerm(s interface{}) {
+	switch s.(type) {
+	case IntegerConstant, StringConstant, KeywordConstant, VarName:
+		// call genConstant??
+	case CallIndex:
+		// call genCallIndex
+	case SubroutineCall:
+		// call genSubroutineCall
+	case Args:
+		// call genArgs
+	case UopTerm:
+		// call genUopTerm
+	}
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string

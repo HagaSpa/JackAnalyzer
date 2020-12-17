@@ -371,6 +371,17 @@ func parseTerm(s interface{}) {
 	}
 }
 
+func (exp *Expression) genExpression(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
+	e.EncodeToken(start)
+	parseTerm(exp.Term)
+	for _, v := range exp.Next {
+		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
+		parseTerm(v.Term)
+	}
+	e.EncodeToken(start.End())
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string

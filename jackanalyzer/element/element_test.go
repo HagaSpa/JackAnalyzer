@@ -266,3 +266,41 @@ func TestParameterList_genParameterList(t *testing.T) {
 		})
 	}
 }
+
+func TestExpression_genExpression(t *testing.T) {
+	tests := []struct {
+		name string
+		exp  *Expression
+		want string
+	}{
+		{
+			// TODO: Fix after implementing parseTerm
+			"test xml tag. ",
+			&Expression{
+				Term: &IntegerConstant{
+					V: 1,
+				},
+				Next: nil,
+			},
+			`
+<expression></expression>
+`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.exp.genExpression(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genExpression() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

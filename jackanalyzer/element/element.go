@@ -356,10 +356,10 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
-func parseTerm(s interface{}) {
+func parseTerm(s interface{}, e *xml.Encoder) {
 	switch s.(type) {
 	case IntegerConstant, StringConstant, KeywordConstant, VarName:
-		// call genConstant??
+		// TODO: Divide the conditions.
 	case CallIndex:
 		// call genCallIndex
 	case SubroutineCall:
@@ -374,10 +374,10 @@ func parseTerm(s interface{}) {
 func (exp *Expression) genExpression(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
 	e.EncodeToken(start)
-	parseTerm(exp.Term)
+	parseTerm(exp.Term, e)
 	for _, v := range exp.Next {
 		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
-		parseTerm(v.Term)
+		parseTerm(v.Term, e)
 	}
 	e.EncodeToken(start.End())
 }

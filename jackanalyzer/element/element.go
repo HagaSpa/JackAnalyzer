@@ -2,6 +2,7 @@ package element
 
 import (
 	"encoding/xml"
+	"strconv"
 )
 
 /*
@@ -388,6 +389,10 @@ func genTerm(s interface{}, e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func (ic *IntegerConstant) genIntegerConstant(e *xml.Encoder) {
+	e.EncodeElement(genCon(ic.V), genTag(ic.V))
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string
@@ -398,6 +403,8 @@ func genCon(s interface{}) string {
 		str = string(s.(identifier))
 	case symbol:
 		str = string(s.(symbol))
+	case integerConstant:
+		str = strconv.Itoa(int(s.(integerConstant)))
 	}
 	return " " + str + " "
 }
@@ -412,6 +419,8 @@ func genTag(s interface{}) xml.StartElement {
 		l = "identifier"
 	case symbol:
 		l = "symbol"
+	case integerConstant:
+		l = "integerConstant"
 	}
 	return xml.StartElement{Name: xml.Name{Local: l}}
 }

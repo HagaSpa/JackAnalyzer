@@ -8,6 +8,9 @@ import (
 Terminal Symbol
 */
 
+type terminalSymbol interface {
+}
+
 // Same as *token.Keyword*
 //  'class', 'method', 'function', 'constructor', 'int', 'boolean', 'char', 'void', 'var', 'static', 'field', 'let', 'do', 'if', 'else', 'while', 'return', 'true', 'false', 'null', 'this'
 type keyword string
@@ -356,7 +359,7 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
-func parseTerm(s interface{}, e *xml.Encoder) {
+func genTerm(s interface{}, e *xml.Encoder) {
 	switch s.(type) {
 	case IntegerConstant, StringConstant, KeywordConstant, VarName:
 		// TODO: Divide the conditions.
@@ -374,10 +377,10 @@ func parseTerm(s interface{}, e *xml.Encoder) {
 func (exp *Expression) genExpression(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
 	e.EncodeToken(start)
-	parseTerm(exp.Term, e)
+	genTerm(exp.Term, e)
 	for _, v := range exp.Next {
 		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
-		parseTerm(v.Term, e)
+		genTerm(v.Term, e)
 	}
 	e.EncodeToken(start.End())
 }

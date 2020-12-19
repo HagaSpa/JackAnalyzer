@@ -359,6 +359,17 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func (exp *Expression) genExpression(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
+	e.EncodeToken(start)
+	genTerm(exp.Term, e)
+	for _, v := range exp.Next {
+		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
+		genTerm(v.Term, e)
+	}
+	e.EncodeToken(start.End())
+}
+
 func genTerm(s interface{}, e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "term"}}
 	e.EncodeToken(start)
@@ -373,17 +384,6 @@ func genTerm(s interface{}, e *xml.Encoder) {
 		// call genArgs
 	case UopTerm:
 		// call genUopTerm
-	}
-	e.EncodeToken(start.End())
-}
-
-func (exp *Expression) genExpression(e *xml.Encoder) {
-	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
-	e.EncodeToken(start)
-	genTerm(exp.Term, e)
-	for _, v := range exp.Next {
-		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
-		genTerm(v.Term, e)
 	}
 	e.EncodeToken(start.End())
 }

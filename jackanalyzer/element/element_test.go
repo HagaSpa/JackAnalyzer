@@ -277,14 +277,16 @@ func TestExpression_genExpression(t *testing.T) {
 			// TODO: Fix after implementing parseTerm
 			"test xml tag. ",
 			&Expression{
-				Term: &IntegerConstant{
+				Term: IntegerConstant{
 					V: 1,
 				},
 				Next: nil,
 			},
 			`
 <expression>
-  <term></term>
+  <term>
+    <integerConstant> 1 </integerConstant>
+  </term>
 </expression>
 `,
 		},
@@ -310,12 +312,12 @@ func TestExpression_genExpression(t *testing.T) {
 func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 	tests := []struct {
 		name string
-		ic   *IntegerConstant
+		ic   IntegerConstant
 		want string
 	}{
 		{
 			"test",
-			&IntegerConstant{
+			IntegerConstant{
 				V: 123,
 			},
 			`
@@ -334,6 +336,40 @@ func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
 			if !reflect.DeepEqual(b.String(), want) {
 				t.Errorf("genIntegerConstant() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}
+
+func Test_genTerm(t *testing.T) {
+	tests := []struct {
+		name string
+		s    interface{}
+		want string
+	}{
+		{
+			"test IntegerConstant",
+			IntegerConstant{
+				V: 134,
+			},
+			`
+<term>
+  <integerConstant> 134 </integerConstant>
+</term>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			genTerm(tt.s, e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genTerm() = \n %v", b.String())
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})

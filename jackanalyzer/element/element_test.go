@@ -283,7 +283,9 @@ func TestExpression_genExpression(t *testing.T) {
 				Next: nil,
 			},
 			`
-<expression></expression>
+<expression>
+  <term></term>
+</expression>
 `,
 		},
 	}

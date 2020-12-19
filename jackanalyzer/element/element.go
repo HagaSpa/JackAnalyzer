@@ -360,6 +360,8 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 }
 
 func genTerm(s interface{}, e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "term"}}
+	e.EncodeToken(start)
 	switch s.(type) {
 	case IntegerConstant, StringConstant, KeywordConstant, VarName:
 		// TODO: Divide the conditions.
@@ -372,6 +374,7 @@ func genTerm(s interface{}, e *xml.Encoder) {
 	case UopTerm:
 		// call genUopTerm
 	}
+	e.EncodeToken(start.End())
 }
 
 func (exp *Expression) genExpression(e *xml.Encoder) {

@@ -402,17 +402,17 @@ func (sc *StringConstant) genStringConstant(e *xml.Encoder) {
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string
-	switch s.(type) {
+	switch v := s.(type) {
 	case keyword:
-		str = string(s.(keyword))
+		str = string(v)
 	case identifier:
-		str = string(s.(identifier))
+		str = string(v)
 	case symbol:
-		str = string(s.(symbol))
+		str = string(v)
 	case integerConstant:
-		str = strconv.Itoa(int(s.(integerConstant)))
+		str = strconv.Itoa(int(v))
 	case stringConstant:
-		str = string(s.(stringConstant))
+		str = string(v)
 	}
 	return " " + str + " "
 }

@@ -296,8 +296,8 @@ type UopTerm struct {
 	Term Term
 }
 
-func (ic IntegerConstant) term()  {}
-func (sc StringConstant) term()   {}
+func (ic *IntegerConstant) term() {}
+func (sc *StringConstant) term()  {}
 func (kc *KeywordConstant) term() {}
 func (vn *VarName) term()         {}
 func (ci *CallIndex) term()       {}
@@ -375,11 +375,11 @@ func genTerm(s interface{}, e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "term"}}
 	e.EncodeToken(start)
 	switch s.(type) {
-	case IntegerConstant:
-		ic := s.(IntegerConstant)
+	case *IntegerConstant:
+		ic := s.(*IntegerConstant)
 		ic.genIntegerConstant(e)
-	case StringConstant:
-		sc := s.(StringConstant)
+	case *StringConstant:
+		sc := s.(*StringConstant)
 		sc.genStringConstant(e)
 	case CallIndex:
 		// call genCallIndex
@@ -393,11 +393,11 @@ func genTerm(s interface{}, e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
-func (ic IntegerConstant) genIntegerConstant(e *xml.Encoder) {
+func (ic *IntegerConstant) genIntegerConstant(e *xml.Encoder) {
 	e.EncodeElement(genCon(ic.V), genTag(ic.V))
 }
 
-func (sc StringConstant) genStringConstant(e *xml.Encoder) {
+func (sc *StringConstant) genStringConstant(e *xml.Encoder) {
 	e.EncodeElement(genCon(sc.V), genTag(sc.V))
 }
 

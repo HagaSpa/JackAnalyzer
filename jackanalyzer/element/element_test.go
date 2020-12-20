@@ -276,7 +276,7 @@ func TestExpression_genExpression(t *testing.T) {
 		{
 			"test",
 			&Expression{
-				Term: IntegerConstant{
+				Term: &IntegerConstant{
 					V: 1,
 				},
 				Next: nil,
@@ -292,13 +292,13 @@ func TestExpression_genExpression(t *testing.T) {
 		{
 			"test Next",
 			&Expression{
-				Term: IntegerConstant{
+				Term: &IntegerConstant{
 					V: 1,
 				},
 				Next: []*BopTerm{
 					{
 						Bop: "+",
-						Term: IntegerConstant{
+						Term: &IntegerConstant{
 							V: 2,
 						},
 					},
@@ -343,7 +343,7 @@ func Test_genTerm(t *testing.T) {
 	}{
 		{
 			"test IntegerConstant",
-			IntegerConstant{
+			&IntegerConstant{
 				V: 134,
 			},
 			`
@@ -354,7 +354,7 @@ func Test_genTerm(t *testing.T) {
 		},
 		{
 			"test StringConstant",
-			StringConstant{
+			&StringConstant{
 				V: "test",
 			},
 			`
@@ -383,12 +383,12 @@ func Test_genTerm(t *testing.T) {
 func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 	tests := []struct {
 		name string
-		ic   IntegerConstant
+		ic   *IntegerConstant
 		want string
 	}{
 		{
 			"test",
-			IntegerConstant{
+			&IntegerConstant{
 				V: 123,
 			},
 			`

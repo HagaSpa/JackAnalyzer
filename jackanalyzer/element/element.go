@@ -374,13 +374,11 @@ func (exp *Expression) genExpression(e *xml.Encoder) {
 func genTerm(s interface{}, e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "term"}}
 	e.EncodeToken(start)
-	switch s.(type) {
+	switch v := s.(type) {
 	case *IntegerConstant:
-		ic := s.(*IntegerConstant)
-		ic.genIntegerConstant(e)
+		v.genIntegerConstant(e)
 	case *StringConstant:
-		sc := s.(*StringConstant)
-		sc.genStringConstant(e)
+		v.genStringConstant(e)
 	case CallIndex:
 		// call genCallIndex
 	case SubroutineCall:

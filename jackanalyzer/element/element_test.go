@@ -309,39 +309,6 @@ func TestExpression_genExpression(t *testing.T) {
 	}
 }
 
-func TestIntegerConstant_genIntegerConstant(t *testing.T) {
-	tests := []struct {
-		name string
-		ic   IntegerConstant
-		want string
-	}{
-		{
-			"test",
-			IntegerConstant{
-				V: 123,
-			},
-			`
-<integerConstant> 123 </integerConstant>
-`,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
-			tt.ic.genIntegerConstant(e)
-			e.Flush()
-			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genIntegerConstant() = \n %v", b.String())
-				t.Errorf("wantXml = \n %v", want)
-			}
-		})
-	}
-}
-
 func Test_genTerm(t *testing.T) {
 	tests := []struct {
 		name string
@@ -370,6 +337,39 @@ func Test_genTerm(t *testing.T) {
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
 			if !reflect.DeepEqual(b.String(), want) {
 				t.Errorf("genTerm() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}
+
+func TestIntegerConstant_genIntegerConstant(t *testing.T) {
+	tests := []struct {
+		name string
+		ic   IntegerConstant
+		want string
+	}{
+		{
+			"test",
+			IntegerConstant{
+				V: 123,
+			},
+			`
+<integerConstant> 123 </integerConstant>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.ic.genIntegerConstant(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genIntegerConstant() = \n %v", b.String())
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})

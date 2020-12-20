@@ -274,8 +274,7 @@ func TestExpression_genExpression(t *testing.T) {
 		want string
 	}{
 		{
-			// TODO: Fix after implementing parseTerm
-			"test xml tag. ",
+			"test",
 			&Expression{
 				Term: IntegerConstant{
 					V: 1,
@@ -286,6 +285,33 @@ func TestExpression_genExpression(t *testing.T) {
 <expression>
   <term>
     <integerConstant> 1 </integerConstant>
+  </term>
+</expression>
+`,
+		},
+		{
+			"test Next",
+			&Expression{
+				Term: IntegerConstant{
+					V: 1,
+				},
+				Next: []*BopTerm{
+					{
+						Bop: "+",
+						Term: IntegerConstant{
+							V: 2,
+						},
+					},
+				},
+			},
+			`
+<expression>
+  <term>
+    <integerConstant> 1 </integerConstant>
+  </term>
+  <symbol> + </symbol>
+  <term>
+    <integerConstant> 2 </integerConstant>
   </term>
 </expression>
 `,
@@ -323,6 +349,17 @@ func Test_genTerm(t *testing.T) {
 			`
 <term>
   <integerConstant> 134 </integerConstant>
+</term>
+`,
+		},
+		{
+			"test StringConstant",
+			StringConstant{
+				V: "test",
+			},
+			`
+<term>
+  <stringConstant> test </stringConstant>
 </term>
 `,
 		},

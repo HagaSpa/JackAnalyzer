@@ -375,3 +375,36 @@ func Test_genTerm(t *testing.T) {
 		})
 	}
 }
+
+func TestStringConstant_genStringConstant(t *testing.T) {
+	tests := []struct {
+		name string
+		sc   StringConstant
+		want string
+	}{
+		{
+			"test",
+			StringConstant{
+				V: "THE AVERAGE IS:",
+			},
+			`
+<stringConstant> THE AVERAGE IS: </stringConstant>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.sc.genStringConstant(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genStringConstant() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

@@ -297,7 +297,7 @@ type UopTerm struct {
 }
 
 func (ic IntegerConstant) term()  {}
-func (sc *StringConstant) term()  {}
+func (sc StringConstant) term()   {}
 func (kc *KeywordConstant) term() {}
 func (vn *VarName) term()         {}
 func (ci *CallIndex) term()       {}
@@ -394,6 +394,10 @@ func (ic IntegerConstant) genIntegerConstant(e *xml.Encoder) {
 	e.EncodeElement(genCon(ic.V), genTag(ic.V))
 }
 
+func (sc StringConstant) genStringConstant(e *xml.Encoder) {
+	e.EncodeElement(genCon(sc.V), genTag(sc.V))
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string
@@ -406,6 +410,8 @@ func genCon(s interface{}) string {
 		str = string(s.(symbol))
 	case integerConstant:
 		str = strconv.Itoa(int(s.(integerConstant)))
+	case stringConstant:
+		str = string(s.(stringConstant))
 	}
 	return " " + str + " "
 }
@@ -422,6 +428,8 @@ func genTag(s interface{}) xml.StartElement {
 		l = "symbol"
 	case integerConstant:
 		l = "integerConstant"
+	case stringConstant:
+		l = "stringConstant"
 	}
 	return xml.StartElement{Name: xml.Name{Local: l}}
 }

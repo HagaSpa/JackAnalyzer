@@ -410,6 +410,39 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test SubroutineCall",
+			&SubroutineCall{
+				Name: "Main",
+				Dot:  ".",
+				Sn:   "main",
+				LP:   "(",
+				ExpL: []Expression{
+					{
+						Term: &VarName{
+							V: "i",
+						},
+					},
+				},
+				RP: ")",
+			},
+			`
+<term>
+  <identifier> Main </identifier>
+  <symbol> . </symbol>
+  <identifier> main </identifier>
+  <symbol> ( </symbol>
+  <expressionList>
+    <expression>
+      <term>
+        <identifier> i </identifier>
+      </term>
+    </expression>
+  </expressionList>
+  <symbol> ) </symbol>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

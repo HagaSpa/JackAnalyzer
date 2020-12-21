@@ -633,11 +633,13 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 <symbol> . </symbol>
 <identifier> main </identifier>
 <symbol> ( </symbol>
-<expression>
-  <term>
-    <identifier> i </identifier>
-  </term>
-</expression>
+<expressionList>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+</expressionList>
 <symbol> ) </symbol>
 `,
 		},
@@ -658,11 +660,13 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 			`
 <identifier> main </identifier>
 <symbol> ( </symbol>
-<expression>
-  <term>
-    <identifier> i </identifier>
-  </term>
-</expression>
+<expressionList>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+</expressionList>
 <symbol> ) </symbol>
 `,
 		},

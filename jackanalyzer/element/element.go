@@ -425,9 +425,12 @@ func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
 	}
 	e.EncodeElement(genCon(sbc.Sn), genTag(sbc.Sn))
 	e.EncodeElement(genCon(sbc.LP), genTag(sbc.RP))
+	start := xml.StartElement{Name: xml.Name{Local: "expressionList"}}
+	e.EncodeToken(start)
 	for _, v := range sbc.ExpL {
 		v.genExpression(e)
 	}
+	e.EncodeToken(start.End())
 	e.EncodeElement(genCon(sbc.RP), genTag(sbc.RP))
 }
 

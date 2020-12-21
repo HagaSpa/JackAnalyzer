@@ -379,6 +379,8 @@ func genTerm(s interface{}, e *xml.Encoder) {
 		v.genIntegerConstant(e)
 	case *StringConstant:
 		v.genStringConstant(e)
+	case *KeywordConstant:
+		v.genKeywordConstant(e)
 	case CallIndex:
 		// call genCallIndex
 	case SubroutineCall:

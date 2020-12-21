@@ -363,6 +363,17 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test KeywordConstant",
+			&KeywordConstant{
+				V: "int",
+			},
+			`
+<term>
+  <keyword> int </keyword>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -399,6 +399,10 @@ func (sc *StringConstant) genStringConstant(e *xml.Encoder) {
 	e.EncodeElement(genCon(sc.V), genTag(sc.V))
 }
 
+func (kc *KeywordConstant) genKeywordConstant(e *xml.Encoder) {
+	e.EncodeElement(genCon(kc.V), genTag(kc.V))
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string

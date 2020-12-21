@@ -260,10 +260,10 @@ type VarName struct {
 //
 //  varName '[' expression ']'
 type CallIndex struct {
-	Vn       identifier
-	LBracket symbol
-	Exp      Expression
-	RBracket symbol
+	Vn  identifier
+	LB  symbol
+	Exp Expression
+	RB  symbol
 }
 
 // SubroutineCall is Term.
@@ -409,6 +409,13 @@ func (kc *KeywordConstant) genKeywordConstant(e *xml.Encoder) {
 
 func (vn *VarName) genVarName(e *xml.Encoder) {
 	e.EncodeElement(genCon(vn.V), genTag(vn.V))
+}
+
+func (ci *CallIndex) genCallIndex(e *xml.Encoder) {
+	e.EncodeElement(genCon(ci.Vn), genTag(ci.Vn))
+	e.EncodeElement(genCon(ci.LB), genTag(ci.LB))
+	ci.Exp.genExpression(e)
+	e.EncodeElement(genCon(ci.RB), genTag(ci.RB))
 }
 
 // generate Contents for terminal symbol.

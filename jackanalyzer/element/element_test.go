@@ -533,3 +533,50 @@ func TestVarName_genVarName(t *testing.T) {
 		})
 	}
 }
+
+func TestCallIndex_genCallIndex(t *testing.T) {
+	tests := []struct {
+		name string
+		ci   *CallIndex
+		want string
+	}{
+		{
+			"test",
+			&CallIndex{
+				Vn: "a",
+				LB: "[",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RB: "]",
+			},
+			`
+<identifier> a </identifier>
+<symbol> [ </symbol>
+<expression>
+  <term>
+    <identifier> i </identifier>
+  </term>
+</expression>
+<symbol> ] </symbol>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.ci.genCallIndex(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genCallIndex() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

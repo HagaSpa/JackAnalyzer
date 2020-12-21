@@ -489,3 +489,36 @@ func TestKeywordConstant_genKeywordConstant(t *testing.T) {
 		})
 	}
 }
+
+func TestVarName_genVarName(t *testing.T) {
+	tests := []struct {
+		name string
+		vn   *VarName
+		want string
+	}{
+		{
+			"test",
+			&VarName{
+				V: "Hoge",
+			},
+			`
+<identifier> Hoge </identifier>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.vn.genVarName(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genVarName() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

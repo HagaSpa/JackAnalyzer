@@ -374,6 +374,17 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test VarName",
+			&VarName{
+				V: "Hoge",
+			},
+			`
+<term>
+  <identifier> Hoge </identifier>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

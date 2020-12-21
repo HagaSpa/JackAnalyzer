@@ -670,6 +670,45 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 <symbol> ) </symbol>
 `,
 		},
+		{
+			"testing when ExpL has multiple Bop.",
+			&SubroutineCall{
+				Sn: "main",
+				LP: "(",
+				ExpL: []Expression{
+					{
+						Term: &VarName{
+							V: "i",
+						},
+						Next: []*BopTerm{
+							{
+								Bop: "+",
+								Term: &VarName{
+									V: "j",
+								},
+							},
+						},
+					},
+				},
+				RP: ")",
+			},
+			`
+<identifier> main </identifier>
+<symbol> ( </symbol>
+<expressionList>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+    <symbol> + </symbol>
+    <term>
+      <identifier> j </identifier>
+    </term>
+  </expression>
+</expressionList>
+<symbol> ) </symbol>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

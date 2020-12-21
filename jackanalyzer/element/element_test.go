@@ -605,3 +605,56 @@ func TestCallIndex_genCallIndex(t *testing.T) {
 		})
 	}
 }
+
+func TestSubroutineCall_genSubroutineCall(t *testing.T) {
+	tests := []struct {
+		name string
+		sbc  *SubroutineCall
+		want string
+	}{
+		{
+			"test",
+			&SubroutineCall{
+				Name: "Main",
+				Dot:  ".",
+				Sn:   "main",
+				LP:   "(",
+				ExpL: []Expression{
+					{
+						Term: &VarName{
+							V: "i",
+						},
+					},
+				},
+				RP: ")",
+			},
+			`
+<identifier> Main </identifier>
+<symbol> . </symbol>
+<identifier> main </identifier>
+<symbol> ( </symbol>
+<expression>
+  <term>
+    <identifier> i </identifier>
+  </term>
+</expression>
+<symbol> ) </symbol>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.sbc.genSubroutineCall(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genSubroutineCall() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

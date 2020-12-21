@@ -271,12 +271,12 @@ type CallIndex struct {
 //  subroutineName '(' expressionList ')' |
 //  (className | varName) '.' subroutineName '(' expressionList ')'
 type SubroutineCall struct {
-	Name           *identifier  // ClassName | VarName
-	Dot            *symbol      // .
-	SubName        identifier   // string
-	LParen         symbol       // '('
-	ExpressionList []Expression // (expression(, expression)*)?
-	RParen         symbol       // ')'
+	Name identifier   // ClassName | VarName
+	Dot  symbol       // .
+	Sn   identifier   // string
+	LP   symbol       // '('
+	ExpL []Expression // (expression(, expression)*)?
+	RP   symbol       // ')'
 }
 
 // Args is Term.
@@ -416,6 +416,19 @@ func (ci *CallIndex) genCallIndex(e *xml.Encoder) {
 	e.EncodeElement(genCon(ci.LB), genTag(ci.LB))
 	ci.Exp.genExpression(e)
 	e.EncodeElement(genCon(ci.RB), genTag(ci.RB))
+}
+
+func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
+	if sbc.Name != "" && sbc.Dot != "" {
+		e.EncodeElement(genCon(sbc.Name), genTag(sbc.Name))
+		e.EncodeElement(genCon(sbc.Dot), genTag(sbc.Dot))
+	}
+	e.EncodeElement(genCon(sbc.Sn), genTag(sbc.Sn))
+	e.EncodeElement(genCon(sbc.LP), genTag(sbc.RP))
+	for _, v := range sbc.ExpL {
+		v.genExpression(e)
+	}
+	e.EncodeElement(genCon(sbc.RP), genTag(sbc.RP))
 }
 
 // generate Contents for terminal symbol.

@@ -641,6 +641,31 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 <symbol> ) </symbol>
 `,
 		},
+		{
+			"test Name and Dot is not exist.",
+			&SubroutineCall{
+				Sn: "main",
+				LP: "(",
+				ExpL: []Expression{
+					{
+						Term: &VarName{
+							V: "i",
+						},
+					},
+				},
+				RP: ")",
+			},
+			`
+<identifier> main </identifier>
+<symbol> ( </symbol>
+<expression>
+  <term>
+    <identifier> i </identifier>
+  </term>
+</expression>
+<symbol> ) </symbol>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

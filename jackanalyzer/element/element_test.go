@@ -385,6 +385,31 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test CallIndex",
+			&CallIndex{
+				Vn: "a",
+				LB: "[",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RB: "]",
+			},
+			`
+<term>
+  <identifier> a </identifier>
+  <symbol> [ </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+  <symbol> ] </symbol>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

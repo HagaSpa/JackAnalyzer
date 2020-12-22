@@ -759,3 +759,48 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 		})
 	}
 }
+
+func TestArgs_genArgs(t *testing.T) {
+	tests := []struct {
+		name string
+		args *Args
+		want string
+	}{
+		{
+			"test",
+			&Args{
+				LP: "(",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RP: ")",
+			},
+			`
+<symbol> ( </symbol>
+<expression>
+  <term>
+    <identifier> i </identifier>
+  </term>
+</expression>
+<symbol> ) </symbol>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.args.genArgs(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genArgs() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

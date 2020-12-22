@@ -283,9 +283,9 @@ type SubroutineCall struct {
 //
 //  '(' expression ')'
 type Args struct {
-	LParen symbol
-	Exp    Expression
-	RParen symbol
+	LP  symbol     // '('
+	Exp Expression // expression
+	RP  symbol     // ')'
 }
 
 // UopTerm is Term.
@@ -432,6 +432,12 @@ func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
 	}
 	e.EncodeToken(start.End())
 	e.EncodeElement(genCon(sbc.RP), genTag(sbc.RP))
+}
+
+func (args *Args) genArgs(e *xml.Encoder) {
+	e.EncodeElement(genCon(args.LP), genTag(args.LP))
+	args.Exp.genExpression(e)
+	e.EncodeElement(genCon(args.RP), genTag(args.RP))
 }
 
 // generate Contents for terminal symbol.

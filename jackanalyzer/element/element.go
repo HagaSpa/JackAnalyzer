@@ -440,6 +440,11 @@ func (args *Args) genArgs(e *xml.Encoder) {
 	e.EncodeElement(genCon(args.RP), genTag(args.RP))
 }
 
+// generate Element for *xml.EncodeElement.
+func genElement(s interface{}) (string, xml.StartElement) {
+	return genCon(s), genTag(s)
+}
+
 // generate Contents for terminal symbol.
 func genCon(s interface{}) string {
 	var str string

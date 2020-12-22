@@ -442,7 +442,26 @@ func (args *Args) genArgs(e *xml.Encoder) {
 
 // generate Element for *xml.EncodeElement.
 func genElement(s interface{}) (string, xml.StartElement) {
-	return genCon(s), genTag(s)
+	var c string // contents
+	var l string // label
+	switch v := s.(type) {
+	case keyword:
+		c = string(v)
+		l = "keyword"
+	case identifier:
+		c = string(v)
+		l = "identifier"
+	case symbol:
+		c = string(v)
+		l = "symbol"
+	case integerConstant:
+		c = strconv.Itoa(int(v))
+		l = "integerConstant"
+	case stringConstant:
+		c = string(v)
+		l = "stringConstant"
+	}
+	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
 }
 
 // generate Contents for terminal symbol.

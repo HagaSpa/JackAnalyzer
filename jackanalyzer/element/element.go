@@ -400,7 +400,7 @@ func (ic *IntegerConstant) genIntegerConstant(e *xml.Encoder) {
 }
 
 func (sc *StringConstant) genStringConstant(e *xml.Encoder) {
-	e.EncodeElement(genCon(sc.V), genTag(sc.V))
+	e.EncodeElement(genElement(sc.V))
 }
 
 func (kc *KeywordConstant) genKeywordConstant(e *xml.Encoder) {

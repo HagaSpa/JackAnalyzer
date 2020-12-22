@@ -867,3 +867,42 @@ func TestArgs_genArgs(t *testing.T) {
 		})
 	}
 }
+
+func TestUopTerm_genUopTerm(t *testing.T) {
+	tests := []struct {
+		name string
+		ut   *UopTerm
+		want string
+	}{
+		{
+			"test",
+			&UopTerm{
+				Uop: "-",
+				Term: &VarName{
+					V: "i",
+				},
+			},
+			`
+<symbol> - </symbol>
+<term>
+  <identifier> i </identifier>
+</term>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.ut.genUopTerm(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genUopTerm() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

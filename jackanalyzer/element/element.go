@@ -463,3 +463,8 @@ func (args *Args) genArgs(e *xml.Encoder) {
 	args.Exp.genExpression(e)
 	e.EncodeElement(genElement(args.RP))
 }
+
+func (ut *UopTerm) genUopTerm(e *xml.Encoder) {
+	e.EncodeElement(genElement(ut.Uop))
+	genTerm(ut.Term, e)
+}

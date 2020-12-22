@@ -349,12 +349,12 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 		c := xml.CharData([]byte("\n"))
 		e.EncodeToken(c)
 	} else {
-		e.EncodeElement(genCon(pl.Type), genTag(pl.Type))
-		e.EncodeElement(genCon(pl.Vn), genTag(pl.Vn))
+		e.EncodeElement(genElement(pl.Type))
+		e.EncodeElement(genElement(pl.Vn))
 		for _, v := range pl.Next {
-			e.EncodeElement(genCon(v.Comma), genTag(v.Comma))
-			e.EncodeElement(genCon(v.Type), genTag(v.Type))
-			e.EncodeElement(genCon(v.Vn), genTag(v.Vn))
+			e.EncodeElement(genElement(v.Comma))
+			e.EncodeElement(genElement(v.Type))
+			e.EncodeElement(genElement(v.Vn))
 		}
 	}
 	e.EncodeToken(start.End())

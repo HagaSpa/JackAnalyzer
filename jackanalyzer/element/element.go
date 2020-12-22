@@ -412,10 +412,10 @@ func (vn *VarName) genVarName(e *xml.Encoder) {
 }
 
 func (ci *CallIndex) genCallIndex(e *xml.Encoder) {
-	e.EncodeElement(genCon(ci.Vn), genTag(ci.Vn))
-	e.EncodeElement(genCon(ci.LB), genTag(ci.LB))
+	e.EncodeElement(genElement(ci.Vn))
+	e.EncodeElement(genElement(ci.LB))
 	ci.Exp.genExpression(e)
-	e.EncodeElement(genCon(ci.RB), genTag(ci.RB))
+	e.EncodeElement(genElement(ci.RB))
 }
 
 func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {

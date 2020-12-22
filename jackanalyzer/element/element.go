@@ -420,18 +420,18 @@ func (ci *CallIndex) genCallIndex(e *xml.Encoder) {
 
 func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
 	if sbc.Name != "" && sbc.Dot != "" {
-		e.EncodeElement(genCon(sbc.Name), genTag(sbc.Name))
-		e.EncodeElement(genCon(sbc.Dot), genTag(sbc.Dot))
+		e.EncodeElement(genElement(sbc.Name))
+		e.EncodeElement(genElement(sbc.Dot))
 	}
-	e.EncodeElement(genCon(sbc.Sn), genTag(sbc.Sn))
-	e.EncodeElement(genCon(sbc.LP), genTag(sbc.LP))
+	e.EncodeElement(genElement(sbc.Sn))
+	e.EncodeElement(genElement(sbc.LP))
 	start := xml.StartElement{Name: xml.Name{Local: "expressionList"}}
 	e.EncodeToken(start)
 	for _, v := range sbc.ExpL {
 		v.genExpression(e)
 	}
 	e.EncodeToken(start.End())
-	e.EncodeElement(genCon(sbc.RP), genTag(sbc.RP))
+	e.EncodeElement(genElement(sbc.RP))
 }
 
 func (args *Args) genArgs(e *xml.Encoder) {

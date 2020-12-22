@@ -435,9 +435,9 @@ func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
 }
 
 func (args *Args) genArgs(e *xml.Encoder) {
-	e.EncodeElement(genCon(args.LP), genTag(args.LP))
+	e.EncodeElement(genElement(args.LP))
 	args.Exp.genExpression(e)
-	e.EncodeElement(genCon(args.RP), genTag(args.RP))
+	e.EncodeElement(genElement(args.RP))
 }
 
 // generate Element for *xml.EncodeElement.

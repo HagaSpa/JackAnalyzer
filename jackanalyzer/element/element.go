@@ -396,7 +396,7 @@ func genTerm(s interface{}, e *xml.Encoder) {
 }
 
 func (ic *IntegerConstant) genIntegerConstant(e *xml.Encoder) {
-	e.EncodeElement(genCon(ic.V), genTag(ic.V))
+	e.EncodeElement(genElement(ic.V))
 }
 
 func (sc *StringConstant) genStringConstant(e *xml.Encoder) {

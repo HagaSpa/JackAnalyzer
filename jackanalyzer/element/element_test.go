@@ -506,6 +506,23 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test UopTerm",
+			&UopTerm{
+				Uop: "-",
+				Term: &VarName{
+					V: "i",
+				},
+			},
+			`
+<term>
+  <symbol> - </symbol>
+  <term>
+    <identifier> i </identifier>
+  </term>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

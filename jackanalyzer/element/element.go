@@ -413,8 +413,8 @@ func genTerm(s interface{}, e *xml.Encoder) {
 		v.genSubroutineCall(e)
 	case *Args:
 		v.genArgs(e)
-	case UopTerm:
-		// call genUopTerm
+	case *UopTerm:
+		v.genUopTerm(e)
 	}
 	e.EncodeToken(start.End())
 }

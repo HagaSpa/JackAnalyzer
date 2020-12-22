@@ -305,6 +305,30 @@ func (sbc *SubroutineCall) term() {}
 func (args *Args) term()          {}
 func (ut *UopTerm) term()         {}
 
+// generate Element for *xml.EncodeElement.
+func genElement(s interface{}) (string, xml.StartElement) {
+	var c string // contents
+	var l string // label
+	switch v := s.(type) {
+	case keyword:
+		c = string(v)
+		l = "keyword"
+	case identifier:
+		c = string(v)
+		l = "identifier"
+	case symbol:
+		c = string(v)
+		l = "symbol"
+	case integerConstant:
+		c = strconv.Itoa(int(v))
+		l = "integerConstant"
+	case stringConstant:
+		c = string(v)
+		l = "stringConstant"
+	}
+	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
+}
+
 // MarshalXML implemented Marshaler.
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
@@ -438,28 +462,4 @@ func (args *Args) genArgs(e *xml.Encoder) {
 	e.EncodeElement(genElement(args.LP))
 	args.Exp.genExpression(e)
 	e.EncodeElement(genElement(args.RP))
-}
-
-// generate Element for *xml.EncodeElement.
-func genElement(s interface{}) (string, xml.StartElement) {
-	var c string // contents
-	var l string // label
-	switch v := s.(type) {
-	case keyword:
-		c = string(v)
-		l = "keyword"
-	case identifier:
-		c = string(v)
-		l = "identifier"
-	case symbol:
-		c = string(v)
-		l = "symbol"
-	case integerConstant:
-		c = strconv.Itoa(int(v))
-		l = "integerConstant"
-	case stringConstant:
-		c = string(v)
-		l = "stringConstant"
-	}
-	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
 }

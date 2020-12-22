@@ -773,3 +773,74 @@ func TestArgs_genArgs(t *testing.T) {
 		})
 	}
 }
+
+func Test_genElement(t *testing.T) {
+	tests := []struct {
+		name  string
+		s     interface{}
+		want  string
+		want1 xml.StartElement
+	}{
+		{
+			"test keyword",
+			keyword("class"),
+			" class ",
+			xml.StartElement{
+				Name: xml.Name{
+					Local: "keyword",
+				},
+			},
+		},
+		{
+			"test identifier",
+			identifier("hoge"),
+			" hoge ",
+			xml.StartElement{
+				Name: xml.Name{
+					Local: "identifier",
+				},
+			},
+		},
+		{
+			"test symbol",
+			symbol(","),
+			" , ",
+			xml.StartElement{
+				Name: xml.Name{
+					Local: "symbol",
+				},
+			},
+		},
+		{
+			"test integerConstant",
+			integerConstant(123),
+			" 123 ",
+			xml.StartElement{
+				Name: xml.Name{
+					Local: "integerConstant",
+				},
+			},
+		},
+		{
+			"test stringConstant",
+			stringConstant("THE AVERAGE IS:"),
+			" THE AVERAGE IS: ",
+			xml.StartElement{
+				Name: xml.Name{
+					Local: "stringConstant",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := genElement(tt.s)
+			if got != tt.want {
+				t.Errorf("genElement() got = %v, want %v", got, tt.want)
+			}
+			if !reflect.DeepEqual(got1, tt.want1) {
+				t.Errorf("genElement() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}

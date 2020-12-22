@@ -328,16 +328,16 @@ func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 func (cd *ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "classVarDec"}}
 	e.EncodeToken(start)
-	e.EncodeElement(genCon(cd.Modi), genTag(cd.Modi))
-	e.EncodeElement(genCon(cd.Vt), genTag(cd.Vt))
-	e.EncodeElement(genCon(cd.Vn), genTag(cd.Vn))
+	e.EncodeElement(genElement(cd.Modi))
+	e.EncodeElement(genElement(cd.Vt))
+	e.EncodeElement(genElement(cd.Vn))
 
 	for _, v := range cd.Vns {
-		e.EncodeElement(genCon(v.Comma), genTag(v.Comma))
-		e.EncodeElement(genCon(v.Vn), genTag(v.Vn))
+		e.EncodeElement(genElement(v.Comma))
+		e.EncodeElement(genElement(v.Vn))
 	}
 
-	e.EncodeElement(genCon(cd.Sc), genTag(cd.Sc))
+	e.EncodeElement(genElement(cd.Sc))
 	e.EncodeToken(start.End())
 }
 

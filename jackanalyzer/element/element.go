@@ -411,8 +411,8 @@ func genTerm(s interface{}, e *xml.Encoder) {
 		v.genCallIndex(e)
 	case *SubroutineCall:
 		v.genSubroutineCall(e)
-	case Args:
-		// call genArgs
+	case *Args:
+		v.genArgs(e)
 	case UopTerm:
 		// call genUopTerm
 	}

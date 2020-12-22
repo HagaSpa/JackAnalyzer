@@ -483,6 +483,29 @@ func Test_genTerm(t *testing.T) {
 </term>
 `,
 		},
+		{
+			"test Args",
+			&Args{
+				LP: "(",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RP: ")",
+			},
+			`
+<term>
+  <symbol> ( </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+  <symbol> ) </symbol>
+</term>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

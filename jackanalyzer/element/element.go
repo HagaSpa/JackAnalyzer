@@ -365,7 +365,7 @@ func (exp *Expression) genExpression(e *xml.Encoder) {
 	e.EncodeToken(start)
 	genTerm(exp.Term, e)
 	for _, v := range exp.Next {
-		e.EncodeElement(genCon(v.Bop), genTag(v.Bop))
+		e.EncodeElement(genElement(v.Bop))
 		genTerm(v.Term, e)
 	}
 	e.EncodeToken(start.End())

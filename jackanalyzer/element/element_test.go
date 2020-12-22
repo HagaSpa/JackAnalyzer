@@ -8,37 +8,6 @@ import (
 	"testing"
 )
 
-func Test_genCon(t *testing.T) {
-	tests := []struct {
-		name string
-		s    interface{}
-		want string
-	}{
-		{
-			"test keyword",
-			keyword("class"),
-			" class ",
-		},
-		{
-			"test identifier",
-			identifier("hoge"),
-			" hoge ",
-		},
-		{
-			"test symbol",
-			symbol(","),
-			" , ",
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := genCon(tt.s); got != tt.want {
-				t.Errorf("genCon() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func Test_class_MarshalXML(t *testing.T) {
 	tests := []struct {
 		name string

@@ -463,39 +463,3 @@ func genElement(s interface{}) (string, xml.StartElement) {
 	}
 	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
 }
-
-// generate Contents for terminal symbol.
-func genCon(s interface{}) string {
-	var str string
-	switch v := s.(type) {
-	case keyword:
-		str = string(v)
-	case identifier:
-		str = string(v)
-	case symbol:
-		str = string(v)
-	case integerConstant:
-		str = strconv.Itoa(int(v))
-	case stringConstant:
-		str = string(v)
-	}
-	return " " + str + " "
-}
-
-// generate xml tag for terminal symbol.
-func genTag(s interface{}) xml.StartElement {
-	var l string
-	switch s.(type) {
-	case keyword:
-		l = "keyword"
-	case identifier:
-		l = "identifier"
-	case symbol:
-		l = "symbol"
-	case integerConstant:
-		l = "integerConstant"
-	case stringConstant:
-		l = "stringConstant"
-	}
-	return xml.StartElement{Name: xml.Name{Local: l}}
-}

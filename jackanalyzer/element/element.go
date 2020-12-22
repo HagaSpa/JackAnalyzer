@@ -404,7 +404,7 @@ func (sc *StringConstant) genStringConstant(e *xml.Encoder) {
 }
 
 func (kc *KeywordConstant) genKeywordConstant(e *xml.Encoder) {
-	e.EncodeElement(genCon(kc.V), genTag(kc.V))
+	e.EncodeElement(genElement(kc.V))
 }
 
 func (vn *VarName) genVarName(e *xml.Encoder) {

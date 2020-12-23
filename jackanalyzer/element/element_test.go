@@ -1068,3 +1068,82 @@ func TestLetStatement_genLetStatement(t *testing.T) {
 		})
 	}
 }
+
+func TestIfStatement_genIfStatement(t *testing.T) {
+	tests := []struct {
+		name string
+		is   *IfStatement
+		want string
+	}{
+		{
+			"test if (i) { let s = i; }",
+			&IfStatement{
+				Modi: "if",
+				LP:   "(",
+				LExp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RP: ")",
+				LB: "{",
+				Stmts: []Statement{
+					&LetStatement{
+						Modi: "let",
+						Vn:   "s",
+						Eq:   "=",
+						Rexp: Expression{
+							Term: &VarName{
+								V: "i",
+							},
+						},
+						Sc: ";",
+					},
+				},
+				RB: "}",
+			},
+			`
+<ifStatement>
+  <keyword> if </keyword>
+  <symbol> ( </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+  <symbol> ) </symbol>
+  <symbol> { </symbol>
+  <statements>
+    <letStatement>
+      <keyword> let </keyword>
+      <identifier> s </identifier>
+      <symbol> = </symbol>
+      <expression>
+        <term>
+          <identifier> i </identifier>
+        </term>
+      </expression>
+      <symbol> ; </symbol>
+    </letStatement>
+  </statements>
+  <symbol> } </symbol>
+</ifStatement>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.is.genIfStatement(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genIfStatement() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

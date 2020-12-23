@@ -159,17 +159,17 @@ func (ls *LetStatement) statement() {}
 //  'if' '(' expression ')' '{' statements '}'
 //  ( 'else' '{' statements '}' )?
 type IfStatement struct {
-	Modi    keyword      // 'if'
-	LParen  symbol       // '('
-	Lexp    Expression   // expression
-	RParen  symbol       // ')'
-	LBrace  symbol       // '{'
-	Stmts   []Statement  // statements
-	RBrace  symbol       // '}'
-	Else    *keyword     // 'else'
-	Elbrace *symbol      // '{'
-	Estmts  []*Statement // statements
-	Erbrace *symbol      // '}'
+	Modi   keyword     // 'if'
+	LP     symbol      // '('
+	LExp   Expression  // expression
+	RP     symbol      // ')'
+	LB     symbol      // '{'
+	Stmts  []Statement // statements
+	RB     symbol      // '}'
+	Else   keyword     // 'else'
+	ELB    symbol      // '{'
+	EStmts []Statement // statements
+	ERB    symbol      // '}'
 }
 
 func (is *IfStatement) statement() {}
@@ -412,6 +412,38 @@ func (ls *LetStatement) genLetStatement(e *xml.Encoder) {
 	e.EncodeElement(genElement(ls.Eq))
 	ls.Rexp.genExpression(e)
 	e.EncodeElement(genElement(ls.Sc))
+	e.EncodeToken(start.End())
+}
+
+func (is *IfStatement) genIfStatement(e *xml.Encoder) {
+	// 'if' '(' expression ')'
+	start := xml.StartElement{Name: xml.Name{Local: "ifStatement"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(is.Modi))
+	e.EncodeElement(genElement(is.LP))
+	is.LExp.genExpression(e)
+	e.EncodeElement(genElement(is.RP))
+
+	// '{' statements '}'
+	e.EncodeElement(genElement(is.LB))
+	ss := xml.StartElement{Name: xml.Name{Local: "statements"}}
+	e.EncodeToken(ss)
+	for _, v := range is.Stmts {
+		genStatement(v, e)
+	}
+	e.EncodeToken(ss.End())
+	e.EncodeElement(genElement(is.RB))
+
+	// ( 'else' '{' statements '}' )?
+	if is.Else != "" && is.ELB != "" && len(is.EStmts) > 0 && is.ERB != "" {
+		e.EncodeElement(genElement(is.Else))
+		e.EncodeElement(genElement(is.ELB))
+		for _, v := range is.EStmts {
+			genStatement(v, e)
+		}
+		e.EncodeElement(genElement(is.ERB))
+	}
+
 	e.EncodeToken(start.End())
 }
 

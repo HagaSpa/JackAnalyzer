@@ -384,6 +384,21 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func genStatement(s interface{}, e *xml.Encoder) {
+	switch s.(type) {
+	case *LetStatement:
+		// TODO: call genLetStatement
+	case *IfStatement:
+		// TODO: call genIfStatement
+	case *WhileStatement:
+		// TODO: call genWhileStatement
+	case *DoStatement:
+		// TODO: call genDoStatement
+	case *ReturnStatement:
+		// TODO: call genReturnStatement
+	}
+}
+
 func (exp *Expression) genExpression(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
 	e.EncodeToken(start)

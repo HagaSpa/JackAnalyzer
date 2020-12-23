@@ -142,14 +142,14 @@ type Statement interface {
 //
 //  'let' varName ( '[' expression ']' )? '=' expression ';'
 type LetStatement struct {
-	Modi   keyword    // 'let'
-	Vn     identifier // varName
-	LBrack symbol     // '['
-	Lexp   Expression // expression
-	RBrack symbol     // ']'
-	Eq     symbol     // '='
-	Rexp   Expression // expression
-	Sc     symbol     // ';'
+	Modi keyword     // 'let'
+	Vn   identifier  // varName
+	LB   symbol      // '['
+	Lexp *Expression // expression
+	RB   symbol      // ']'
+	Eq   symbol      // '='
+	Rexp Expression  // expression
+	Sc   symbol      // ';'
 }
 
 func (ls *LetStatement) statement() {}
@@ -397,6 +397,22 @@ func genStatement(s interface{}, e *xml.Encoder) {
 	case *ReturnStatement:
 		// TODO: call genReturnStatement
 	}
+}
+
+func (ls *LetStatement) genLetStatement(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "letStatement"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(ls.Modi))
+	e.EncodeElement(genElement(ls.Vn))
+	if ls.LB != "" && ls.Lexp != nil && ls.RB != "" {
+		e.EncodeElement(genElement(ls.LB))
+		ls.Lexp.genExpression(e)
+		e.EncodeElement(genElement(ls.RB))
+	}
+	e.EncodeElement(genElement(ls.Eq))
+	ls.Rexp.genExpression(e)
+	e.EncodeElement(genElement(ls.Sc))
+	e.EncodeToken(start.End())
 }
 
 func (exp *Expression) genExpression(e *xml.Encoder) {

@@ -385,9 +385,9 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 }
 
 func genStatement(s interface{}, e *xml.Encoder) {
-	switch s.(type) {
+	switch v := s.(type) {
 	case *LetStatement:
-		// TODO: call genLetStatement
+		v.genLetStatement(e)
 	case *IfStatement:
 		// TODO: call genIfStatement
 	case *WhileStatement:

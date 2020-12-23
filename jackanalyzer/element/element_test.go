@@ -924,6 +924,78 @@ func TestUopTerm_genUopTerm(t *testing.T) {
 	}
 }
 
+func Test_genStatement(t *testing.T) {
+	tests := []struct {
+		name string
+		s    interface{}
+		want string
+	}{
+		{
+			"test LetStatement",
+			&LetStatement{
+				Modi: "let",
+				Vn:   "a",
+				Eq:   "=",
+				Rexp: Expression{
+					Term: &SubroutineCall{
+						Name: "Array",
+						Dot:  ".",
+						Sn:   "new",
+						LP:   "(",
+						ExpL: []Expression{
+							{
+								Term: &VarName{
+									V: "length",
+								},
+							},
+						},
+						RP: ")",
+					},
+				},
+				Sc: ";",
+			},
+			`
+<letStatement>
+  <keyword> let </keyword>
+  <identifier> a </identifier>
+  <symbol> = </symbol>
+  <expression>
+    <term>
+      <identifier> Array </identifier>
+      <symbol> . </symbol>
+      <identifier> new </identifier>
+      <symbol> ( </symbol>
+      <expressionList>
+        <expression>
+          <term>
+            <identifier> length </identifier>
+          </term>
+        </expression>
+      </expressionList>
+      <symbol> ) </symbol>
+    </term>
+  </expression>
+  <symbol> ; </symbol>
+</letStatement>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			genStatement(tt.s, e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genStatement() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}
+
 func TestLetStatement_genLetStatement(t *testing.T) {
 	tests := []struct {
 		name string

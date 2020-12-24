@@ -979,6 +979,61 @@ func Test_genStatement(t *testing.T) {
 </letStatement>
 `,
 		},
+		{
+			"test IfStatement",
+			&IfStatement{
+				Modi: "if",
+				LP:   "(",
+				LExp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+				},
+				RP: ")",
+				LB: "{",
+				Stmts: []Statement{
+					&LetStatement{
+						Modi: "let",
+						Vn:   "s",
+						Eq:   "=",
+						Rexp: Expression{
+							Term: &VarName{
+								V: "i",
+							},
+						},
+						Sc: ";",
+					},
+				},
+				RB: "}",
+			},
+			`
+<ifStatement>
+  <keyword> if </keyword>
+  <symbol> ( </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+  </expression>
+  <symbol> ) </symbol>
+  <symbol> { </symbol>
+  <statements>
+    <letStatement>
+      <keyword> let </keyword>
+      <identifier> s </identifier>
+      <symbol> = </symbol>
+      <expression>
+        <term>
+          <identifier> i </identifier>
+        </term>
+      </expression>
+      <symbol> ; </symbol>
+    </letStatement>
+  </statements>
+  <symbol> } </symbol>
+</ifStatement>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

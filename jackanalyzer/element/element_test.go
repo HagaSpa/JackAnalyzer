@@ -1034,6 +1034,85 @@ func Test_genStatement(t *testing.T) {
 </ifStatement>
 `,
 		},
+		{
+			"test WhileStatement",
+			&WhileStatement{
+				Modi: "while",
+				LP:   "(",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+					Next: []*BopTerm{
+						{
+							Bop: "<",
+							Term: &VarName{
+								V: "length",
+							},
+						},
+					},
+				},
+				RP: ")",
+				LB: "{",
+				Stmts: []Statement{
+					&LetStatement{
+						Modi: "let",
+						Vn:   "i",
+						Eq:   "=",
+						Rexp: Expression{
+							Term: &VarName{
+								V: "i",
+							},
+							Next: []*BopTerm{
+								{
+									Bop: "+",
+									Term: &IntegerConstant{
+										V: 1,
+									},
+								},
+							},
+						},
+						Sc: ";",
+					},
+				},
+				RB: "}",
+			},
+			`
+<whileStatement>
+  <keyword> while </keyword>
+  <symbol> ( </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+    <symbol> &lt; </symbol>
+    <term>
+      <identifier> length </identifier>
+    </term>
+  </expression>
+  <symbol> ) </symbol>
+  <symbol> { </symbol>
+  <statements>
+    <letStatement>
+      <keyword> let </keyword>
+      <identifier> i </identifier>
+      <symbol> = </symbol>
+      <expression>
+        <term>
+          <identifier> i </identifier>
+        </term>
+        <symbol> + </symbol>
+        <term>
+          <integerConstant> 1 </integerConstant>
+        </term>
+      </expression>
+      <symbol> ; </symbol>
+    </letStatement>
+  </statements>
+  <symbol> } </symbol>
+</whileStatement>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

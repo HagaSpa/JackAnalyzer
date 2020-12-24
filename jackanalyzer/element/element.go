@@ -391,7 +391,7 @@ func genStatement(s interface{}, e *xml.Encoder) {
 	case *IfStatement:
 		v.genIfStatement(e)
 	case *WhileStatement:
-		// TODO: call genWhileStatement
+		v.genWhileStatement(e)
 	case *DoStatement:
 		// TODO: call genDoStatement
 	case *ReturnStatement:

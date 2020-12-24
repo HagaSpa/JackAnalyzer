@@ -178,13 +178,13 @@ func (is *IfStatement) statement() {}
 //
 //  'while' '(' expression ')' '{' statements '}'
 type WhileStatement struct {
-	Modi   keyword     // 'while'
-	LParen symbol      // '('
-	Lexp   Expression  // expression
-	RParen symbol      // ')'
-	LBrace symbol      // '{'
-	Stmts  []Statement // statements
-	RBrace symbol      // '}'
+	Modi  keyword     // 'while'
+	LP    symbol      // '('
+	Exp   Expression  // expression
+	RP    symbol      // ')'
+	LB    symbol      // '{'
+	Stmts []Statement // statements
+	RB    symbol      // '}'
 }
 
 func (ws *WhileStatement) statement() {}
@@ -444,6 +444,24 @@ func (is *IfStatement) genIfStatement(e *xml.Encoder) {
 		e.EncodeElement(genElement(is.ERB))
 	}
 
+	e.EncodeToken(start.End())
+}
+
+func (ws *WhileStatement) genWhileStatement(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "whileStatement"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(ws.Modi))
+	e.EncodeElement(genElement(ws.LP))
+	ws.Exp.genExpression(e)
+	e.EncodeElement(genElement(ws.RP))
+	e.EncodeElement(genElement(ws.LB))
+	ss := xml.StartElement{Name: xml.Name{Local: "statements"}}
+	e.EncodeToken(ss)
+	for _, v := range ws.Stmts {
+		genStatement(v, e)
+	}
+	e.EncodeToken(ss.End())
+	e.EncodeElement(genElement(ws.RB))
 	e.EncodeToken(start.End())
 }
 

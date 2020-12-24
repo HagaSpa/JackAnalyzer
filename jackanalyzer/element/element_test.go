@@ -1202,3 +1202,106 @@ func TestIfStatement_genIfStatement(t *testing.T) {
 		})
 	}
 }
+
+func TestWhileStatement_genWhileStatement(t *testing.T) {
+	tests := []struct {
+		name string
+		ws   *WhileStatement
+		want string
+	}{
+		{
+			"test while (i < length) {let i = i + 1; }",
+			&WhileStatement{
+				Modi: "while",
+				LP:   "(",
+				Exp: Expression{
+					Term: &VarName{
+						V: "i",
+					},
+					Next: []*BopTerm{
+						{
+							Bop: "<",
+							Term: &VarName{
+								V: "length",
+							},
+						},
+					},
+				},
+				RP: ")",
+				LB: "{",
+				Stmts: []Statement{
+					&LetStatement{
+						Modi: "let",
+						Vn:   "i",
+						Eq:   "=",
+						Rexp: Expression{
+							Term: &VarName{
+								V: "i",
+							},
+							Next: []*BopTerm{
+								{
+									Bop: "+",
+									Term: &IntegerConstant{
+										V: 1,
+									},
+								},
+							},
+						},
+						Sc: ";",
+					},
+				},
+				RB: "}",
+			},
+			`
+<whileStatement>
+  <keyword> while </keyword>
+  <symbol> ( </symbol>
+  <expression>
+    <term>
+      <identifier> i </identifier>
+    </term>
+    <symbol> &lt; </symbol>
+    <term>
+      <identifier> length </identifier>
+    </term>
+  </expression>
+  <symbol> ) </symbol>
+  <symbol> { </symbol>
+  <statements>
+    <letStatement>
+      <keyword> let </keyword>
+      <identifier> i </identifier>
+      <symbol> = </symbol>
+      <expression>
+        <term>
+          <identifier> i </identifier>
+        </term>
+        <symbol> + </symbol>
+        <term>
+          <integerConstant> 1 </integerConstant>
+        </term>
+      </expression>
+      <symbol> ; </symbol>
+    </letStatement>
+  </statements>
+  <symbol> } </symbol>
+</whileStatement>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.ws.genWhileStatement(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genWhileStatement() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

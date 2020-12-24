@@ -193,9 +193,9 @@ func (ws *WhileStatement) statement() {}
 //
 //  'do' subroutineCall ';'
 type DoStatement struct {
-	Modi keyword        // 'do'
-	Subr SubroutineCall // subroutineCall
-	Sc   symbol         // ';'
+	Modi keyword         // 'do'
+	Sub  *SubroutineCall // subroutineCall
+	Sc   symbol          // ';'
 }
 
 func (do *DoStatement) statement() {}
@@ -462,6 +462,15 @@ func (ws *WhileStatement) genWhileStatement(e *xml.Encoder) {
 	}
 	e.EncodeToken(ss.End())
 	e.EncodeElement(genElement(ws.RB))
+	e.EncodeToken(start.End())
+}
+
+func (do *DoStatement) genDoStatement(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "doStatement"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(do.Modi))
+	do.Sub.genSubroutineCall(e)
+	e.EncodeElement(genElement(do.Sc))
 	e.EncodeToken(start.End())
 }
 

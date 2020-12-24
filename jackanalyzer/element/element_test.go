@@ -1384,3 +1384,66 @@ func TestWhileStatement_genWhileStatement(t *testing.T) {
 		})
 	}
 }
+
+func TestDoStatement_genDoStatement(t *testing.T) {
+	tests := []struct {
+		name string
+		do   *DoStatement
+		want string
+	}{
+		{
+			`test do Output.printString("THE AVERAGE IS: ");`,
+			&DoStatement{
+				Modi: "do",
+				Sub: &SubroutineCall{
+					Name: "Output",
+					Dot:  ".",
+					Sn:   "printString",
+					LP:   "(",
+					ExpL: []Expression{
+						{
+							Term: &StringConstant{
+								V: "THE AVERAGE IS: ",
+							},
+						},
+					},
+					RP: ")",
+				},
+				Sc: ";",
+			},
+			`
+<doStatement>
+  <keyword> do </keyword>
+  <identifier> Output </identifier>
+  <symbol> . </symbol>
+  <identifier> printString </identifier>
+  <symbol> ( </symbol>
+  <expressionList>
+    <expression>
+      <term>
+        <stringConstant> THE AVERAGE IS:  </stringConstant>
+      </term>
+    </expression>
+  </expressionList>
+  <symbol> ) </symbol>
+  <symbol> ; </symbol>
+</doStatement>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.do.genDoStatement(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genDoStatement() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

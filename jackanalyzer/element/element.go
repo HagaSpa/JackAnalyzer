@@ -393,7 +393,7 @@ func genStatement(s interface{}, e *xml.Encoder) {
 	case *WhileStatement:
 		v.genWhileStatement(e)
 	case *DoStatement:
-		// TODO: call genDoStatement
+		v.genDoStatement(e)
 	case *ReturnStatement:
 		// TODO: call genReturnStatement
 	}

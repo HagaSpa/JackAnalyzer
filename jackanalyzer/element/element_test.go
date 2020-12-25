@@ -1113,6 +1113,45 @@ func Test_genStatement(t *testing.T) {
 </whileStatement>
 `,
 		},
+		{
+			"test DoStatement",
+			&DoStatement{
+				Modi: "do",
+				Sub: &SubroutineCall{
+					Name: "Output",
+					Dot:  ".",
+					Sn:   "printString",
+					LP:   "(",
+					ExpL: []Expression{
+						{
+							Term: &StringConstant{
+								V: "THE AVERAGE IS: ",
+							},
+						},
+					},
+					RP: ")",
+				},
+				Sc: ";",
+			},
+			`
+<doStatement>
+  <keyword> do </keyword>
+  <identifier> Output </identifier>
+  <symbol> . </symbol>
+  <identifier> printString </identifier>
+  <symbol> ( </symbol>
+  <expressionList>
+    <expression>
+      <term>
+        <stringConstant> THE AVERAGE IS:  </stringConstant>
+      </term>
+    </expression>
+  </expressionList>
+  <symbol> ) </symbol>
+  <symbol> ; </symbol>
+</doStatement>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

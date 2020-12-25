@@ -395,7 +395,7 @@ func genStatement(s interface{}, e *xml.Encoder) {
 	case *DoStatement:
 		v.genDoStatement(e)
 	case *ReturnStatement:
-		// TODO: call genReturnStatement
+		v.genReturnStatement(e)
 	}
 }
 

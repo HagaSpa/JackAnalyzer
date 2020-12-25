@@ -1152,6 +1152,19 @@ func Test_genStatement(t *testing.T) {
 </doStatement>
 `,
 		},
+		{
+			"test ReturnStatement",
+			&ReturnStatement{
+				Modi: "return",
+				Sc:   ";",
+			},
+			`
+<returnStatement>
+  <keyword> return </keyword>
+  <symbol> ; </symbol>
+</returnStatement>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

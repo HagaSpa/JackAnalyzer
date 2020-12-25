@@ -9,9 +9,6 @@ import (
 Terminal Symbol
 */
 
-type terminalSymbol interface {
-}
-
 // Same as *token.Keyword*
 //  'class', 'method', 'function', 'constructor', 'int', 'boolean', 'char', 'void', 'var', 'static', 'field', 'let', 'do', 'if', 'else', 'while', 'return', 'true', 'false', 'null', 'this'
 type keyword string

@@ -474,6 +474,17 @@ func (do *DoStatement) genDoStatement(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func (rs *ReturnStatement) genReturnStatement(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "returnStatement"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(rs.Modi))
+	if rs.Exp != nil {
+		rs.Exp.genExpression(e)
+	}
+	e.EncodeElement(genElement(rs.Sc))
+	e.EncodeToken(start.End())
+}
+
 func (exp *Expression) genExpression(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
 	e.EncodeToken(start)

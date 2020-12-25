@@ -1486,3 +1486,40 @@ func TestDoStatement_genDoStatement(t *testing.T) {
 		})
 	}
 }
+
+func TestReturnStatement_genReturnStatement(t *testing.T) {
+	tests := []struct {
+		name string
+		rs   *ReturnStatement
+		want string
+	}{
+		{
+			"test return;",
+			&ReturnStatement{
+				Modi: "return",
+				Sc:   ";",
+			},
+			`
+<returnStatement>
+  <keyword> return </keyword>
+  <symbol> ; </symbol>
+</returnStatement>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.rs.genReturnStatement(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genReturnStatement() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

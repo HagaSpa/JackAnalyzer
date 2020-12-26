@@ -381,6 +381,20 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start.End())
 }
 
+func (vd *VarDec) genVarDec(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "varDec"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(vd.Modi))
+	e.EncodeElement(genElement(vd.Vt))
+	e.EncodeElement(genElement(vd.Vn))
+	for _, v := range vd.Vns {
+		e.EncodeElement(genElement(v.Comma))
+		e.EncodeElement(genElement(v.Vn))
+	}
+	e.EncodeElement(genElement(vd.Sc))
+	e.EncodeToken(start.End())
+}
+
 func genStatement(s interface{}, e *xml.Encoder) {
 	switch v := s.(type) {
 	case *LetStatement:

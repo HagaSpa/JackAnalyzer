@@ -1536,3 +1536,44 @@ func TestReturnStatement_genReturnStatement(t *testing.T) {
 		})
 	}
 }
+
+func TestVarDec_genVarDec(t *testing.T) {
+	tests := []struct {
+		name string
+		vd   *VarDec
+		want string
+	}{
+		{
+			"test var Array a;",
+			&VarDec{
+				Modi: "varDec",
+				Vt:   identifier("Array"),
+				Vn:   "a",
+				Sc:   ";",
+			},
+			`
+<varDec>
+  <keyword> varDec </keyword>
+  <identifier> Array </identifier>
+  <identifier> a </identifier>
+  <symbol> ; </symbol>
+</varDec>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.vd.genVarDec(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genVarDec() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

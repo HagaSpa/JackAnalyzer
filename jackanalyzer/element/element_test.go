@@ -1560,6 +1560,31 @@ func TestVarDec_genVarDec(t *testing.T) {
 </varDec>
 `,
 		},
+		{
+			"test var int i, sum;",
+			&VarDec{
+				Modi: "var",
+				Vt:   keyword("int"),
+				Vn:   "i",
+				Vns: []*NextVns{
+					{
+						Comma: ",",
+						Vn:    "sum",
+					},
+				},
+				Sc: ";",
+			},
+			`
+<varDec>
+  <keyword> var </keyword>
+  <keyword> int </keyword>
+  <identifier> i </identifier>
+  <symbol> , </symbol>
+  <identifier> sum </identifier>
+  <symbol> ; </symbol>
+</varDec>
+`,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

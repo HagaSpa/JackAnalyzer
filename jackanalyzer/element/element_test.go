@@ -1546,14 +1546,14 @@ func TestVarDec_genVarDec(t *testing.T) {
 		{
 			"test var Array a;",
 			&VarDec{
-				Modi: "varDec",
+				Modi: "var",
 				Vt:   identifier("Array"),
 				Vn:   "a",
 				Sc:   ";",
 			},
 			`
 <varDec>
-  <keyword> varDec </keyword>
+  <keyword> var </keyword>
   <identifier> Array </identifier>
   <identifier> a </identifier>
   <symbol> ; </symbol>

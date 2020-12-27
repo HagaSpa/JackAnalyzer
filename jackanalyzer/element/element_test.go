@@ -1602,3 +1602,64 @@ func TestVarDec_genVarDec(t *testing.T) {
 		})
 	}
 }
+
+func TestSubroutineBody_genSubroutineBody(t *testing.T) {
+	tests := []struct {
+		name string
+		sb   *SubroutineBody
+		want string
+	}{
+		{
+			"test { var Array a; return; }",
+			&SubroutineBody{
+				LB: "{",
+				Vd: []*VarDec{
+					{
+						Modi: "var",
+						Vt:   identifier("Array"),
+						Vn:   "a",
+						Sc:   ";",
+					},
+				},
+				Stmts: []Statement{
+					&ReturnStatement{
+						Modi: "return",
+						Sc:   ";",
+					},
+				},
+				RB: "}",
+			},
+			`
+<subroutineBody>
+  <symbol> { </symbol>
+  <varDec>
+    <keyword> var </keyword>
+    <identifier> Array </identifier>
+    <identifier> a </identifier>
+    <symbol> ; </symbol>
+  </varDec>
+  <returnStatement>
+    <keyword> return </keyword>
+    <symbol> ; </symbol>
+  </returnStatement>
+  <symbol> } </symbol>
+</subroutineBody>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.sb.genSubroutineBody(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genSubroutineBody() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}

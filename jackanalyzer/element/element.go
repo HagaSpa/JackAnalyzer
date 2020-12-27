@@ -98,10 +98,10 @@ type NextParam struct {
 //
 //  '{' varDec* statements '}'
 type SubroutineBody struct {
-	LBrace symbol       // '{'
-	Vd     *VarDec      // varDec*
-	Stmts  []*Statement // statements
-	RBrace symbol       // '}'
+	LB    symbol      // '{'
+	Vd    []*VarDec   // varDec*
+	Stmts []Statement // statements
+	RB    symbol      // '}'
 }
 
 // VarDec represent to varDec.
@@ -378,6 +378,20 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 			e.EncodeElement(genElement(v.Vn))
 		}
 	}
+	e.EncodeToken(start.End())
+}
+
+func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "subroutineBody"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(sb.LB))
+	for _, v := range sb.Vd {
+		v.genVarDec(e)
+	}
+	for _, v := range sb.Stmts {
+		genStatement(v, e)
+	}
+	e.EncodeElement(genElement(sb.RB))
 	e.EncodeToken(start.End())
 }
 

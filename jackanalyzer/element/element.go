@@ -69,13 +69,13 @@ type NextVns struct {
 //  ( 'void' | Types ) subroutineName '(' parameterList ')'
 //  subroutineBody
 type SubroutineDec struct {
-	Modi   keyword        // 'constructor' | 'function' | 'method'
-	St     keyword        // 'void' | type
-	Sn     identifier     // subroutineName
-	LParen symbol         // '('
-	Pl     ParameterList  // parameterList
-	RParen symbol         // ')'
-	Sb     SubroutineBody // subroutineBody
+	Modi keyword        // 'constructor' | 'function' | 'method'
+	St   keyword        // 'void' | type
+	Sn   identifier     // subroutineName
+	LP   symbol         // '('
+	Pl   *ParameterList // parameterList
+	RP   symbol         // ')'
+	Sb   SubroutineBody // subroutineBody
 }
 
 // ParameterList represent to parameterList.
@@ -359,6 +359,19 @@ func (cd *ClassVarDec) genClassVarDec(e *xml.Encoder) {
 	}
 
 	e.EncodeElement(genElement(cd.Sc))
+	e.EncodeToken(start.End())
+}
+
+func (sd *SubroutineDec) genSubroutineDec(e *xml.Encoder) {
+	start := xml.StartElement{Name: xml.Name{Local: "subroutineDec"}}
+	e.EncodeToken(start)
+	e.EncodeElement(genElement(sd.Modi))
+	e.EncodeElement(genElement(sd.St))
+	e.EncodeElement(genElement(sd.Sn))
+	e.EncodeElement(genElement(sd.LP))
+	sd.Pl.genParameterList(e)
+	e.EncodeElement(genElement(sd.RP))
+	sd.Sb.genSubroutineBody(e)
 	e.EncodeToken(start.End())
 }
 

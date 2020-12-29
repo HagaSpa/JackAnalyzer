@@ -5,6 +5,8 @@ import (
 	"strconv"
 )
 
+var cnt int
+
 /*
 Terminal Symbol
 */
@@ -365,6 +367,7 @@ func (cd *ClassVarDec) genClassVarDec(e *xml.Encoder) {
 func (sd *SubroutineDec) genSubroutineDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "subroutineDec"}}
 	e.EncodeToken(start)
+	cnt++
 	e.EncodeElement(genElement(sd.Modi))
 	e.EncodeElement(genElement(sd.St))
 	e.EncodeElement(genElement(sd.Sn))
@@ -380,8 +383,11 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 	e.EncodeToken(start)
 	if pl == nil {
 		// insert new line
-		c := xml.CharData([]byte("\n"))
-		e.EncodeToken(c)
+		c := "\n"
+		for i := 0; i < cnt; i++ {
+			c = c + "  "
+		}
+		e.EncodeToken(xml.CharData([]byte(c)))
 	} else {
 		e.EncodeElement(genElement(pl.Type))
 		e.EncodeElement(genElement(pl.Vn))
@@ -397,12 +403,14 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "subroutineBody"}}
 	e.EncodeToken(start)
+	cnt++
 	e.EncodeElement(genElement(sb.LB))
 	for _, v := range sb.Vd {
 		v.genVarDec(e)
 	}
 	ss := xml.StartElement{Name: xml.Name{Local: "statements"}}
 	e.EncodeToken(ss)
+	cnt++
 	for _, v := range sb.Stmts {
 		genStatement(v, e)
 	}
@@ -414,6 +422,7 @@ func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
 func (vd *VarDec) genVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "varDec"}}
 	e.EncodeToken(start)
+	cnt++
 	e.EncodeElement(genElement(vd.Modi))
 	e.EncodeElement(genElement(vd.Vt))
 	e.EncodeElement(genElement(vd.Vn))
@@ -518,6 +527,7 @@ func (do *DoStatement) genDoStatement(e *xml.Encoder) {
 func (rs *ReturnStatement) genReturnStatement(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "returnStatement"}}
 	e.EncodeToken(start)
+	cnt++
 	e.EncodeElement(genElement(rs.Modi))
 	if rs.Exp != nil {
 		rs.Exp.genExpression(e)
@@ -593,8 +603,16 @@ func (sbc *SubroutineCall) genSubroutineCall(e *xml.Encoder) {
 	e.EncodeElement(genElement(sbc.LP))
 	start := xml.StartElement{Name: xml.Name{Local: "expressionList"}}
 	e.EncodeToken(start)
-	for _, v := range sbc.ExpL {
-		v.genExpression(e)
+	if len(sbc.ExpL) > 0 {
+		for _, v := range sbc.ExpL {
+			v.genExpression(e)
+		}
+	} else {
+		c := "\n"
+		for i := 0; i < cnt; i++ {
+			c = c + "  "
+		}
+		e.EncodeToken(xml.CharData([]byte(c)))
 	}
 	e.EncodeToken(start.End())
 	e.EncodeElement(genElement(sbc.RP))

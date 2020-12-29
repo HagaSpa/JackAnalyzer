@@ -189,6 +189,7 @@ func Test_class_MarshalXML(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			output, _ := xml.MarshalIndent(tt.cl, "", "  ")
 			// trim \n
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
@@ -234,6 +235,7 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -292,6 +294,7 @@ func TestParameterList_genParameterList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -360,6 +363,7 @@ func TestExpression_genExpression(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -526,6 +530,7 @@ func Test_genTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -558,6 +563,7 @@ func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -591,6 +597,7 @@ func TestStringConstant_genStringConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -624,6 +631,7 @@ func TestKeywordConstant_genKeywordConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -657,6 +665,7 @@ func TestVarName_genVarName(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -704,6 +713,7 @@ func TestCallIndex_genCallIndex(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -825,6 +835,7 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -870,6 +881,7 @@ func TestArgs_genArgs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -909,6 +921,7 @@ func TestUopTerm_genUopTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1168,6 +1181,7 @@ func Test_genStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1240,6 +1254,7 @@ func TestLetStatement_genLetStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1319,6 +1334,7 @@ func TestIfStatement_genIfStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1422,6 +1438,7 @@ func TestWhileStatement_genWhileStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1485,6 +1502,7 @@ func TestDoStatement_genDoStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1522,6 +1540,7 @@ func TestReturnStatement_genReturnStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1588,6 +1607,7 @@ func TestVarDec_genVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1651,6 +1671,7 @@ func TestSubroutineBody_genSubroutineBody(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1660,6 +1681,159 @@ func TestSubroutineBody_genSubroutineBody(t *testing.T) {
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
 			if !reflect.DeepEqual(b.String(), want) {
 				t.Errorf("genSubroutineBody() = \n %v", b.String())
+				t.Errorf("wantXml = \n %v", want)
+			}
+		})
+	}
+}
+
+func TestSubroutineDec_genSubroutineDec(t *testing.T) {
+	tests := []struct {
+		name string
+		sd   *SubroutineDec
+		want string
+	}{
+		{
+			`test:
+			function void main() {
+				var SquareGame game;
+				let game = game;
+				do game.run();
+				do game.dispose();
+				return;
+			}`,
+			&SubroutineDec{
+				Modi: "function",
+				St:   "void",
+				Sn:   "main",
+				LP:   "(",
+				RP:   ")",
+				Sb: SubroutineBody{
+					LB: "{",
+					Vd: []*VarDec{
+						{
+							Modi: "var",
+							Vt:   identifier("SquareGame"),
+							Vn:   "game",
+							Sc:   ";",
+						},
+					},
+					Stmts: []Statement{
+						&LetStatement{
+							Modi: "let",
+							Vn:   "game",
+							Eq:   "=",
+							Rexp: Expression{
+								Term: &VarName{
+									V: "game",
+								},
+							},
+							Sc: ";",
+						},
+						&DoStatement{
+							Modi: "do",
+							Sub: &SubroutineCall{
+								Name: "game",
+								Dot:  ".",
+								Sn:   "run",
+								LP:   "(",
+								RP:   ")",
+							},
+							Sc: ";",
+						},
+						&DoStatement{
+							Modi: "do",
+							Sub: &SubroutineCall{
+								Name: "game",
+								Dot:  ".",
+								Sn:   "dispose",
+								LP:   "(",
+								RP:   ")",
+							},
+							Sc: ";",
+						},
+						&ReturnStatement{
+							Modi: "return",
+							Sc:   ";",
+						},
+					},
+					RB: "}",
+				},
+			},
+			`
+<subroutineDec>
+  <keyword> function </keyword>
+  <keyword> void </keyword>
+  <identifier> main </identifier>
+  <symbol> ( </symbol>
+  <parameterList>
+  </parameterList>
+  <symbol> ) </symbol>
+  <subroutineBody>
+    <symbol> { </symbol>
+    <varDec>
+      <keyword> var </keyword>
+      <identifier> SquareGame </identifier>
+      <identifier> game </identifier>
+      <symbol> ; </symbol>
+    </varDec>
+    <statements>
+      <letStatement>
+        <keyword> let </keyword>
+        <identifier> game </identifier>
+        <symbol> = </symbol>
+        <expression>
+          <term>
+            <identifier> game </identifier>
+          </term>
+        </expression>
+        <symbol> ; </symbol>
+      </letStatement>
+      <doStatement>
+        <keyword> do </keyword>
+        <identifier> game </identifier>
+        <symbol> . </symbol>
+        <identifier> run </identifier>
+        <symbol> ( </symbol>
+        <expressionList>
+        </expressionList>
+        <symbol> ) </symbol>
+        <symbol> ; </symbol>
+      </doStatement>
+      <doStatement>
+        <keyword> do </keyword>
+        <identifier> game </identifier>
+        <symbol> . </symbol>
+        <identifier> dispose </identifier>
+        <symbol> ( </symbol>
+        <expressionList>
+        </expressionList>
+        <symbol> ) </symbol>
+        <symbol> ; </symbol>
+      </doStatement>
+      <returnStatement>
+        <keyword> return </keyword>
+        <symbol> ; </symbol>
+      </returnStatement>
+    </statements>
+    <symbol> } </symbol>
+  </subroutineBody>
+</subroutineDec>
+`,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cnt = 0
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			// execute
+			tt.sd.genSubroutineDec(e)
+			e.Flush()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+			if !reflect.DeepEqual(b.String(), want) {
+				t.Errorf("genSubroutineDec() = \n %v", b.String())
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})

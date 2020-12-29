@@ -401,9 +401,12 @@ func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
 	for _, v := range sb.Vd {
 		v.genVarDec(e)
 	}
+	ss := xml.StartElement{Name: xml.Name{Local: "statements"}}
+	e.EncodeToken(ss)
 	for _, v := range sb.Stmts {
 		genStatement(v, e)
 	}
+	e.EncodeToken(ss.End())
 	e.EncodeElement(genElement(sb.RB))
 	e.EncodeToken(start.End())
 }

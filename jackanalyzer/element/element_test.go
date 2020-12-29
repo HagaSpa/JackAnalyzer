@@ -1638,10 +1638,12 @@ func TestSubroutineBody_genSubroutineBody(t *testing.T) {
     <identifier> a </identifier>
     <symbol> ; </symbol>
   </varDec>
-  <returnStatement>
-    <keyword> return </keyword>
-    <symbol> ; </symbol>
-  </returnStatement>
+  <statements>
+    <returnStatement>
+      <keyword> return </keyword>
+      <symbol> ; </symbol>
+    </returnStatement>
+  </statements>
   <symbol> } </symbol>
 </subroutineBody>
 `,

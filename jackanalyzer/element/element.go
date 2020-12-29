@@ -328,6 +328,11 @@ func genElement(s interface{}) (string, xml.StartElement) {
 	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
 }
 
+func encodeToken(e *xml.Encoder, s xml.StartElement) {
+	e.EncodeToken(s)
+	cnt++
+}
+
 // MarshalXML implemented Marshaler.
 func (cl Class) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	// class
@@ -366,8 +371,7 @@ func (cd *ClassVarDec) genClassVarDec(e *xml.Encoder) {
 
 func (sd *SubroutineDec) genSubroutineDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "subroutineDec"}}
-	e.EncodeToken(start)
-	cnt++
+	encodeToken(e, start)
 	e.EncodeElement(genElement(sd.Modi))
 	e.EncodeElement(genElement(sd.St))
 	e.EncodeElement(genElement(sd.Sn))
@@ -402,8 +406,7 @@ func (pl *ParameterList) genParameterList(e *xml.Encoder) {
 
 func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "subroutineBody"}}
-	e.EncodeToken(start)
-	cnt++
+	encodeToken(e, start)
 	e.EncodeElement(genElement(sb.LB))
 	for _, v := range sb.Vd {
 		v.genVarDec(e)
@@ -421,8 +424,7 @@ func (sb *SubroutineBody) genSubroutineBody(e *xml.Encoder) {
 
 func (vd *VarDec) genVarDec(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "varDec"}}
-	e.EncodeToken(start)
-	cnt++
+	encodeToken(e, start)
 	e.EncodeElement(genElement(vd.Modi))
 	e.EncodeElement(genElement(vd.Vt))
 	e.EncodeElement(genElement(vd.Vn))
@@ -527,7 +529,6 @@ func (do *DoStatement) genDoStatement(e *xml.Encoder) {
 func (rs *ReturnStatement) genReturnStatement(e *xml.Encoder) {
 	start := xml.StartElement{Name: xml.Name{Local: "returnStatement"}}
 	e.EncodeToken(start)
-	cnt++
 	e.EncodeElement(genElement(rs.Modi))
 	if rs.Exp != nil {
 		rs.Exp.genExpression(e)

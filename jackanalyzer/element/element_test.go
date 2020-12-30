@@ -287,8 +287,7 @@ func TestParameterList_genParameterList(t *testing.T) {
 			"test no parameter",
 			nil,
 			`
-<parameterList>
-</parameterList>
+<parameterList></parameterList>
 `,
 		},
 	}
@@ -1766,8 +1765,7 @@ func TestSubroutineDec_genSubroutineDec(t *testing.T) {
   <keyword> void </keyword>
   <identifier> main </identifier>
   <symbol> ( </symbol>
-  <parameterList>
-  </parameterList>
+  <parameterList></parameterList>
   <symbol> ) </symbol>
   <subroutineBody>
     <symbol> { </symbol>
@@ -1795,8 +1793,7 @@ func TestSubroutineDec_genSubroutineDec(t *testing.T) {
         <symbol> . </symbol>
         <identifier> run </identifier>
         <symbol> ( </symbol>
-        <expressionList>
-        </expressionList>
+        <expressionList></expressionList>
         <symbol> ) </symbol>
         <symbol> ; </symbol>
       </doStatement>
@@ -1806,8 +1803,7 @@ func TestSubroutineDec_genSubroutineDec(t *testing.T) {
         <symbol> . </symbol>
         <identifier> dispose </identifier>
         <symbol> ( </symbol>
-        <expressionList>
-        </expressionList>
+        <expressionList></expressionList>
         <symbol> ) </symbol>
         <symbol> ; </symbol>
       </doStatement>

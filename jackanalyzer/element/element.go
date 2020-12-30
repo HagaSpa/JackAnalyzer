@@ -5,8 +5,6 @@ import (
 	"strconv"
 )
 
-var cnt int
-
 /*
 Terminal Symbol
 */
@@ -326,11 +324,6 @@ func genElement(s interface{}) (string, xml.StartElement) {
 		l = "stringConstant"
 	}
 	return " " + c + " ", xml.StartElement{Name: xml.Name{Local: l}}
-}
-
-func encodeToken(e *xml.Encoder, s xml.StartElement) {
-	e.EncodeToken(s)
-	cnt++
 }
 
 // MarshalXML implemented Marshaler.

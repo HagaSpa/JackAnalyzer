@@ -189,7 +189,6 @@ func Test_class_MarshalXML(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			output, _ := xml.MarshalIndent(tt.cl, "", "  ")
 			// trim \n
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
@@ -235,7 +234,6 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -293,7 +291,6 @@ func TestParameterList_genParameterList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -362,7 +359,6 @@ func TestExpression_genExpression(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -529,7 +525,6 @@ func Test_genTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -562,7 +557,6 @@ func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -596,7 +590,6 @@ func TestStringConstant_genStringConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -630,7 +623,6 @@ func TestKeywordConstant_genKeywordConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -664,7 +656,6 @@ func TestVarName_genVarName(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -712,7 +703,6 @@ func TestCallIndex_genCallIndex(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -834,7 +824,6 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -880,7 +869,6 @@ func TestArgs_genArgs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -920,7 +908,6 @@ func TestUopTerm_genUopTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1180,7 +1167,6 @@ func Test_genStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1253,7 +1239,6 @@ func TestLetStatement_genLetStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1333,7 +1318,6 @@ func TestIfStatement_genIfStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1437,7 +1421,6 @@ func TestWhileStatement_genWhileStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1501,7 +1484,6 @@ func TestDoStatement_genDoStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1539,7 +1521,6 @@ func TestReturnStatement_genReturnStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1606,7 +1587,6 @@ func TestVarDec_genVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1670,7 +1650,6 @@ func TestSubroutineBody_genSubroutineBody(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")
@@ -1820,7 +1799,6 @@ func TestSubroutineDec_genSubroutineDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cnt = 0
 			var b bytes.Buffer
 			e := xml.NewEncoder(&b)
 			e.Indent("", "  ")

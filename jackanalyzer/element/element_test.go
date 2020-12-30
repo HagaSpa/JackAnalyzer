@@ -8,6 +8,13 @@ import (
 	"testing"
 )
 
+func initEncBytes() (*xml.Encoder, *bytes.Buffer) {
+	var b bytes.Buffer
+	e := xml.NewEncoder(&b)
+	e.Indent("", "  ")
+	return e, &b
+}
+
 func Test_genElement(t *testing.T) {
 	tests := []struct {
 		name  string
@@ -234,15 +241,13 @@ func TestClassVarDec_genClassVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.cd.genClassVarDec(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("cd.genClassVarDec() = %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("cd.genClassVarDec() = %v", got)
 				t.Errorf("wantXml = %v", want)
 			}
 		})
@@ -291,15 +296,13 @@ func TestParameterList_genParameterList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.pl.genParameterList(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genParameterList() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genParameterList() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -359,15 +362,13 @@ func TestExpression_genExpression(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.exp.genExpression(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genExpression() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genExpression() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -525,14 +526,13 @@ func Test_genTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
+			e, b := initEncBytes()
 			genTerm(tt.s, e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genTerm() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genTerm() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -557,15 +557,13 @@ func TestIntegerConstant_genIntegerConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.ic.genIntegerConstant(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genIntegerConstant() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genIntegerConstant() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -590,15 +588,13 @@ func TestStringConstant_genStringConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.sc.genStringConstant(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genStringConstant() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genStringConstant() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -623,15 +619,13 @@ func TestKeywordConstant_genKeywordConstant(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.kc.genKeywordConstant(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genKeywordConstant() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genKeywordConstant() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -656,15 +650,13 @@ func TestVarName_genVarName(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.vn.genVarName(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genVarName() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genVarName() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -703,15 +695,13 @@ func TestCallIndex_genCallIndex(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.ci.genCallIndex(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genCallIndex() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genCallIndex() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -824,15 +814,13 @@ func TestSubroutineCall_genSubroutineCall(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.sbc.genSubroutineCall(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genSubroutineCall() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genSubroutineCall() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -869,15 +857,13 @@ func TestArgs_genArgs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.args.genArgs(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genArgs() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genArgs() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -908,15 +894,13 @@ func TestUopTerm_genUopTerm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.ut.genUopTerm(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genUopTerm() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genUopTerm() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1167,14 +1151,13 @@ func Test_genStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
+			e, b := initEncBytes()
 			genStatement(tt.s, e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1239,15 +1222,13 @@ func TestLetStatement_genLetStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.ls.genLetStatement(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genLetStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genLetStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1318,15 +1299,13 @@ func TestIfStatement_genIfStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.is.genIfStatement(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genIfStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genIfStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1421,15 +1400,13 @@ func TestWhileStatement_genWhileStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.ws.genWhileStatement(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genWhileStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genWhileStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1484,15 +1461,13 @@ func TestDoStatement_genDoStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.do.genDoStatement(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genDoStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genDoStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1521,15 +1496,13 @@ func TestReturnStatement_genReturnStatement(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.rs.genReturnStatement(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genReturnStatement() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genReturnStatement() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1587,15 +1560,13 @@ func TestVarDec_genVarDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.vd.genVarDec(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genVarDec() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genVarDec() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1650,15 +1621,13 @@ func TestSubroutineBody_genSubroutineBody(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.sb.genSubroutineBody(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genSubroutineBody() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genSubroutineBody() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})
@@ -1799,15 +1768,13 @@ func TestSubroutineDec_genSubroutineDec(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			var b bytes.Buffer
-			e := xml.NewEncoder(&b)
-			e.Indent("", "  ")
-			// execute
+			e, b := initEncBytes()
 			tt.sd.genSubroutineDec(e)
 			e.Flush()
+			got := b.String()
 			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
-			if !reflect.DeepEqual(b.String(), want) {
-				t.Errorf("genSubroutineDec() = \n %v", b.String())
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("genSubroutineDec() = \n %v", got)
 				t.Errorf("wantXml = \n %v", want)
 			}
 		})

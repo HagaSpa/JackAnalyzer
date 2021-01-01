@@ -201,3 +201,107 @@ func TestToken_Advance(t *testing.T) {
 		})
 	}
 }
+
+func TestToken_IsOp(t *testing.T) {
+	tests := []struct {
+		name string
+		t    *Token
+		want bool
+	}{
+		{
+			"TokenType is not SYMBOL",
+			&Token{
+				TokenType:  IDENTIFIER,
+				Identifier: "hoge",
+			},
+			false,
+		},
+		{
+			"symbol is not ops",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "$",
+			},
+			false,
+		},
+		{
+			"+",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "+",
+			},
+			true,
+		},
+		{
+			"-",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "-",
+			},
+			true,
+		},
+		{
+			"*",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "*",
+			},
+			true,
+		},
+		{
+			"/",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "/",
+			},
+			true,
+		},
+		{
+			"&",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "&",
+			},
+			true,
+		},
+		{
+			"|",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "|",
+			},
+			true,
+		},
+		{
+			"<",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "<",
+			},
+			true,
+		},
+		{
+			">",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    ">",
+			},
+			true,
+		},
+		{
+			"=",
+			&Token{
+				TokenType: SYMBOL,
+				Symbol:    "=",
+			},
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.t.IsOp(); got != tt.want {
+				t.Errorf("Token.IsOp() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

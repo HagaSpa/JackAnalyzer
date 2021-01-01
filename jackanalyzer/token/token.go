@@ -99,10 +99,33 @@ var symbols = []rune{
 	'~',
 }
 
+var ops = []string{
+	"+",
+	"-",
+	"*",
+	"/",
+	"&",
+	"|",
+	"<",
+	">",
+	"=",
+}
+
 func IsSymbol(r rune) bool {
 	for _, v := range symbols {
 		if r == v {
 			return true
+		}
+	}
+	return false
+}
+
+func (t *Token) IsOp() bool {
+	if t.TokenType == SYMBOL {
+		for _, v := range ops {
+			if t.Symbol == v {
+				return true
+			}
 		}
 	}
 	return false

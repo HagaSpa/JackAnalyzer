@@ -67,6 +67,42 @@ func Test_genElement(t *testing.T) {
 			" class ",
 			xml.StartElement{Name: xml.Name{Local: "keyword"}},
 		},
+		{
+			"test IDENTIFIER",
+			token.Token{
+				TokenType:  token.IDENTIFIER,
+				Identifier: "hoge",
+			},
+			" hoge ",
+			xml.StartElement{Name: xml.Name{Local: "identifier"}},
+		},
+		{
+			"test SYMBOL",
+			token.Token{
+				TokenType: token.SYMBOL,
+				Symbol:    ",",
+			},
+			" , ",
+			xml.StartElement{Name: xml.Name{Local: "symbol"}},
+		},
+		{
+			"test INT_CONST",
+			token.Token{
+				TokenType: token.INT_CONST,
+				IntVal:    123,
+			},
+			" 123 ",
+			xml.StartElement{Name: xml.Name{Local: "integerConstant"}},
+		},
+		{
+			"test STRING_CONST",
+			token.Token{
+				TokenType: token.STRING_CONST,
+				StringVal: "THE AVERAGE IS:",
+			},
+			" THE AVERAGE IS: ",
+			xml.StartElement{Name: xml.Name{Local: "stringConstant"}},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

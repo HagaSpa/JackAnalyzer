@@ -23,6 +23,36 @@ func New(w io.Writer, t token.Token) *CompilationEngine {
 	return ce
 }
 
+func (ce *CompilationEngine) Compile() {}
+
+func (ce *CompilationEngine) compileClass() {}
+
+func (ce *CompilationEngine) compileClassVarDec() {}
+
+func (ce *CompilationEngine) compileSubroutine() {}
+
+func (ce *CompilationEngine) compileParameterList() {}
+
+func (ce *CompilationEngine) compileVarDec() {}
+
+func (ce *CompilationEngine) compileStatements() {}
+
+func (ce *CompilationEngine) compileDo() {}
+
+func (ce *CompilationEngine) compileLet() {}
+
+func (ce *CompilationEngine) compileWhile() {}
+
+func (ce *CompilationEngine) compileReturn() {}
+
+func (ce *CompilationEngine) compileIf() {}
+
+func (ce *CompilationEngine) compileExpression() {}
+
+func (ce *CompilationEngine) compileTerm() {}
+
+func (ce *CompilationEngine) compileExpressionList() {}
+
 // generate Element for *xml.EncodeElement.
 func genElement(t token.Token) (string, xml.StartElement) {
 	var c string // contents

@@ -5,6 +5,8 @@ import (
 	"io"
 	"jackanalyzer/token"
 	"strconv"
+
+	"golang.org/x/xerrors"
 )
 
 type CompilationEngine struct {
@@ -47,7 +49,22 @@ func (ce *CompilationEngine) compileReturn() {}
 
 func (ce *CompilationEngine) compileIf() {}
 
-func (ce *CompilationEngine) compileExpression() {}
+// term (op term)*
+func (ce *CompilationEngine) compileExpression() error {
+	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
+	ce.e.EncodeToken(start)
+	ce.compileTerm()
+	for ce.t.IsOp() {
+		ce.e.EncodeElement(genElement(ce.t))
+		if !ce.t.HasMoreTokens() {
+			return xerrors.New("invalid syntax. compileExpression")
+		}
+		ce.t.Advance()
+		ce.compileTerm()
+	}
+	ce.e.EncodeToken(start.End())
+	return nil
+}
 
 func (ce *CompilationEngine) compileTerm() {}
 

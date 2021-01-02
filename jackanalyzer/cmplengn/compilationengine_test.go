@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"jackanalyzer/token"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -108,6 +109,47 @@ func Test_genElement(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got1, tt.want1) {
 				t.Errorf("genElement() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
+
+func TestCompilationEngine_compileExpression(t *testing.T) {
+	tests := []struct {
+		name    string
+		t       token.Token
+		want    string
+		wantErr error
+	}{
+		{
+			"test (op term)* is not exist.",
+			token.Token{
+				TokenType: token.KEYWORD,
+				Keyword:   "class",
+			},
+			`
+<expression></expression>
+`,
+			nil,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			var b bytes.Buffer
+			e := xml.NewEncoder(&b)
+			e.Indent("", "  ")
+			ce := New(tt.t, e)
+			wantErr := ce.compileExpression()
+			e.Flush()
+			got := b.String()
+			want := strings.TrimRight(strings.TrimLeft(tt.want, "\n"), "\n")
+
+			if !reflect.DeepEqual(got, want) {
+				t.Errorf("ce.compileExpression() = %v", got)
+				t.Errorf("wantXml = %v", want)
+			}
+			if wantErr != tt.wantErr {
+				t.Errorf("ce.compileExpression() error got = %v, want = %v ", wantErr, tt.wantErr)
 			}
 		})
 	}

@@ -45,7 +45,9 @@ func (ce *CompilationEngine) compileReturn() {}
 
 func (ce *CompilationEngine) compileIf() {}
 
-// term (op term)*
+// Compile Expression.
+//
+//  term (op term)*
 func (ce *CompilationEngine) compileExpression() error {
 	start := xml.StartElement{Name: xml.Name{Local: "expression"}}
 	ce.e.EncodeToken(start)
@@ -62,7 +64,15 @@ func (ce *CompilationEngine) compileExpression() error {
 	return nil
 }
 
-func (ce *CompilationEngine) compileTerm() {}
+// Compile Term.
+//
+//  integerConstant | stringConstant | keywordConstant | varName | varName '[' expression ']' | subroutineCall | '(' expression ')' | unaryOp term
+//
+//  subroutineCall: subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
+//  unaryOp: '-' | '~'
+func (ce *CompilationEngine) compileTerm() error {
+	return nil
+}
 
 func (ce *CompilationEngine) compileExpressionList() {}
 

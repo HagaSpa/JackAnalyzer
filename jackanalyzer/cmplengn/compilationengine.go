@@ -71,6 +71,14 @@ func (ce *CompilationEngine) compileExpression() error {
 //  subroutineCall: subroutineName '(' expressionList ')' | (className | varName) '.' subroutineName '(' expressionList ')'
 //  unaryOp: '-' | '~'
 func (ce *CompilationEngine) compileTerm() error {
+	start := xml.StartElement{Name: xml.Name{Local: "term"}}
+	ce.e.EncodeToken(start)
+
+	switch ce.t.TokenType {
+	case token.INT_CONST, token.STRING_CONST, token.KEYWORD:
+		// integerConstant | stringConstant | keywordConstant
+	}
+	ce.e.EncodeToken(start.End())
 	return nil
 }
 

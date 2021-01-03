@@ -128,7 +128,9 @@ func TestCompilationEngine_compileExpression(t *testing.T) {
 				Keyword:   "class",
 			},
 			`
-<expression></expression>
+<expression>
+  <term></term>
+</expression>
 `,
 			nil,
 		},

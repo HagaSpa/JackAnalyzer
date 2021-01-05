@@ -84,6 +84,12 @@ func (ce *CompilationEngine) compileTerm() error {
 
 func (ce *CompilationEngine) compileExpressionList() {}
 
+func (ce *CompilationEngine) writeToken() {
+	if ce.t.HasMoreTokens() {
+		ce.e.EncodeElement(genElement(ce.t))
+	}
+}
+
 // generate Element for *xml.EncodeElement.
 func genElement(t token.Token) (string, xml.StartElement) {
 	var c string // contents
